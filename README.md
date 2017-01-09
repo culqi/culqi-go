@@ -92,14 +92,33 @@ func main() {
   if err != nil {
       panic(err.Error())
   }
-
 ```
 
 ### Crear un *cargo* (charge)
 
-```
-Code
+```go
+  // 3. Parametros de creación de cargo
+  params := &charge.ChargeParams{
+    TokenId:"tkn_test_JsHFDfdc5gfzaSBP",
+    FirstName: "William",
+    LastName: "Muro",
+    Email: "willi@me.com",
+    Address: "Avenida Lima 34234",
+    AddressCity: "Lima",
+    PhoneNumber: 123456787,
+    CountryCode: "PE",
+    CurrencyCode: "PEN",
+    Amount: 1000,
+    Installments :0,
+    ProductDescription: "Venta de prueba",
+  }
 
+  // 4. Crear Cargo
+  resp, err := charge.Create(params, client)
+
+  if err != nil {
+      panic(err.Error())
+  }
 ```
 
 ### Crear un *plan* 
