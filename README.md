@@ -1,7 +1,8 @@
-# Culqi Go 
+# Culqi Go
 
 
-[![License](https://poser.pugx.org/culqi/culqi-php/license)](https://packagist.org/packages/culqi/culqi-php) 
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/culqi/culqi-go)
+[![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg)](https://github.com/culqi/culqi-go)
 
 http://shields.io/
 
@@ -16,12 +17,12 @@ Biblioteca de CULQI para el lenguaje Go (golang), pagos simples en tu sitio web.
 
 
 
-## Requisitos 
+## Requisitos
 
-- Go 1.6+ 
+- Go 1.6+
 - Credenciales de comercio en Culqi (1).
 
-## Instalación 
+## Instalación
 
 
 ### Vía "go get"
@@ -40,9 +41,9 @@ Clonar el repositorio o descargarse el código fuente.
 $ git clone git@github.com:culqi/culqi-go.git
 ```
 
-## Inicio rápido 
+## Inicio rápido
 
-Antes de comenzar a utilizar la biblioteca, inicialmente hay que configurar las credenciales del comercio (Código de Comercio y API Key). 
+Antes de comenzar a utilizar la biblioteca, inicialmente hay que configurar las credenciales del comercio (Código de Comercio y API Key).
 
 Importando culqi-go:
 
@@ -70,7 +71,7 @@ func main() {
   client := culqi.New(config)
 }
 ```
-### Crear un *token* 
+### Crear un *token*
 
 
 ```go
@@ -121,7 +122,7 @@ func main() {
   }
 ```
 
-### Crear un *plan* 
+### Crear un *plan*
 
 ```
 Code
@@ -145,13 +146,13 @@ Code
 ```
 
 
-## Ejemplos 
+## Ejemplos
 
-- Creación de un cargo 
-- Obtener listado de cargos 
+- Creación de un cargo
+- Obtener listado de cargos
 
 
-## Tests 
+## Tests
 
 ```bash
 $ tests
@@ -159,12 +160,12 @@ $ tests
 
 ---
 
-## Documentación 
+## Documentación
 
 ¿Necesitas más información para integrar `culqi-go`? La documentación completa se encuentra en https://developers.culqi.com
 
 
-## Licencia 
+## Licencia
 
 El código fuente de `culqi-go` está distribuido bajo MIT License, revisar el archivo [LICENSE](LICENSE).
 
@@ -183,6 +184,6 @@ Todos los cambios en las versiones de esta biblioteca están listados en [CHANGE
 
 Brayan Cruces ([@brayancruces](https://github.com/brayancruces) - Team Culqi)  
 
-## Todo 
-- Añadir más ejemplos 
+## Todo
+- Añadir más ejemplos
 - Métodos (listar, get)
