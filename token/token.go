@@ -2,7 +2,7 @@ package token
 
 import (
      "gopkg.in/resty.v0"
-     culqi "github.com/brayancruces/culqi-go"
+     culqi "github.com/culqi/culqi-go"
      "errors"
 )
 
