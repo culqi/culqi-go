@@ -28,7 +28,7 @@ Biblioteca de CULQI para el lenguaje Go (golang), pagos simples en tu sitio web.
 
 
 ```bash
-go get github.com/brayancruces/go-lang
+go get github.com/culqi/culqi-go
 ```
 
 
@@ -37,7 +37,7 @@ go get github.com/brayancruces/go-lang
 Clonar el repositorio o descargarse el código fuente.
 
 ```bash
-$ git clone git@github.com:brayancruces/culqi-golang.git
+$ git clone git@github.com:culqi/culqi-go.git
 ```
 
 ## Inicio rápido 
@@ -48,8 +48,8 @@ Importando culqi-go:
 
 ```go
 import (    
-    "github.com/brayancruces/culqi-go"
-    "github.com/brayancruces/culqi-go/{{recurso}}"
+    "github.com/culqi/culqi-go"
+    "github.com/culqi/culqi-go/{{recurso}}"
 )
 ```
 
@@ -92,14 +92,33 @@ func main() {
   if err != nil {
       panic(err.Error())
   }
-
 ```
 
 ### Crear un *cargo* (charge)
 
-```
-Code
+```go
+  // 3. Parametros de creación de cargo
+  params := &charge.ChargeParams{
+    TokenId:"tkn_test_JsHFDfdc5gfzaSBP",
+    FirstName: "William",
+    LastName: "Muro",
+    Email: "willi@me.com",
+    Address: "Avenida Lima 34234",
+    AddressCity: "Lima",
+    PhoneNumber: 123456787,
+    CountryCode: "PE",
+    CurrencyCode: "PEN",
+    Amount: 1000,
+    Installments :0,
+    ProductDescription: "Venta de prueba",
+  }
 
+  // 4. Crear Cargo
+  resp, err := charge.Create(params, client)
+
+  if err != nil {
+      panic(err.Error())
+  }
 ```
 
 ### Crear un *plan* 
