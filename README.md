@@ -28,7 +28,7 @@ Biblioteca de CULQI para el lenguaje Go (golang), pagos simples en tu sitio web.
 
 
 ```bash
-go get github.com/brayancruces/go-lang
+go get github.com/culqi/culqi-go
 ```
 
 
@@ -37,7 +37,7 @@ go get github.com/brayancruces/go-lang
 Clonar el repositorio o descargarse el código fuente.
 
 ```bash
-$ git clone git@github.com:brayancruces/culqi-golang.git
+$ git clone git@github.com:culqi/culqi-go.git
 ```
 
 ## Inicio rápido 
@@ -48,8 +48,8 @@ Importando culqi-go:
 
 ```go
 import (    
-    "github.com/brayancruces/culqi-go"
-    "github.com/brayancruces/culqi-go/{{recurso}}"
+    "github.com/culqi/culqi-go"
+    "github.com/culqi/culqi-go/{{recurso}}"
 )
 ```
 
