@@ -2,8 +2,8 @@ package main
 
 import (
     "fmt"
-    culqi "github.com/brayancruces/culqi-go"
-    charge "github.com/brayancruces/culqi-go/charge"
+    culqi "github.com/culqi/culqi-go"
+    charge "github.com/culqi/culqi-go/charge"
 )
 
 func main() {
