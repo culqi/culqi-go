@@ -2,9 +2,7 @@
 
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/culqi/culqi-go)
-[![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg)](https://github.com/culqi/culqi-go)
 
-http://shields.io/
 
 ![](http://i.imgur.com/Djajj50.png)
 
