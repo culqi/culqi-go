@@ -2,8 +2,8 @@ package main
 
 import (
     "fmt"
-    culqi "github.com/brayancruces/culqi-go"
-    token "github.com/brayancruces/culqi-go/token"
+    culqi "github.com/culqi/culqi-go"
+    token "github.com/culqi/culqi-go/token"
     "encoding/json"
 )
 
