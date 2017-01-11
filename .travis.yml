@@ -1,6 +1,6 @@
 language: go
 
-sudo: false
+sudo: required
 
 branches:
   only:
@@ -15,3 +15,7 @@ go:
   - 1.6
   - 1.7
   - tip
+  
+install:
+  - go get github.com/bmizerany/assert
+
