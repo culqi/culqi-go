@@ -61,7 +61,7 @@ func Create(params *TokenParams, configuracion *culqi.Config)  (*resty.Response,
 
   resp, err := resty.R().
       SetHeader("Content-Type","application/json").
-      SetHeader("Authorization","Code "+codcomercio).
+      SetHeader("Authorization","Bearer "+codcomercio).
       SetHeader("User-Agent", culqi.UserAgent).
       SetBody(params).
       Post(culqi.DefaultBaseURL+"v2/"+tokensBase)
