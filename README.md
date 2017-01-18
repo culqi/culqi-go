@@ -2,7 +2,7 @@
 
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/culqi/culqi-go)
-
+[![Code Climate](https://codeclimate.com/github/culqi/culqi-go/badges/gpa.svg)](https://codeclimate.com/github/culqi/culqi-go)
 
 ![](http://i.imgur.com/Djajj50.png)
 
