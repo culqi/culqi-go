@@ -11,7 +11,7 @@ const (
 
 
 type ChargeParams struct {
-  TokenId string `json:"token_id"`
+  TokenId string `json:"source_id"`
   FirstName string `json:"first_name"`
   LastName string `json:"last_name"`
   Email string `json:"email"`
