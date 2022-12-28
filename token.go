@@ -20,6 +20,14 @@ type Token struct {
 	Metadata        map[string]string `json:"metadata"`
 }
 
+// Token Yape objeto request
+type TokenYape struct {
+	Amount      int    `json:"amount"`
+	FingerPrint string `json:"fingerprint"`
+	NumberPhone string `json:"number_phone"`
+	Otp         string `json:"otp"`
+}
+
 // ResponseToken objeto respuesta de token
 type ResponseToken struct {
 	Object       string `json:"object"`
@@ -54,6 +62,41 @@ type ResponseToken struct {
 		DeviceType        string `json:"device_type"`
 	} `json:"client"`
 	Metadata map[string]string `json:"metadata"`
+}
+
+// ResponseTokenYape objeto respuesta de token yape
+type ResponseTokenYape struct {
+	CardNumber string            `json:"card_number"`
+	Metadata   map[string]string `json:"metadata"`
+	LastFour   string            `json:"last_four"`
+	Active     bool              `json:"active"`
+	Client     struct {
+		IP                string `json:"ip"`
+		IPCountry         string `json:"ip_country"`
+		IPCountryCode     string `json:"ip_country_code"`
+		Browser           string `json:"browser"`
+		DeviceFingerprint string `json:"device_fingerprint"`
+		DeviceType        string `json:"device_type"`
+	} `json:"client"`
+	ID           string `json:"id"`
+	CreationDate int    `json:"creation_date"`
+	Type         string `json:"type"`
+	Email        string `json:"email"`
+	Object       string `json:"object"`
+	Iin          struct {
+		Bin                 string `json:"bin"`
+		CardBranch          string `json:"card_branch"`
+		CardType            string `json:"card_type"`
+		CardCategory        string `json:"card_category"`
+		InstallmentsAllowed []int  `json:"installments_allowed"`
+		Issuer              struct {
+			Name        string `json:"name"`
+			Country     string `json:"country"`
+			CountryCode string `json:"country_code"`
+			Website     string `json:"website"`
+			PhoneNumber string `json:"phone_number"`
+		} `json:"issuer"`
+	} `json:"iin"`
 }
 
 // ResponseTokenAll respuesta de token para GetAll y Update
@@ -139,6 +182,26 @@ func (tk *Token) Update(id string, metadata map[string]string) (*ResponseToken, 
 	}
 
 	rt := &ResponseToken{}
+	if err = json.Unmarshal(res, rt); err != nil {
+		return nil, err
+	}
+
+	return rt, nil
+}
+
+// Create método para crear un token yape
+func (tk *TokenYape) CreateYape() (*ResponseTokenYape, error) {
+	j, err := json.Marshal(tk)
+	if err != nil {
+		return nil, err
+	}
+
+	res, err := do("POST", tokensURL+"/yape", nil, bytes.NewBuffer(j))
+	if err != nil {
+		return nil, err
+	}
+
+	rt := &ResponseTokenYape{}
 	if err = json.Unmarshal(res, rt); err != nil {
 		return nil, err
 	}

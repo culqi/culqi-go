@@ -12,10 +12,11 @@ const (
 
 // Card objeto request de tarjeta
 type Card struct {
-	CustomerID string            `json:"customer_id"`
-	TokenID    string            `json:"token_id"`
-	Validate   bool              `json:"validate"`
-	Metadata   map[string]string `json:"metadata"`
+	CustomerID        string            `json:"customer_id"`
+	TokenID           string            `json:"token_id"`
+	Validate          bool              `json:"validate"`
+	Metadata          map[string]string `json:"metadata"`
+	Authentication3DS map[string]string `json:"authentication_3DS"`
 }
 
 // ResponseCard objeto respuesta de tarjeta
@@ -26,6 +27,7 @@ type ResponseCard struct {
 	CustomerID   string            `json:"customer_id"`
 	Source       ResponseToken     `json:"source"`
 	Metadata     map[string]string `json:"metadata"`
+	ReviewCode   string            `json:"action_code"`
 }
 
 // ResponseCardAll respuesta de tarjeta para GetAll
