@@ -15,10 +15,8 @@ func TestCard_Create(t *testing.T) {
 
 	culqi.Key(publicKey, secretKey)
 	c := culqi.Card{
-		CustomerID: "cus_test_XBpeiZRN49fZRofA",
-		TokenID:    "tkn_test_m5YOT23kaGf8vCQy",
-		Validate:   true,
-		Metadata:   map[string]string{"pais": "Colombia"},
+		CustomerID: "cus_test_WlAHJWhsbkuq4JTQ",
+		TokenID:    "tkn_test_z66XqUvQGSVSZ2Su",
 	}
 
 	res, err := c.Create()
@@ -32,6 +30,43 @@ func TestCard_Create(t *testing.T) {
 
 	if !strings.HasPrefix(res.ID, "crd_test_") {
 		t.Errorf("Card.ID = %s; want prefix = %q", res.ID, "crd_test_")
+	}
+}
+func TestCard_Create3ds(t *testing.T) {
+	if secretKey == "" {
+		t.Skip("No se indicó una llave privada")
+	}
+
+	culqi.Key(publicKey, secretKey)
+	c := culqi.Card{
+		CustomerID: "cus_test_WlAHJWhsbkuq4JTQ",
+		TokenID:    "tkn_test_7bd38nuFM4nmfTB8",
+	}
+
+	res, err := c.Create()
+	if err != nil {
+		t.Fatalf("Card.Create() err = %v; want = %v", err, nil)
+	}
+
+	if res == nil {
+		t.Fatalf("ResponseCard = nil; want non-nil value")
+	}
+
+	if strings.HasPrefix(res.ReviewCode, "REVIEW") {
+
+		d := culqi.Card{
+			CustomerID:        "cus_test_WlAHJWhsbkuq4JTQ",
+			TokenID:           "tkn_test_7bd38nuFM4nmfTB8",
+			Authentication3DS: map[string]string{"xid": "MTIzNDU2Nzg5MDEyMzQ1Njc40TA=", "cavv": "MTIzNDU2Nzg5MDEyMzQ1Njc40TA=", "directoryServerTransactionId": "5a636655-039f-4046-9564-50c084e6da85", "eci": "05", "protocolVersion": "2.2.0"},
+		}
+
+		res2, err := d.Create()
+		if err != nil {
+			t.Fatalf("Card.Create() err = %v; want = %v", err, nil)
+		}
+		if res2 == nil {
+			t.Fatalf("ResponseCard = nil; want non-nil value")
+		}
 	}
 }
 
