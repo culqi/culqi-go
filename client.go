@@ -11,7 +11,7 @@ import (
 
 const (
 	apiVersion = "v2.0"
-	baseURL    = "https://dev-secure.culqi.xyz/v2"
+	baseURL    = "https://dev-api.culqi.xyz/v2"
 )
 
 // Errors API
