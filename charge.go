@@ -79,6 +79,7 @@ type ResponseCharge struct {
 	StatementDescriptor string `json:"statement_descriptor"`
 	TransferID          string `json:"transfer_id"`
 	ReviewCode          string `json:"action_code"`
+	UserMessage         string `json:"user_message"`
 }
 
 type antifraud struct {

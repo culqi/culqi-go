@@ -12,8 +12,8 @@ var (
 )
 
 func init() {
-	flag.StringVar(&secretKey, "secret_key", "sk_test_8737edaa941120b4", "Su test secretKey para Culqi API. Si esta presente, los test de integración serán ejecutados con esta llave.")
-	flag.StringVar(&publicKey, "public_key", "pk_test_e2099bc4d12ef7f8", "Su test publicKey para Culqi API. Utilizado para crear Tokens")
+	flag.StringVar(&secretKey, "secret_key", "sk_test_1573b0e8079863ff", "Su test secretKey para Culqi API. Si esta presente, los test de integración serán ejecutados con esta llave.")
+	flag.StringVar(&publicKey, "public_key", "pk_test_90667d0a57d45c48", "Su test publicKey para Culqi API. Utilizado para crear Tokens")
 }
 
 func TestNew(t *testing.T) {
