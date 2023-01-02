@@ -12,8 +12,8 @@ var (
 )
 
 func init() {
-	flag.StringVar(&secretKey, "secret_key", "", "Su test secretKey para Culqi API. Si esta presente, los test de integración serán ejecutados con esta llave.")
-	flag.StringVar(&publicKey, "public_key", "", "Su test publicKey para Culqi API. Utilizado para crear Tokens")
+	flag.StringVar(&secretKey, "secret_key", "INSERTE_SU_LLAVE_PRIVADA", "Su test secretKey para Culqi API. Si esta presente, los test de integración serán ejecutados con esta llave.")
+	flag.StringVar(&publicKey, "public_key", "INSERTE_SU_LLAVE_PUBLICA", "Su test publicKey para Culqi API. Utilizado para crear Tokens")
 }
 
 func TestNew(t *testing.T) {
@@ -21,10 +21,10 @@ func TestNew(t *testing.T) {
 		publicKey string
 		secretKey string
 	}{
-		{"pk_test_nKjwQNbErg", "sk_test_eLc81mMel1"},
-		{"pk_test_PNTiazAfPS", "sk_test_9EMXDrQkqX"},
-		{"pk_test_Ht1Vbvyy4x", "sk_test_swr6XRR5yH"},
-		{"pk_test_EMwRgHe3x4", "sk_test_8PzpFp1lpf"},
+		{"INSERTE_SU_LLAVE_PUBLICA", "INSERTE_SU_LLAVE_PRIVADA"},
+		{"INSERTE_SU_LLAVE_PUBLICA", "INSERTE_SU_LLAVE_PRIVADA"},
+		{"INSERTE_SU_LLAVE_PUBLICA", "INSERTE_SU_LLAVE_PRIVADA"},
+		{"INSERTE_SU_LLAVE_PUBLICA", "INSERTE_SU_LLAVE_PRIVADA"},
 	}
 
 	for _, tc := range testCases {

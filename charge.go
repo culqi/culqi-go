@@ -12,20 +12,21 @@ const (
 
 // Charge objeto request cargo
 type Charge struct {
-	Amount       int               `json:"amount"`
-	Capture      bool              `json:"capture"`
-	CurrencyCode string            `json:"currency_code"`
-	Description  string            `json:"description"`
-	Email        string            `json:"email"`
-	Installments int               `json:"installments"`
-	Metadata     map[string]string `json:"metadata"`
-	SourceID     string            `json:"source_id"`
-	Address      string            `json:"address"`
-	AddressCity  string            `json:"address_city"`
-	CountryCode  string            `json:"country_code"`
-	FirstName    string            `json:"first_name"`
-	LastName     string            `json:"last_name"`
-	PhoneNumber  int               `json:"phone_number"`
+	Amount            int               `json:"amount"`
+	Capture           bool              `json:"capture"`
+	CurrencyCode      string            `json:"currency_code"`
+	Description       string            `json:"description"`
+	Email             string            `json:"email"`
+	Installments      int               `json:"installments"`
+	Metadata          map[string]string `json:"metadata"`
+	SourceID          string            `json:"source_id"`
+	Address           string            `json:"address"`
+	AddressCity       string            `json:"address_city"`
+	CountryCode       string            `json:"country_code"`
+	FirstName         string            `json:"first_name"`
+	LastName          string            `json:"last_name"`
+	PhoneNumber       int               `json:"phone_number"`
+	Authentication3DS map[string]string `json:"authentication_3DS"`
 }
 
 // ResponseCharge objeto respuesta de cargo
@@ -77,6 +78,8 @@ type ResponseCharge struct {
 	Paid                bool   `json:"paid"`
 	StatementDescriptor string `json:"statement_descriptor"`
 	TransferID          string `json:"transfer_id"`
+	ReviewCode          string `json:"action_code"`
+	UserMessage         string `json:"user_message"`
 }
 
 type antifraud struct {
