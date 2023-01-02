@@ -28,6 +28,7 @@ type ResponseCard struct {
 	Source       ResponseToken     `json:"source"`
 	Metadata     map[string]string `json:"metadata"`
 	ReviewCode   string            `json:"action_code"`
+	UserMessage  string            `json:"user_message"`
 }
 
 // ResponseCardAll respuesta de tarjeta para GetAll
