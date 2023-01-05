@@ -13,7 +13,7 @@ func TestToken_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKeyToken)
+	culqi.Key(publicKey, publicKey)
 	c := culqi.Token{
 		CardNumber:      "4456530000001096",
 		Cvv:             "111",
