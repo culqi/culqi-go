@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	tokensURL = baseURL + "/tokens"
+	tokensURL = baseURLToken + "/tokens"
 )
 
 // Token objeto request
