@@ -1,6 +1,7 @@
 package culqi_test
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 
@@ -14,7 +15,7 @@ func TestToken_Create(t *testing.T) {
 
 	culqi.Key(publicKey, secretKey)
 	c := culqi.Token{
-		CardNumber:      "4456530000001070",
+		CardNumber:      "4456530000001096",
 		Cvv:             "111",
 		ExpirationMonth: "09",
 		ExpirationYear:  "2023",
@@ -23,6 +24,7 @@ func TestToken_Create(t *testing.T) {
 	}
 
 	res, err := c.Create()
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}

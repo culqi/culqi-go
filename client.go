@@ -10,8 +10,9 @@ import (
 )
 
 const (
-	apiVersion = "v2.0"
-	baseURL    = "https://api.culqi.com/v2"
+	apiVersion   = "v2.0"
+	baseURL      = "https://api.culqi.com/v2"
+	baseURLToken = "https://secure.culqi.com/v2"
 )
 
 // Errors API
