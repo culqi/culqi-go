@@ -1,6 +1,7 @@
 package culqi_test
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 
@@ -12,9 +13,9 @@ func TestToken_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(publicKey, publicKey)
 	c := culqi.Token{
-		CardNumber:      "4456530000001070",
+		CardNumber:      "4456530000001096",
 		Cvv:             "111",
 		ExpirationMonth: "09",
 		ExpirationYear:  "2023",
@@ -22,7 +23,7 @@ func TestToken_Create(t *testing.T) {
 		Metadata:        map[string]string{"coment": "Tarjeta de prueba alexis"},
 	}
 
-	res, err := c.Create()
+	res, err := c.Create()	
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
