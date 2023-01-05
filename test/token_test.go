@@ -1,7 +1,6 @@
 package culqi_test
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 
