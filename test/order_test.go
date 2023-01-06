@@ -6,6 +6,7 @@ import (
 	"net/url"
 	"strings"
 	"testing"
+	"time"
 )
 
 func TestOrder_Create(t *testing.T) {
@@ -18,7 +19,7 @@ func TestOrder_Create(t *testing.T) {
 		Amount:         10100, // Monto del cargo. Sin punto decimal Ejemplo: 100.00 serían 10000
 		CurrencyCode:   "PEN",
 		Description:    "Curso GO desde Cero",
-		OrderNumber:    "pedido-92592929295529",
+		OrderNumber:    fmt.Sprint("pedido-go-", time.Now().UnixNano()/1e6),
 		ClientDetails:  map[string]string{"first_name": "Richard", "last_name": "Hendricks", "email": "richard@piedpiper.com", "phone_number": "+51945145280"},
 		ExpirationDate: 1673129486,
 	}
