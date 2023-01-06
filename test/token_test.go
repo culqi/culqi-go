@@ -13,14 +13,14 @@ func TestToken_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, publicKey)
+	culqi.Key(publicKey, secretKey)
 	c := culqi.Token{
 		CardNumber:      "4456530000001096",
 		Cvv:             "111",
 		ExpirationMonth: "09",
 		ExpirationYear:  "2023",
-		Email:           "jordan.diaz@culqi.com",
-		Metadata:        map[string]string{"coment": "Tarjeta de prueba alexis"},
+		Email:           "juan.diaz@culqi.com",
+		Metadata:        map[string]string{"coment": "Tarjeta de prueba juan"},
 	}
 
 	res, err := c.Create()
