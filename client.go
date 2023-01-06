@@ -7,7 +7,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"strings"
 )
 
 const (
@@ -48,14 +47,8 @@ func do(method, endpoint string, params url.Values, body io.Reader) ([]byte, err
 	if err != nil {
 		return nil, err
 	}
-
-	if strings.Contains(endpoint, "tokens") || strings.Contains(endpoint, "orders/confirm") {
-		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Authorization", "Bearer "+keyInstance.PublicKey)
-	} else {
-		req.Header.Set("Content-Type", "application/json")
-		req.Header.Set("Authorization", "Bearer "+keyInstance.SecretKey)
-	}
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+keyInstance.Key)
 
 	c := &http.Client{}
 	res, err := c.Do(req)
