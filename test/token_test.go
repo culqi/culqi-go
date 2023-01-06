@@ -1,7 +1,6 @@
 package culqi_test
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 
@@ -13,17 +12,17 @@ func TestToken_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, publicKey)
+	culqi.Key(publicKey)
 	c := culqi.Token{
 		CardNumber:      "4456530000001096",
 		Cvv:             "111",
 		ExpirationMonth: "09",
 		ExpirationYear:  "2023",
-		Email:           "jordan.diaz@culqi.com",
-		Metadata:        map[string]string{"coment": "Tarjeta de prueba alexis"},
+		Email:           "juan.diaz@culqi.com",
+		Metadata:        map[string]string{"coment": "Tarjeta de prueba juan"},
 	}
 
-	res, err := c.Create()	
+	res, err := c.Create()
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
@@ -42,7 +41,7 @@ func TestToken_CreateYape(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(publicKey)
 	c := culqi.TokenYape{
 		Amount:      36200,
 		FingerPrint: "86d3c875769bf62b0471b47853bfda77",

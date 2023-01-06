@@ -14,7 +14,7 @@ func TestCard_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 	c := culqi.Card{
 		CustomerID: "cus_test_AFIKH1gq8w7W7d4Q",
 		TokenID:    "tkn_test_RX7Hv23z9I8VEmZl",
@@ -40,7 +40,7 @@ func TestCard_Create3ds(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 	c := culqi.Card{
 		CustomerID: "cus_test_NtUGmY9Oyjr8oNX7",
 		TokenID:    "tkn_test_Qr4iXvqZaqmahC9P",
@@ -78,7 +78,7 @@ func TestCard_GetByID(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Card{}
 	res, err := c.GetByID("crd_test_Qe0HG7VTfmTdFvgr")
@@ -96,7 +96,7 @@ func TestCard_GetAll(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Card{}
 	params := url.Values{}
@@ -117,7 +117,7 @@ func TestCard_Update(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Card{}
 	res, err := c.Update("crd_test_Qe0HG7VTfmTdFvgr", map[string]string{"banco": "Bancolombia"})
@@ -139,7 +139,7 @@ func TestCard_Delete(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	p := culqi.Card{}
 	err := p.Delete("crd_test_Qe0HG7VTfmTdFvgr")

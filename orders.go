@@ -22,8 +22,8 @@ type Order struct {
 
 // Order objeto request orden por tipo
 type OrderTipo struct {
-	ID         int               `json:"id"`
-	OrderTypes map[string]string `json:"order_types"`
+	OrderId    string    `json:"order_id"`
+	OrderTypes [2]string `json:"order_types"`
 }
 
 // ResponseOrder objeto respuesta de orden
@@ -198,18 +198,8 @@ func (ch *Order) Confirm(id string, metadata map[string]string) (*ResponseOrder,
 }
 
 // Confirm método para confirmar una orden por tipo
-func (ch *Order) ConfirmTipo(id string, metadata map[string]string) (*ResponseOrder, error) {
-	if id == "" || len(metadata) == 0 {
-		return nil, ErrParameter
-	}
-
-	j, err := json.Marshal(
-		struct {
-			Metadata map[string]string `json:"metadata"`
-		}{
-			metadata,
-		},
-	)
+func (ch *OrderTipo) ConfirmTipo() (*ResponseOrder, error) {
+	j, err := json.Marshal(ch)
 	if err != nil {
 		return nil, err
 	}

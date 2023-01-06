@@ -13,7 +13,7 @@ func TestSubscription_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 	s := culqi.Subscription{
 		CardID:   "crd_test_Qe0HG7VTfmTdFvgr",
 		PlanID:   "pln_test_oFvWoKSAZOAH1weu",
@@ -39,7 +39,7 @@ func TestSubscription_GetByID(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Subscription{}
 	res, err := c.GetByID("sub_test_QjfgsHMPghROVZXa")
@@ -57,7 +57,7 @@ func TestSubscription_GetAll(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Subscription{}
 	params := url.Values{}
@@ -78,7 +78,7 @@ func TestSubscription_Update(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Subscription{}
 	res, err := c.Update("sub_test_QjfgsHMPghROVZXa", map[string]string{"pais": "Colombia"})
@@ -100,7 +100,7 @@ func TestSubscription_Delete(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	p := culqi.Subscription{}
 	err := p.Delete("sub_test_eY5TIGm70OMiCW89")
