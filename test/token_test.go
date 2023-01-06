@@ -12,7 +12,7 @@ func TestToken_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(publicKey)
 	c := culqi.Token{
 		CardNumber:      "4456530000001096",
 		Cvv:             "111",
@@ -22,7 +22,7 @@ func TestToken_Create(t *testing.T) {
 		Metadata:        map[string]string{"coment": "Tarjeta de prueba juan"},
 	}
 
-	res, err := c.Create()	
+	res, err := c.Create()
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
@@ -41,7 +41,7 @@ func TestToken_CreateYape(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(publicKey)
 	c := culqi.TokenYape{
 		Amount:      36200,
 		FingerPrint: "86d3c875769bf62b0471b47853bfda77",

@@ -13,7 +13,7 @@ func TestCharge_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 	c := culqi.Charge{
 		Amount:       10100, // Monto del cargo. Sin punto decimal Ejemplo: 100.00 serían 10000
 		Capture:      true,
@@ -47,7 +47,7 @@ func TestCharge_Create3DS(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 	c := culqi.Charge{
 		Amount:       10100, // Monto del cargo. Sin punto decimal Ejemplo: 100.00 serían 10000
 		Capture:      true,
@@ -98,7 +98,7 @@ func TestCharge_GetByID(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Charge{}
 	res, err := c.GetByID("chr_test_XCpvMiPnjQQpTIIv")
@@ -116,7 +116,7 @@ func TestCharge_GetAll(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Charge{}
 	params := url.Values{}
@@ -137,7 +137,7 @@ func TestCharge_Update(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Charge{}
 	res, err := c.Update("chr_test_XCpvMiPnjQQpTIIv", map[string]string{"orden_id": "789"})

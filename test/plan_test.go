@@ -13,7 +13,7 @@ func TestPlan_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 	p := culqi.Plan{
 		Name:          "Suscripción Premium",
 		Amount:        3000, // Monto del plan a cobrar recurrentemente. Sin punto decimal Ejemplo: 30.00 serían 3000
@@ -42,7 +42,7 @@ func TestPlan_GetByID(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	p := culqi.Plan{}
 	res, err := p.GetByID("pln_test_oFvWoKSAZOAH1weu")
@@ -60,7 +60,7 @@ func TestPlan_GetAll(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	p := culqi.Plan{}
 	params := url.Values{}
@@ -81,7 +81,7 @@ func TestPlan_Update(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	p := culqi.Plan{}
 	res, err := p.Update("pln_test_oFvWoKSAZOAH1weu", map[string]string{"tipo_plan": "universitario"})
@@ -103,7 +103,7 @@ func TestPlan_Delete(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	p := culqi.Plan{}
 	err := p.Delete("pln_test_W11YcJOCx4CP1XTv")

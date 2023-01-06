@@ -13,7 +13,7 @@ func TestOrder_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 	c := culqi.Order{
 		Amount:         10100, // Monto del cargo. Sin punto decimal Ejemplo: 100.00 serían 10000
 		CurrencyCode:   "PEN",
@@ -42,7 +42,7 @@ func TestOrder_GetByID(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Order{}
 	res, err := c.GetByID("ord_test_HdkYBoii9Re5AOam")
@@ -60,7 +60,7 @@ func TestOrder_GetAll(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Order{}
 	params := url.Values{}
@@ -81,7 +81,7 @@ func TestOrder_Update(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Order{}
 	res, err := c.Update("ord_test_4gLWlnFkNQB4iYhB", map[string]string{"orden_id": "789"})
@@ -102,7 +102,7 @@ func TestOrder_Confirm(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Order{}
 	res, err := c.Confirm("ord_test_HdkYBoii9Re5AOam", map[string]string{"orden_id": "789"})
@@ -124,13 +124,13 @@ func TestOrder_ConfirmTipo(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(publicKey)
 
 	//create array
 	var metodos = [2]string{"cuotealo", "cip"}
 
 	c := culqi.OrderTipo{
-		OrderId:    "ord_test_IhoCiENAxIQx35Ft",
+		OrderId:    "ord_test_H28xMwYpp0qTLWGt",
 		OrderTypes: metodos,
 	}
 	res, err := c.ConfirmTipo()
@@ -153,7 +153,7 @@ func TestOrder_Delete(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(publicKey, secretKey)
+	culqi.Key(secretKey)
 
 	c := culqi.Order{}
 	res, err := c.Delete("ord_test_MrcA99oLfIRP0fKP", map[string]string{"orden_id": "789"})
