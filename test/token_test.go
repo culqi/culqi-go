@@ -1,7 +1,6 @@
 package culqi_test
 
 import (
-	"fmt"
 	"strings"
 	"testing"
 
@@ -23,8 +22,7 @@ func TestToken_Create(t *testing.T) {
 		Metadata:        map[string]string{"coment": "Tarjeta de prueba juan"},
 	}
 
-	res, err := c.Create()
-	fmt.Println(err)
+	res, err := c.Create()	
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
