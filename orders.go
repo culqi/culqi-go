@@ -18,6 +18,7 @@ type Order struct {
 	OrderNumber    string            `json:"order_number"`
 	ClientDetails  map[string]string `json:"client_details"`
 	ExpirationDate int               `json:"expiration_date"`
+	Confirm 		int               `json:"expiration_date"`
 }
 
 // Order objeto request orden por tipo
