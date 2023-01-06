@@ -41,19 +41,15 @@ type WrapperResponse struct {
 }
 
 func do(method, endpoint string, params url.Values, body io.Reader) ([]byte, error) {
-	fmt.Println(endpoint)
 	if len(params) != 0 {
 		endpoint += "?" + params.Encode()
 	}
-	fmt.Println(endpoint)
-	fmt.Println(method)
-	fmt.Println(body)
 	req, err := http.NewRequest(method, endpoint, body)
 	if err != nil {
 		return nil, err
 	}
 
-	if strings.Contains(endpoint, "tokens") {
+	if strings.Contains(endpoint, "tokens") || strings.Contains(endpoint, "orders/confirm") {
 		req.Header.Set("Content-Type", "application/json")
 		req.Header.Set("Authorization", "Bearer "+keyInstance.PublicKey)
 	} else {

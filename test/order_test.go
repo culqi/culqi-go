@@ -133,7 +133,6 @@ func TestOrder_ConfirmTipo(t *testing.T) {
 		OrderId:    "ord_test_IhoCiENAxIQx35Ft",
 		OrderTypes: metodos,
 	}
-	fmt.Println(c)
 	res, err := c.ConfirmTipo()
 	if err != nil {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)

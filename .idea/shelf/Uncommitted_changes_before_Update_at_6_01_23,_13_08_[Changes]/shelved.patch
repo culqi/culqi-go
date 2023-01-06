@@ -1,0 +1,177 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"ALL\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"b6e6f3d6-0c52-4416-808f-8b1479c36db9\" name=\"Changes\" comment=\"\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/test/culqi_test.go\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/test/culqi_test.go\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/test/token_test.go\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/test/token_test.go\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Go File\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"GOROOT\" url=\"file:///usr/local/go\" />\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2JSIF0KAO0mpVnaH8Hs0A2RGlK2\" />\n  <component name=\"ProjectLevelVcsManager\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"ASKED_ADD_EXTERNAL_FILES\": \"true\",\n    \"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"DefaultGoTemplateProperty\": \"Go File\",\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"RunOnceActivity.go.formatter.settings.were.checked\": \"true\",\n    \"RunOnceActivity.go.migrated.go.modules.settings\": \"true\",\n    \"RunOnceActivity.go.modules.go.list.on.any.changes.was.set\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"WebServerToolWindowFactoryState\": \"false\",\n    \"configurable..is.expanded\": \"true\",\n    \"configurable.GoLibrariesConfigurable.is.expanded\": \"true\",\n    \"go.import.settings.migrated\": \"true\",\n    \"go.sdk.automatically.set\": \"true\",\n    \"last_opened_file_path\": \"/Users/apple/Documents/Culqi/culqi-go\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\"\n  }\n}]]></component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$\" />\n      <recent name=\"$PROJECT_DIR$/test\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Go Test.TestToken_Create in github.com/culqi/culqi-go/test\">\n    <configuration default=\"true\" type=\"GoApplicationRunConfiguration\" factoryName=\"Go Application\">\n      <module name=\"culqi-go\" />\n      <working_directory value=\"$PROJECT_DIR$\" />\n      <go_parameters value=\"-i\" />\n      <kind value=\"FILE\" />\n      <directory value=\"$PROJECT_DIR$\" />\n      <filePath value=\"$PROJECT_DIR$\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"TestCard_Create in github.com/culqi/culqi-go/test\" type=\"GoTestRunConfiguration\" factoryName=\"Go Test\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"culqi-go\" />\n      <working_directory value=\"$PROJECT_DIR$/test\" />\n      <root_directory value=\"$PROJECT_DIR$\" />\n      <kind value=\"PACKAGE\" />\n      <package value=\"github.com/culqi/culqi-go/test\" />\n      <directory value=\"$PROJECT_DIR$\" />\n      <filePath value=\"$PROJECT_DIR$\" />\n      <framework value=\"gotest\" />\n      <pattern value=\"^\\QTestCard_Create\\E$\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"TestCard_Create3ds in github.com/culqi/culqi-go/test\" type=\"GoTestRunConfiguration\" factoryName=\"Go Test\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"culqi-go\" />\n      <working_directory value=\"$PROJECT_DIR$/test\" />\n      <root_directory value=\"$PROJECT_DIR$\" />\n      <kind value=\"PACKAGE\" />\n      <package value=\"github.com/culqi/culqi-go/test\" />\n      <directory value=\"$PROJECT_DIR$\" />\n      <filePath value=\"$PROJECT_DIR$\" />\n      <framework value=\"gotest\" />\n      <pattern value=\"^\\QTestCard_Create3ds\\E$\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"TestCharge_Create in github.com/culqi/culqi-go/test\" type=\"GoTestRunConfiguration\" factoryName=\"Go Test\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"culqi-go\" />\n      <working_directory value=\"$PROJECT_DIR$/test\" />\n      <root_directory value=\"$PROJECT_DIR$\" />\n      <kind value=\"PACKAGE\" />\n      <package value=\"github.com/culqi/culqi-go/test\" />\n      <directory value=\"$PROJECT_DIR$\" />\n      <filePath value=\"$PROJECT_DIR$\" />\n      <framework value=\"gotest\" />\n      <pattern value=\"^\\QTestCharge_Create\\E$\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"TestToken_Create in github.com/culqi/culqi-go/test\" type=\"GoTestRunConfiguration\" factoryName=\"Go Test\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"culqi-go\" />\n      <working_directory value=\"$PROJECT_DIR$/test\" />\n      <root_directory value=\"$PROJECT_DIR$\" />\n      <kind value=\"PACKAGE\" />\n      <package value=\"github.com/culqi/culqi-go/test\" />\n      <directory value=\"$PROJECT_DIR$\" />\n      <filePath value=\"$PROJECT_DIR$\" />\n      <framework value=\"gotest\" />\n      <pattern value=\"^\\QTestToken_Create\\E$\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"TestToken_CreateYape in github.com/culqi/culqi-go/test\" type=\"GoTestRunConfiguration\" factoryName=\"Go Test\" temporary=\"true\" nameIsGenerated=\"true\">\n      <module name=\"culqi-go\" />\n      <working_directory value=\"$PROJECT_DIR$/test\" />\n      <root_directory value=\"$PROJECT_DIR$\" />\n      <kind value=\"PACKAGE\" />\n      <package value=\"github.com/culqi/culqi-go/test\" />\n      <directory value=\"$PROJECT_DIR$\" />\n      <filePath value=\"$PROJECT_DIR$\" />\n      <framework value=\"gotest\" />\n      <pattern value=\"^\\QTestToken_CreateYape\\E$\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration default=\"true\" type=\"GoTestRunConfiguration\" factoryName=\"Go Test\">\n      <module name=\"culqi-go\" />\n      <working_directory value=\"$PROJECT_DIR$\" />\n      <go_parameters value=\"-i\" />\n      <kind value=\"DIRECTORY\" />\n      <directory value=\"$PROJECT_DIR$\" />\n      <filePath value=\"$PROJECT_DIR$\" />\n      <framework value=\"gotest\" />\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Go Test.TestToken_Create in github.com/culqi/culqi-go/test\" />\n        <item itemvalue=\"Go Test.TestCharge_Create in github.com/culqi/culqi-go/test\" />\n        <item itemvalue=\"Go Test.TestCard_Create3ds in github.com/culqi/culqi-go/test\" />\n        <item itemvalue=\"Go Test.TestCard_Create in github.com/culqi/culqi-go/test\" />\n        <item itemvalue=\"Go Test.TestToken_CreateYape in github.com/culqi/culqi-go/test\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\n  </component>\n  <component name=\"VgoProject\">\n    <settings-migrated>true</settings-migrated>\n  </component>\n</project>
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -6,7 +6,9 @@
+   <component name="ChangeListManager">
+     <list default="true" id="b6e6f3d6-0c52-4416-808f-8b1479c36db9" name="Changes" comment="">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/test/culqi_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/culqi_test.go" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client.go" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/orders.go" beforeDir="false" afterPath="$PROJECT_DIR$/orders.go" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/test/order_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/order_test.go" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/test/token_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/token_test.go" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+@@ -36,36 +38,36 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "ASKED_ADD_EXTERNAL_FILES": "true",
+-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "DefaultGoTemplateProperty": "Go File",
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "WebServerToolWindowFactoryState": "false",
+-    "configurable..is.expanded": "true",
+-    "configurable.GoLibrariesConfigurable.is.expanded": "true",
+-    "go.import.settings.migrated": "true",
+-    "go.sdk.automatically.set": "true",
+-    "last_opened_file_path": "/Users/apple/Documents/Culqi/culqi-go",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "settings.editor.selected.configurable": "preferences.pluginManager"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
++    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;configurable..is.expanded&quot;: &quot;true&quot;,
++    &quot;configurable.GoLibrariesConfigurable.is.expanded&quot;: &quot;true&quot;,
++    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
++    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;/Users/apple/Documents/Culqi/culqi-go&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="$PROJECT_DIR$" />
+       <recent name="$PROJECT_DIR$/test" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Go Test.TestToken_Create in github.com/culqi/culqi-go/test">
++  <component name="RunManager" selected="Go Test.TestOrder_ConfirmTipo in github.com/culqi/culqi-go/test">
+     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+       <module name="culqi-go" />
+       <working_directory value="$PROJECT_DIR$" />
+@@ -75,7 +77,7 @@
+       <filePath value="$PROJECT_DIR$" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="TestCard_Create in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
++    <configuration name="TestCharge_Create in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+       <module name="culqi-go" />
+       <working_directory value="$PROJECT_DIR$/test" />
+       <root_directory value="$PROJECT_DIR$" />
+@@ -84,10 +86,10 @@
+       <directory value="$PROJECT_DIR$" />
+       <filePath value="$PROJECT_DIR$" />
+       <framework value="gotest" />
+-      <pattern value="^\QTestCard_Create\E$" />
++      <pattern value="^\QTestCharge_Create\E$" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="TestCard_Create3ds in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
++    <configuration name="TestOrder_Confirm in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+       <module name="culqi-go" />
+       <working_directory value="$PROJECT_DIR$/test" />
+       <root_directory value="$PROJECT_DIR$" />
+@@ -96,10 +98,10 @@
+       <directory value="$PROJECT_DIR$" />
+       <filePath value="$PROJECT_DIR$" />
+       <framework value="gotest" />
+-      <pattern value="^\QTestCard_Create3ds\E$" />
++      <pattern value="^\QTestOrder_Confirm\E$" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="TestCharge_Create in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
++    <configuration name="TestOrder_ConfirmTipo in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+       <module name="culqi-go" />
+       <working_directory value="$PROJECT_DIR$/test" />
+       <root_directory value="$PROJECT_DIR$" />
+@@ -108,10 +110,10 @@
+       <directory value="$PROJECT_DIR$" />
+       <filePath value="$PROJECT_DIR$" />
+       <framework value="gotest" />
+-      <pattern value="^\QTestCharge_Create\E$" />
++      <pattern value="^\QTestOrder_ConfirmTipo\E$" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="TestToken_Create in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
++    <configuration name="TestOrder_Create in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+       <module name="culqi-go" />
+       <working_directory value="$PROJECT_DIR$/test" />
+       <root_directory value="$PROJECT_DIR$" />
+@@ -120,10 +122,10 @@
+       <directory value="$PROJECT_DIR$" />
+       <filePath value="$PROJECT_DIR$" />
+       <framework value="gotest" />
+-      <pattern value="^\QTestToken_Create\E$" />
++      <pattern value="^\QTestOrder_Create\E$" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="TestToken_CreateYape in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
++    <configuration name="TestToken_Create in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+       <module name="culqi-go" />
+       <working_directory value="$PROJECT_DIR$/test" />
+       <root_directory value="$PROJECT_DIR$" />
+@@ -132,7 +134,7 @@
+       <directory value="$PROJECT_DIR$" />
+       <filePath value="$PROJECT_DIR$" />
+       <framework value="gotest" />
+-      <pattern value="^\QTestToken_CreateYape\E$" />
++      <pattern value="^\QTestToken_Create\E$" />
+       <method v="2" />
+     </configuration>
+     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+@@ -147,11 +149,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Go Test.TestOrder_ConfirmTipo in github.com/culqi/culqi-go/test" />
++        <item itemvalue="Go Test.TestOrder_Create in github.com/culqi/culqi-go/test" />
++        <item itemvalue="Go Test.TestOrder_Confirm in github.com/culqi/culqi-go/test" />
+         <item itemvalue="Go Test.TestToken_Create in github.com/culqi/culqi-go/test" />
+         <item itemvalue="Go Test.TestCharge_Create in github.com/culqi/culqi-go/test" />
+-        <item itemvalue="Go Test.TestCard_Create3ds in github.com/culqi/culqi-go/test" />
+-        <item itemvalue="Go Test.TestCard_Create in github.com/culqi/culqi-go/test" />
+-        <item itemvalue="Go Test.TestToken_CreateYape in github.com/culqi/culqi-go/test" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -165,4 +167,11 @@
+   <component name="VgoProject">
+     <settings-migrated>true</settings-migrated>
+   </component>
++  <component name="XDebuggerManager">
++    <watches-manager>
++      <configuration name="GoTestRunConfiguration">
++        <watch expression="*(*&quot;io.nopCloser&quot;)(824634110256)" />
++      </configuration>
++    </watches-manager>
++  </component>
+ </project>
+\ No newline at end of file
