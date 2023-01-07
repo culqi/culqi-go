@@ -79,8 +79,8 @@ type ResponseChargeAll struct {
 }
 
 // Create método para crear un cargo
-func CreateCharge(tk []byte) (*ResponseCharge, error) {
-	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(tk))
+func CreateCharge(body []byte) (*ResponseCharge, error) {
+	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -128,8 +128,8 @@ func GetAllCharge(queryParams url.Values) (*ResponseChargeAll, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un cargo
-func UpdateCharge(id string, tk []byte) (*ResponseCharge, error) {
-	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(tk))
+func UpdateCharge(id string, body []byte) (*ResponseCharge, error) {
+	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}

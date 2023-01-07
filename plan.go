@@ -38,8 +38,8 @@ type ResponsePlanAll struct {
 }
 
 // Create método para crear un plan
-func CreatePlan(tk []byte) (*ResponsePlan, error) {
-	res, err := do("POST", planURL, nil, bytes.NewBuffer(tk))
+func CreatePlan(body []byte) (*ResponsePlan, error) {
+	res, err := do("POST", planURL, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -87,8 +87,8 @@ func GetAllPlan(queryParams url.Values) (*ResponsePlanAll, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un plan
-func UpdatePlan(id string, tk []byte) (*ResponsePlan, error) {
-	res, err := do("PATCH", planURL+"/"+id, nil, bytes.NewBuffer(tk))
+func UpdatePlan(id string, body []byte) (*ResponsePlan, error) {
+	res, err := do("PATCH", planURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
