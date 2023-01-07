@@ -14,12 +14,14 @@ func init() {
 }
 
 type key struct {
-	Key string
+	PublicKey string
+	SecretKey string
 }
 
 // Key crea una única instancia de key
-func Key(key string) {
-	keyInstance.Key = key
+func Key(pKey, sKey string) {
+	keyInstance.PublicKey = pKey
+	keyInstance.SecretKey = sKey
 }
 
 // GetKey retorna la instancia de key

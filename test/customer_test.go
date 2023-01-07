@@ -13,7 +13,7 @@ func TestCustomer_Create(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(secretKey)
+	culqi.Key(publicKey, secretKey)
 	c := culqi.Customer{
 		FirstName:   "Alejandro",
 		LastName:    "Rodriguez",
@@ -44,7 +44,7 @@ func TestCustomer_GetByID(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(secretKey)
+	culqi.Key(publicKey, secretKey)
 
 	c := culqi.Customer{}
 	res, err := c.GetByID("cus_test_XBpeiZRN49fZRofA")
@@ -62,7 +62,7 @@ func TestCustomer_GetAll(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(secretKey)
+	culqi.Key(publicKey, secretKey)
 
 	c := culqi.Customer{}
 	params := url.Values{}
@@ -83,7 +83,7 @@ func TestCustomer_Update(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(secretKey)
+	culqi.Key(publicKey, secretKey)
 
 	c := culqi.Customer{}
 	res, err := c.Update("cus_test_XBpeiZRN49fZRofA", map[string]string{"nid": "1122334455"})
@@ -105,7 +105,7 @@ func TestCustomer_Delete(t *testing.T) {
 		t.Skip("No se indicó una llave privada")
 	}
 
-	culqi.Key(secretKey)
+	culqi.Key(publicKey, secretKey)
 
 	p := culqi.Customer{}
 	err := p.Delete("cus_test_wuCZZ9jqhO0RY6xZ")
