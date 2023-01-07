@@ -3,30 +3,13 @@ package culqi
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/url"
 )
 
 const (
 	tokensURL = baseURLToken + "/tokens"
 )
-
-// Token objeto request
-type Token struct {
-	CardNumber      string            `json:"card_number"`
-	Cvv             string            `json:"cvv"`
-	ExpirationMonth string            `json:"expiration_month"`
-	ExpirationYear  string            `json:"expiration_year"`
-	Email           string            `json:"email"`
-	Metadata        map[string]string `json:"metadata"`
-}
-
-// Token Yape objeto request
-type TokenYape struct {
-	Amount      int    `json:"amount"`
-	FingerPrint string `json:"fingerprint"`
-	NumberPhone string `json:"number_phone"`
-	Otp         string `json:"otp"`
-}
 
 // ResponseToken objeto respuesta de token
 type ResponseToken struct {
@@ -106,13 +89,43 @@ type ResponseTokenAll struct {
 }
 
 // Create método para crear un token
-func (tk *Token) Create() (*ResponseToken, error) {
-	j, err := json.Marshal(tk)
+func CreateToken(body []byte) (*ResponseToken, error) {
+
+	res, err := do("POST", tokensURL, nil, bytes.NewBuffer(body))
+	if err != nil {
+		return nil, err
+	}
+	myString := string(res[:])
+	fmt.Println(myString)
+
+	rt := &ResponseToken{}
+	if err = json.Unmarshal(res, rt); err != nil {
+		return nil, err
+	}
+
+	return rt, nil
+}
+
+// Create método para crear un token yape
+func CreateYape(body []byte) (*ResponseTokenYape, error) {
+
+	res, err := do("POST", tokensURL+"/yape", nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
 
-	res, err := do("POST", tokensURL, nil, bytes.NewBuffer(j))
+	rt := &ResponseTokenYape{}
+	if err = json.Unmarshal(res, rt); err != nil {
+		return nil, err
+	}
+
+	return rt, nil
+}
+
+// Update método para agregar o remplazar información a los valores de la metadata de un token
+func UpdateToken(id string, body []byte) (*ResponseToken, error) {
+
+	res, err := do("PATCH", tokensURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -126,7 +139,7 @@ func (tk *Token) Create() (*ResponseToken, error) {
 }
 
 // GetByID método para obtener un token por id
-func (tk *Token) GetByID(id string) (*ResponseToken, error) {
+func GetByIDToken(id string) (*ResponseToken, error) {
 	if id == "" {
 		return nil, ErrParameter
 	}
@@ -145,7 +158,7 @@ func (tk *Token) GetByID(id string) (*ResponseToken, error) {
 }
 
 // GetAll método para obtener la lista de tokens
-func (tk *Token) GetAll(queryParams url.Values) (*ResponseTokenAll, error) {
+func GetAllToken(queryParams url.Values) (*ResponseTokenAll, error) {
 	res, err := do("GET", tokensURL, queryParams, nil)
 	if err != nil {
 		return nil, err
@@ -157,54 +170,4 @@ func (tk *Token) GetAll(queryParams url.Values) (*ResponseTokenAll, error) {
 	}
 
 	return rts, nil
-}
-
-// Update método para agregar o remplazar información a los valores de la metadata de un token
-func (tk *Token) Update(id string, metadata map[string]string) (*ResponseToken, error) {
-	if id == "" || len(metadata) == 0 {
-		return nil, ErrParameter
-	}
-
-	j, err := json.Marshal(
-		struct {
-			Metadata map[string]string `json:"metadata"`
-		}{
-			metadata,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("PATCH", tokensURL+"/"+id, nil, bytes.NewBuffer(j))
-	if err != nil {
-		return nil, err
-	}
-
-	rt := &ResponseToken{}
-	if err = json.Unmarshal(res, rt); err != nil {
-		return nil, err
-	}
-
-	return rt, nil
-}
-
-// Create método para crear un token yape
-func (tk *TokenYape) CreateYape() (*ResponseTokenYape, error) {
-	j, err := json.Marshal(tk)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("POST", tokensURL+"/yape", nil, bytes.NewBuffer(j))
-	if err != nil {
-		return nil, err
-	}
-
-	rt := &ResponseTokenYape{}
-	if err = json.Unmarshal(res, rt); err != nil {
-		return nil, err
-	}
-
-	return rt, nil
 }

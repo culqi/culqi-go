@@ -1,6 +1,7 @@
 package culqi
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"io"
@@ -43,7 +44,10 @@ func do(method, endpoint string, params url.Values, body io.Reader) ([]byte, err
 	if len(params) != 0 {
 		endpoint += "?" + params.Encode()
 	}
-	req, err := http.NewRequest(method, endpoint, body)
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(body)
+
+	req, err := http.NewRequest(method, endpoint, bytes.NewBuffer(buf.Bytes()))
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +60,6 @@ func do(method, endpoint string, params url.Values, body io.Reader) ([]byte, err
 		return nil, err
 	}
 	defer res.Body.Close()
-
 	obj, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, err

@@ -13,16 +13,14 @@ func TestToken_Create(t *testing.T) {
 	}
 
 	culqi.Key(publicKey)
-	c := culqi.Token{
-		CardNumber:      "4456530000001096",
-		Cvv:             "111",
-		ExpirationMonth: "09",
-		ExpirationYear:  "2023",
-		Email:           "juan.diaz@culqi.com",
-		Metadata:        map[string]string{"coment": "Tarjeta de prueba juan"},
-	}
-
-	res, err := c.Create()
+	var jsonData = []byte(`{		
+		"card_number": "4456530000001096",
+		"cvv": "111",
+		"expiration_month": "07",
+		"expiration_year": "2023",
+		"email": "alexis.pumayalla@culqi.com"
+	}`)
+	res, err := culqi.CreateToken(jsonData)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
@@ -42,14 +40,14 @@ func TestToken_CreateYape(t *testing.T) {
 	}
 
 	culqi.Key(publicKey)
-	c := culqi.TokenYape{
-		Amount:      36200,
-		FingerPrint: "86d3c875769bf62b0471b47853bfda77",
-		NumberPhone: "900000001",
-		Otp:         "425251",
-	}
+	var jsonData = []byte(`{		
+		"amount":      36200,
+		"fingerprint": "86d3c875769bf62b0471b47853bfda77",
+		"number_phone": "900000001",
+		"otp":         "425251"
+	}`)
 
-	res, err := c.CreateYape()
+	res, err := culqi.CreateYape(jsonData)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}

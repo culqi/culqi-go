@@ -14,17 +14,16 @@ func TestCharge_Create(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-	c := culqi.Charge{
-		Amount:       10100, // Monto del cargo. Sin punto decimal Ejemplo: 100.00 serían 10000
-		Capture:      true,
-		CurrencyCode: "PEN",
-		Email:        "test@aj.rdrgz",
-		SourceID:     "tkn_test_WIouDPBhQH9OcKE8",
-		Description:  "Curso GO desde Cero",
-		Metadata:     map[string]string{"user_id": "777"},
-	}
+	var jsonData = []byte(`{		
+		"amount":      36200,
+		"capture": true,
+		"currency_code": "PEN",
+		"email":         "test@aj.rdrgz",
+		"source_id":     "tkn_test_WIouDPBhQH9OcKE8",
+		"description":   "Curso GO desde Cero"		
+	}`)
 
-	res, err := c.Create()
+	res, err := culqi.CreateCharge(jsonData)
 	if err != nil {
 		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
 	}
@@ -42,66 +41,13 @@ func TestCharge_Create(t *testing.T) {
 	}
 }
 
-func TestCharge_Create3DS(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
-
-	culqi.Key(secretKey)
-	c := culqi.Charge{
-		Amount:       10100, // Monto del cargo. Sin punto decimal Ejemplo: 100.00 serían 10000
-		Capture:      true,
-		CurrencyCode: "PEN",
-		Email:        "test@aj.rdrgz",
-		SourceID:     "tkn_test_WIouDPBhQH9OcKE8",
-		Description:  "Curso GO desde Cero",
-		Metadata:     map[string]string{"user_id": "777"},
-	}
-
-	res, err := c.Create()
-	if err != nil {
-		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
-	}
-
-	if res == nil {
-		t.Fatalf("ResponseCharge = nil; want non-nil value")
-	}
-
-	if res.Outcome.Type != "venta_exitosa" {
-		t.Errorf("Charge.Outcome.Type = %s; want = %q", res.Outcome.Type, "venta_exitosa")
-	}
-
-	if strings.HasPrefix(res.ReviewCode, "REVIEW") {
-
-		d := culqi.Charge{
-			Amount:            10100, // Monto del cargo. Sin punto decimal Ejemplo: 100.00 serían 10000
-			Capture:           true,
-			CurrencyCode:      "PEN",
-			Email:             "test@aj.rdrgz",
-			SourceID:          "tkn_test_WIouDPBhQH9OcKE8",
-			Description:       "Curso GO desde Cero",
-			Authentication3DS: map[string]string{"xid": "MTIzNDU2Nzg5MDEyMzQ1Njc40TA=", "cavv": "MTIzNDU2Nzg5MDEyMzQ1Njc40TA=", "directoryServerTransactionId": "5a636655-039f-4046-9564-50c084e6da85", "eci": "05", "protocolVersion": "2.2.0"},
-		}
-
-		res2, err := d.Create()
-		if err != nil {
-			t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
-		}
-		if res2 == nil {
-			t.Fatalf("ResponseCard = nil; want non-nil value")
-		}
-	}
-}
-
 func TestCharge_GetByID(t *testing.T) {
 	if secretKey == "" {
 		t.Skip("No se indicó una llave privada")
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Charge{}
-	res, err := c.GetByID("chr_test_XCpvMiPnjQQpTIIv")
+	res, err := culqi.GetByICharge("chr_test_XCpvMiPnjQQpTIIv")
 	if err != nil {
 		t.Fatalf("Charge.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -117,12 +63,10 @@ func TestCharge_GetAll(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Charge{}
 	params := url.Values{}
 	params.Set("paid", "false")
 
-	res, err := c.GetAll(params)
+	res, err := culqi.GetAllCharge(params)
 	if err != nil {
 		t.Fatalf("Charge.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -138,9 +82,13 @@ func TestCharge_Update(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Charge{}
-	res, err := c.Update("chr_test_XCpvMiPnjQQpTIIv", map[string]string{"orden_id": "789"})
+	var jsonData = []byte(`{
+	"metadata": {
+		"documentType": "1",
+		"documentNumber": "99999999"
+		}
+	}`)
+	res, err := culqi.UpdateCharge("chr_test_XCpvMiPnjQQpTIIv", jsonData)
 	if err != nil {
 		t.Fatalf("Charge.Update() err = %v; want = %v", err, nil)
 	}
