@@ -10,25 +10,6 @@ const (
 	chargesURL = baseURL + "/charges"
 )
 
-// Charge objeto request cargo
-type Charge struct {
-	Amount            int               `json:"amount"`
-	Capture           bool              `json:"capture"`
-	CurrencyCode      string            `json:"currency_code"`
-	Description       string            `json:"description"`
-	Email             string            `json:"email"`
-	Installments      int               `json:"installments"`
-	Metadata          map[string]string `json:"metadata"`
-	SourceID          string            `json:"source_id"`
-	Address           string            `json:"address"`
-	AddressCity       string            `json:"address_city"`
-	CountryCode       string            `json:"country_code"`
-	FirstName         string            `json:"first_name"`
-	LastName          string            `json:"last_name"`
-	PhoneNumber       int               `json:"phone_number"`
-	Authentication3DS map[string]string `json:"authentication_3DS"`
-}
-
 // ResponseCharge objeto respuesta de cargo
 type ResponseCharge struct {
 	Duplicated         bool        `json:"duplicated"`
@@ -98,13 +79,8 @@ type ResponseChargeAll struct {
 }
 
 // Create método para crear un cargo
-func (ch *Charge) Create() (*ResponseCharge, error) {
-	j, err := json.Marshal(ch)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(j))
+func CreateCharge(body []byte) (*ResponseCharge, error) {
+	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -118,7 +94,7 @@ func (ch *Charge) Create() (*ResponseCharge, error) {
 }
 
 // GetByID método para obtener un cargo por id
-func (ch *Charge) GetByID(id string) (*ResponseCharge, error) {
+func GetByICharge(id string) (*ResponseCharge, error) {
 	if id == "" {
 		return nil, ErrParameter
 	}
@@ -137,7 +113,7 @@ func (ch *Charge) GetByID(id string) (*ResponseCharge, error) {
 }
 
 // GetAll método para obtener la lista de Cargos
-func (ch *Charge) GetAll(queryParams url.Values) (*ResponseChargeAll, error) {
+func GetAllCharge(queryParams url.Values) (*ResponseChargeAll, error) {
 	res, err := do("GET", chargesURL, queryParams, nil)
 	if err != nil {
 		return nil, err
@@ -152,23 +128,8 @@ func (ch *Charge) GetAll(queryParams url.Values) (*ResponseChargeAll, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un cargo
-func (ch *Charge) Update(id string, metadata map[string]string) (*ResponseCharge, error) {
-	if id == "" || len(metadata) == 0 {
-		return nil, ErrParameter
-	}
-
-	j, err := json.Marshal(
-		struct {
-			Metadata map[string]string `json:"metadata"`
-		}{
-			metadata,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(j))
+func UpdateCharge(id string, body []byte) (*ResponseCharge, error) {
+	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}

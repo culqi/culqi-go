@@ -10,15 +10,6 @@ const (
 	cardURL = baseURL + "/cards"
 )
 
-// Card objeto request de tarjeta
-type Card struct {
-	CustomerID        string            `json:"customer_id"`
-	TokenID           string            `json:"token_id"`
-	Validate          bool              `json:"validate"`
-	Metadata          map[string]string `json:"metadata"`
-	Authentication3DS map[string]string `json:"authentication_3DS"`
-}
-
 // ResponseCard objeto respuesta de tarjeta
 type ResponseCard struct {
 	Object       string            `json:"object"`
@@ -38,13 +29,9 @@ type ResponseCardAll struct {
 }
 
 // Create método para crear una tarjeta
-func (crd *Card) Create() (*ResponseCard, error) {
-	j, err := json.Marshal(crd)
-	if err != nil {
-		return nil, err
-	}
+func CreateCard(body []byte) (*ResponseCard, error) {
 
-	res, err := do("POST", cardURL, nil, bytes.NewBuffer(j))
+	res, err := do("POST", cardURL, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +45,7 @@ func (crd *Card) Create() (*ResponseCard, error) {
 }
 
 // GetByID método para obtener una tarjeta por id
-func (crd *Card) GetByID(id string) (*ResponseCard, error) {
+func GetByIDCard(id string) (*ResponseCard, error) {
 	if id == "" {
 		return nil, ErrParameter
 	}
@@ -77,7 +64,7 @@ func (crd *Card) GetByID(id string) (*ResponseCard, error) {
 }
 
 // GetAll método para obtener la lista de las tarjetas
-func (crd *Card) GetAll(queryParams url.Values) (*ResponseCardAll, error) {
+func GetAllCard(queryParams url.Values) (*ResponseCardAll, error) {
 	res, err := do("GET", cardURL, queryParams, nil)
 	if err != nil {
 		return nil, err
@@ -92,23 +79,9 @@ func (crd *Card) GetAll(queryParams url.Values) (*ResponseCardAll, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una tarjeta
-func (crd *Card) Update(id string, metadata map[string]string) (*ResponseCard, error) {
-	if id == "" || len(metadata) == 0 {
-		return nil, ErrParameter
-	}
+func UpdateCard(id string, body []byte) (*ResponseCard, error) {
 
-	j, err := json.Marshal(
-		struct {
-			Metadata map[string]string `json:"metadata"`
-		}{
-			metadata,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("PATCH", cardURL+"/"+id, nil, bytes.NewBuffer(j))
+	res, err := do("PATCH", cardURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +95,7 @@ func (crd *Card) Update(id string, metadata map[string]string) (*ResponseCard, e
 }
 
 // Delete método para eliminar una tarjeta por id
-func (crd *Card) Delete(id string) error {
+func DeleteCard(id string) error {
 	if id == "" {
 		return ErrParameter
 	}

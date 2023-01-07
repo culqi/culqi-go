@@ -10,13 +10,6 @@ const (
 	refundURL = baseURL + "/refunds"
 )
 
-// Refund objeto request devolucion
-type Refund struct {
-	Amount   int    `json:"amount"`
-	ChargeId string `json:"charge_id"`
-	Reason   string `json:"reason"`
-}
-
 // Refund litar objeto request devolucion
 type RefundList struct {
 	CreationDate         int    `json:"creation_date"`
@@ -51,13 +44,8 @@ type ResponseRefundAll struct {
 }
 
 // Create método para crear una devolucion
-func (ch *Refund) Create() (*ResponseRefund, error) {
-	j, err := json.Marshal(ch)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(j))
+func CreateRefund(body []byte) (*ResponseRefund, error) {
+	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -71,7 +59,7 @@ func (ch *Refund) Create() (*ResponseRefund, error) {
 }
 
 // GetByID método para obtener una devolucion por id
-func (ch *Refund) GetByID(id string) (*ResponseRefund, error) {
+func GetByIDRefund(id string) (*ResponseRefund, error) {
 	if id == "" {
 		return nil, ErrParameter
 	}
@@ -90,7 +78,7 @@ func (ch *Refund) GetByID(id string) (*ResponseRefund, error) {
 }
 
 // GetAll método para obtener la lista de devoluciones
-func (ch *Refund) GetAll(queryParams url.Values) (*ResponseRefundAll, error) {
+func GetAllRefund(queryParams url.Values) (*ResponseRefundAll, error) {
 	res, err := do("GET", refundURL, queryParams, nil)
 	if err != nil {
 		return nil, err
@@ -105,23 +93,8 @@ func (ch *Refund) GetAll(queryParams url.Values) (*ResponseRefundAll, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una devolucion
-func (ch *Refund) Update(id string, metadata map[string]string) (*ResponseRefund, error) {
-	if id == "" || len(metadata) == 0 {
-		return nil, ErrParameter
-	}
-
-	j, err := json.Marshal(
-		struct {
-			Metadata map[string]string `json:"metadata"`
-		}{
-			metadata,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(j))
+func UpdateRefund(id string, body []byte) (*ResponseRefund, error) {
+	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
