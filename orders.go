@@ -44,8 +44,8 @@ type ResponseOrderAll struct {
 }
 
 // Create método para crear una orden
-func CreateOrder(tk []byte) (*ResponseOrder, error) {
-	res, err := do("POST", ordersURL, nil, bytes.NewBuffer(tk))
+func CreateOrder(body []byte) (*ResponseOrder, error) {
+	res, err := do("POST", ordersURL, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -93,9 +93,9 @@ func GetAllOrder(queryParams url.Values) (*ResponseOrderAll, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una orden
-func UpdateOrder(id string, tk []byte) (*ResponseOrder, error) {
+func UpdateOrder(id string, body []byte) (*ResponseOrder, error) {
 
-	res, err := do("PATCH", ordersURL+"/"+id, nil, bytes.NewBuffer(tk))
+	res, err := do("PATCH", ordersURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -143,8 +143,8 @@ func ConfirmOrder(id string) (*ResponseOrder, error) {
 }
 
 // Confirm método para confirmar una orden por tipo
-func ConfirmTipoOrder(tk []byte) (*ResponseOrder, error) {
-	res, err := do("POST", ordersURL+"/confirm", nil, bytes.NewBuffer(tk))
+func ConfirmTipoOrder(body []byte) (*ResponseOrder, error) {
+	res, err := do("POST", ordersURL+"/confirm", nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}

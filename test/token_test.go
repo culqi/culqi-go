@@ -20,7 +20,7 @@ func TestToken_Create(t *testing.T) {
 		"expiration_year": "2023",
 		"email": "alexis.pumayalla@culqi.com"
 	}`)
-	res, err := culqi.Create(jsonData)
+	res, err := culqi.CreateToken(jsonData)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}

@@ -89,9 +89,9 @@ type ResponseTokenAll struct {
 }
 
 // Create método para crear un token
-func Create(tk []byte) (*ResponseToken, error) {
+func CreateToken(body []byte) (*ResponseToken, error) {
 
-	res, err := do("POST", tokensURL, nil, bytes.NewBuffer(tk))
+	res, err := do("POST", tokensURL, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -107,9 +107,9 @@ func Create(tk []byte) (*ResponseToken, error) {
 }
 
 // Create método para crear un token yape
-func CreateYape(tk []byte) (*ResponseTokenYape, error) {
+func CreateYape(body []byte) (*ResponseTokenYape, error) {
 
-	res, err := do("POST", tokensURL+"/yape", nil, bytes.NewBuffer(tk))
+	res, err := do("POST", tokensURL+"/yape", nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -123,9 +123,9 @@ func CreateYape(tk []byte) (*ResponseTokenYape, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un token
-func Update(id string, tk []byte) (*ResponseToken, error) {
+func UpdateToken(id string, body []byte) (*ResponseToken, error) {
 
-	res, err := do("PATCH", tokensURL+"/"+id, nil, bytes.NewBuffer(tk))
+	res, err := do("PATCH", tokensURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -139,7 +139,7 @@ func Update(id string, tk []byte) (*ResponseToken, error) {
 }
 
 // GetByID método para obtener un token por id
-func GetByID(id string) (*ResponseToken, error) {
+func GetByIDToken(id string) (*ResponseToken, error) {
 	if id == "" {
 		return nil, ErrParameter
 	}
@@ -158,7 +158,7 @@ func GetByID(id string) (*ResponseToken, error) {
 }
 
 // GetAll método para obtener la lista de tokens
-func GetAll(queryParams url.Values) (*ResponseTokenAll, error) {
+func GetAllToken(queryParams url.Values) (*ResponseTokenAll, error) {
 	res, err := do("GET", tokensURL, queryParams, nil)
 	if err != nil {
 		return nil, err

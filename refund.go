@@ -44,8 +44,8 @@ type ResponseRefundAll struct {
 }
 
 // Create método para crear una devolucion
-func CreateRefund(tk []byte) (*ResponseRefund, error) {
-	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(tk))
+func CreateRefund(body []byte) (*ResponseRefund, error) {
+	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -93,8 +93,8 @@ func GetAllRefund(queryParams url.Values) (*ResponseRefundAll, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una devolucion
-func UpdateRefund(id string, tk []byte) (*ResponseRefund, error) {
-	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(tk))
+func UpdateRefund(id string, body []byte) (*ResponseRefund, error) {
+	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}

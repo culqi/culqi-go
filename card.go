@@ -29,9 +29,9 @@ type ResponseCardAll struct {
 }
 
 // Create método para crear una tarjeta
-func CreateCard(tk []byte) (*ResponseCard, error) {
+func CreateCard(body []byte) (*ResponseCard, error) {
 
-	res, err := do("POST", cardURL, nil, bytes.NewBuffer(tk))
+	res, err := do("POST", cardURL, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -79,9 +79,9 @@ func GetAllCard(queryParams url.Values) (*ResponseCardAll, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una tarjeta
-func UpdateCard(id string, tk []byte) (*ResponseCard, error) {
+func UpdateCard(id string, body []byte) (*ResponseCard, error) {
 
-	res, err := do("PATCH", cardURL+"/"+id, nil, bytes.NewBuffer(tk))
+	res, err := do("PATCH", cardURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}

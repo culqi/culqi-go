@@ -38,8 +38,8 @@ type ResponseSubscriptionAll struct {
 }
 
 // Create método para crear una Subscripción
-func CreateSubscription(tk []byte) (*ResponseSubscription, error) {
-	res, err := do("POST", subscriptionURL, nil, bytes.NewBuffer(tk))
+func CreateSubscription(body []byte) (*ResponseSubscription, error) {
+	res, err := do("POST", subscriptionURL, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
@@ -87,8 +87,8 @@ func GetAllSubscription(queryParams url.Values) (*ResponseSubscriptionAll, error
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una Subscripción
-func UpdateSubscription(id string, tk []byte) (*ResponseSubscription, error) {
-	res, err := do("PATCH", subscriptionURL+"/"+id, nil, bytes.NewBuffer(tk))
+func UpdateSubscription(id string, body []byte) (*ResponseSubscription, error) {
+	res, err := do("PATCH", subscriptionURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return nil, err
 	}
