@@ -28,10 +28,10 @@ func TestNew(t *testing.T) {
 	}
 
 	for _, tc := range testCases {
-		culqi.Key(tc.secretKey)
+		culqi.Key(tc.publicKey, tc.secretKey)
 		want := culqi.GetKey()
-		if tc.publicKey != want.Key ||
-			tc.secretKey != want.Key {
+		if tc.publicKey != want.PublicKey ||
+			tc.secretKey != want.SecretKey {
 			t.Errorf("New(pKey: %q, sKey: %q); want = %q", tc.publicKey, tc.secretKey, want)
 		}
 	}

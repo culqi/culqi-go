@@ -43,12 +43,14 @@ func do(method, endpoint string, params url.Values, body io.Reader) ([]byte, err
 	if len(params) != 0 {
 		endpoint += "?" + params.Encode()
 	}
+
 	req, err := http.NewRequest(method, endpoint, body)
 	if err != nil {
 		return nil, err
 	}
+
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+keyInstance.Key)
+	req.Header.Set("Authorization", "Bearer "+keyInstance.SecretKey)
 
 	c := &http.Client{}
 	res, err := c.Do(req)
