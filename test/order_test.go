@@ -15,7 +15,7 @@ func TestOrder_Create(t *testing.T) {
 	culqi.Key(secretKey)
 
 	var jsonData = []byte(`{
-	  amount": 12000,
+	  "amount": 12000,
 	  "currency_code": "PEN", 
 	  "description": "Venta de prueba", 
 	  "order_number": "pedido299444343543344992",
@@ -26,7 +26,7 @@ func TestOrder_Create(t *testing.T) {
 		"phone_number": "+51945145280"
 	  }, 
 	  "expiration_date": 1673186377,
-	  "confirm": false"
+	  "confirm": "false"
 	}`)
 	res, err := culqi.CreateOrder(jsonData)
 	if err != nil {

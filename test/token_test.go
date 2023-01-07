@@ -18,7 +18,7 @@ func TestToken_Create(t *testing.T) {
 		"cvv": "111",
 		"expiration_month": "07",
 		"expiration_year": "2023",
-		"email": "alexis.pumayalla@culqi.com"
+		"email": "prueba@culqi.com"
 	}`)
 	res, err := culqi.CreateToken(jsonData)
 	if err != nil {
