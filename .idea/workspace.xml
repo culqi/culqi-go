@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b6e6f3d6-0c52-4416-808f-8b1479c36db9" name="Changes" comment="fix order por tipo">
+      <change beforePath="$PROJECT_DIR$/card.go" beforeDir="false" afterPath="$PROJECT_DIR$/card.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/charge.go" beforeDir="false" afterPath="$PROJECT_DIR$/charge.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/customer.go" beforeDir="false" afterPath="$PROJECT_DIR$/customer.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/orders.go" beforeDir="false" afterPath="$PROJECT_DIR$/orders.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plan.go" beforeDir="false" afterPath="$PROJECT_DIR$/plan.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/refund.go" beforeDir="false" afterPath="$PROJECT_DIR$/refund.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/subscription.go" beforeDir="false" afterPath="$PROJECT_DIR$/subscription.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/card_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/card_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/charge_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/charge_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/customer_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/customer_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/order_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/order_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/plan_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/plan_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/subscription_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/subscription_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/token_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/test/token_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/token.go" beforeDir="false" afterPath="$PROJECT_DIR$/token.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="RunManager" selected="Go Test.TestToken_Create in github.com/culqi/culqi-go/test">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="culqi-go" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/culqi/culqi-go" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestToken_Create in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="culqi-go" />
+      <working_directory value="$PROJECT_DIR$/test" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/culqi/culqi-go/test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestToken_Create\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestToken_CreateYape in github.com/culqi/culqi-go/test" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="culqi-go" />
+      <working_directory value="$PROJECT_DIR$/test" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/culqi/culqi-go/test" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestToken_CreateYape\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="culqi-go" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <package value="github.com/culqi/culqi-go" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.TestToken_Create in github.com/culqi/culqi-go/test" />
+        <item itemvalue="Go Test.TestToken_CreateYape in github.com/culqi/culqi-go/test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix order por tipo" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix order por tipo" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/test/token_test.go</url>
+          <line>11</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
