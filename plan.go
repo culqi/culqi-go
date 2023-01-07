@@ -38,13 +38,8 @@ type ResponsePlanAll struct {
 }
 
 // Create método para crear un plan
-func (pln *Plan) Create() (*ResponsePlan, error) {
-	j, err := json.Marshal(pln)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("POST", planURL, nil, bytes.NewBuffer(j))
+func CreatePlan(tk []byte) (*ResponsePlan, error) {
+	res, err := do("POST", planURL, nil, bytes.NewBuffer(tk))
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +53,7 @@ func (pln *Plan) Create() (*ResponsePlan, error) {
 }
 
 // GetByID método para obtener un plan por id
-func (pln *Plan) GetByID(id string) (*ResponsePlan, error) {
+func GetByIDPlan(id string) (*ResponsePlan, error) {
 	if id == "" {
 		return nil, ErrParameter
 	}
@@ -77,7 +72,7 @@ func (pln *Plan) GetByID(id string) (*ResponsePlan, error) {
 }
 
 // GetAll método para obtener la lista de los planes
-func (pln *Plan) GetAll(queryParams url.Values) (*ResponsePlanAll, error) {
+func GetAllPlan(queryParams url.Values) (*ResponsePlanAll, error) {
 	res, err := do("GET", planURL, queryParams, nil)
 	if err != nil {
 		return nil, err
@@ -92,23 +87,8 @@ func (pln *Plan) GetAll(queryParams url.Values) (*ResponsePlanAll, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un plan
-func (pln *Plan) Update(id string, metadata map[string]string) (*ResponsePlan, error) {
-	if id == "" || len(metadata) == 0 {
-		return nil, ErrParameter
-	}
-
-	j, err := json.Marshal(
-		struct {
-			Metadata map[string]string `json:"metadata"`
-		}{
-			metadata,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("PATCH", planURL+"/"+id, nil, bytes.NewBuffer(j))
+func UpdatePlan(id string, tk []byte) (*ResponsePlan, error) {
+	res, err := do("PATCH", planURL+"/"+id, nil, bytes.NewBuffer(tk))
 	if err != nil {
 		return nil, err
 	}
@@ -122,7 +102,7 @@ func (pln *Plan) Update(id string, metadata map[string]string) (*ResponsePlan, e
 }
 
 // Delete método para eliminar un plan por id
-func (pln *Plan) Delete(id string) error {
+func DeletePlan(id string) error {
 	if id == "" {
 		return ErrParameter
 	}

@@ -10,18 +10,6 @@ const (
 	customerURL = baseURL + "/customers"
 )
 
-// Customer objeto request de cliente
-type Customer struct {
-	Address     string            `json:"address"`
-	AddressCity string            `json:"address_city"`
-	CountryCode string            `json:"country_code"`
-	Email       string            `json:"email"`
-	FirstName   string            `json:"first_name"`
-	LastName    string            `json:"last_name"`
-	PhoneNumber string            `json:"phone_number"`
-	Metadata    map[string]string `json:"metadata"`
-}
-
 // ResponseCustomer objeto respuesta de cliente
 type ResponseCustomer struct {
 	Object           string            `json:"object"`
@@ -29,7 +17,6 @@ type ResponseCustomer struct {
 	CreationDate     int               `json:"creation_date"`
 	Email            string            `json:"email"`
 	AntifraudDetails antifraud         `json:"antifraud_details"`
-	Cards            []Card            `json:"cards"`
 	Metadata         map[string]string `json:"metadata"`
 }
 
@@ -40,13 +27,8 @@ type ResponseCustomerAll struct {
 }
 
 // Create método para crear un cliente
-func (cus *Customer) Create() (*ResponseCustomer, error) {
-	j, err := json.Marshal(cus)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("POST", customerURL, nil, bytes.NewBuffer(j))
+func CreateCustomer(tk []byte) (*ResponseCustomer, error) {
+	res, err := do("POST", customerURL, nil, bytes.NewBuffer(tk))
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +42,7 @@ func (cus *Customer) Create() (*ResponseCustomer, error) {
 }
 
 // GetByID método para obtener un cliente por id
-func (cus *Customer) GetByID(id string) (*ResponseCustomer, error) {
+func GetByIDCustomer(id string) (*ResponseCustomer, error) {
 	if id == "" {
 		return nil, ErrParameter
 	}
@@ -79,7 +61,7 @@ func (cus *Customer) GetByID(id string) (*ResponseCustomer, error) {
 }
 
 // GetAll método para obtener la lista de clientes
-func (cus *Customer) GetAll(queryParams url.Values) (*ResponseCustomerAll, error) {
+func GetAllCustomer(queryParams url.Values) (*ResponseCustomerAll, error) {
 	res, err := do("GET", customerURL, queryParams, nil)
 	if err != nil {
 		return nil, err
@@ -94,22 +76,8 @@ func (cus *Customer) GetAll(queryParams url.Values) (*ResponseCustomerAll, error
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un cliente
-func (cus *Customer) Update(id string, metadata map[string]string) (*ResponseCustomer, error) {
-	if id == "" || len(metadata) == 0 {
-		return nil, ErrParameter
-	}
-
-	j, err := json.Marshal(
-		struct {
-			Metadata map[string]string `json:"metadata"`
-		}{
-			metadata,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-	res, err := do("PATCH", customerURL+"/"+id, nil, bytes.NewBuffer(j))
+func UpdateCustomer(id string, tk []byte) (*ResponseCustomer, error) {
+	res, err := do("PATCH", customerURL+"/"+id, nil, bytes.NewBuffer(tk))
 	if err != nil {
 		return nil, err
 	}
@@ -123,7 +91,7 @@ func (cus *Customer) Update(id string, metadata map[string]string) (*ResponseCus
 }
 
 // Delete método para eliminar un cliente por id
-func (cus *Customer) Delete(id string) error {
+func DeleteCustomer(id string) error {
 	if id == "" {
 		return ErrParameter
 	}

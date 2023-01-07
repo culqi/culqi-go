@@ -14,13 +14,12 @@ func TestSubscription_Create(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-	s := culqi.Subscription{
-		CardID:   "crd_test_Qe0HG7VTfmTdFvgr",
-		PlanID:   "pln_test_oFvWoKSAZOAH1weu",
-		Metadata: map[string]string{"user_id": "723"},
-	}
+	var jsonData = []byte(`{
+	  "card_id": "crd_live_b3MMECR8cJ5tZqf2",
+	  "plan_id": "pln_live_JucycAfngGozsHvC"
+	}`)
 
-	res, err := s.Create()
+	res, err := culqi.CreateSubscription(jsonData)
 	if err != nil {
 		t.Fatalf("Subscription.Create() err = %v; want = %v", err, nil)
 	}
@@ -40,9 +39,7 @@ func TestSubscription_GetByID(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Subscription{}
-	res, err := c.GetByID("sub_test_QjfgsHMPghROVZXa")
+	res, err := culqi.GetByIDSubscription("sub_test_QjfgsHMPghROVZXa")
 	if err != nil {
 		t.Fatalf("Subscription.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -58,12 +55,10 @@ func TestSubscription_GetAll(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Subscription{}
 	params := url.Values{}
 	params.Set("limit", "4")
 
-	res, err := c.GetAll(params)
+	res, err := culqi.GetAllSubscription(params)
 	if err != nil {
 		t.Fatalf("Subscription.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -79,9 +74,13 @@ func TestSubscription_Update(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Subscription{}
-	res, err := c.Update("sub_test_QjfgsHMPghROVZXa", map[string]string{"pais": "Colombia"})
+	var jsonData = []byte(`{
+		"metadata": {
+		"cliente_id": "259",
+		"documento_identidad": "000551337"
+		}
+	}`)
+	res, err := culqi.UpdateSubscription("sub_test_QjfgsHMPghROVZXa", jsonData)
 	if err != nil {
 		t.Fatalf("Subscription.Update() err = %v; want = %v", err, nil)
 	}
@@ -101,9 +100,7 @@ func TestSubscription_Delete(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	p := culqi.Subscription{}
-	err := p.Delete("sub_test_eY5TIGm70OMiCW89")
+	err := culqi.DeleteSubscriptions("sub_test_eY5TIGm70OMiCW89")
 	if err != nil {
 		t.Fatalf("Subscription.Delete() err = %v; want = %v", err, nil)
 	}

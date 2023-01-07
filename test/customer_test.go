@@ -14,18 +14,17 @@ func TestCustomer_Create(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-	c := culqi.Customer{
-		FirstName:   "Alejandro",
-		LastName:    "Rodriguez",
-		Email:       "test@aj.rdrgz",
-		Address:     "Bogotá, Colombia",
-		AddressCity: "Bogotá",
-		CountryCode: "CO",
-		PhoneNumber: "3207777777",
-		Metadata:    map[string]string{"nid": "123456789"},
-	}
+	var jsonData = []byte(`{
+	  "first_name": "Ejemplo",
+	  "last_name": "Prueba",
+	  "email": "soportwwe1@culqi.com",
+	  "address": "direccion",
+	  "address_city": "ciudad",
+	  "country_code": "PE",
+	  "phone_number": "987345123"
+	}`)
 
-	res, err := c.Create()
+	res, err := culqi.CreateCustomer(jsonData)
 	if err != nil {
 		t.Fatalf("Customer.Create() err = %v; want = %v", err, nil)
 	}
@@ -45,9 +44,7 @@ func TestCustomer_GetByID(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Customer{}
-	res, err := c.GetByID("cus_test_XBpeiZRN49fZRofA")
+	res, err := culqi.GetByIDCustomer("cus_test_XBpeiZRN49fZRofA")
 	if err != nil {
 		t.Fatalf("Customer.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -63,12 +60,10 @@ func TestCustomer_GetAll(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Customer{}
 	params := url.Values{}
 	params.Set("limit", "4")
 
-	res, err := c.GetAll(params)
+	res, err := culqi.GetAllCustomer(params)
 	if err != nil {
 		t.Fatalf("Customer.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -84,9 +79,12 @@ func TestCustomer_Update(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Customer{}
-	res, err := c.Update("cus_test_XBpeiZRN49fZRofA", map[string]string{"nid": "1122334455"})
+	var jsonData = []byte(`{
+		"metadata": {
+		"dni": "71702323"
+		}
+	}`)
+	res, err := culqi.UpdateCustomer("cus_test_XBpeiZRN49fZRofA", jsonData)
 	if err != nil {
 		t.Fatalf("Customer.Update() err = %v; want = %v", err, nil)
 	}
@@ -106,9 +104,7 @@ func TestCustomer_Delete(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	p := culqi.Customer{}
-	err := p.Delete("cus_test_wuCZZ9jqhO0RY6xZ")
+	err := culqi.DeleteCustomer("cus_test_wuCZZ9jqhO0RY6xZ")
 	if err != nil {
 		t.Fatalf("Customer.Delete() err = %v; want = %v", err, nil)
 	}
