@@ -1,7 +1,6 @@
 package culqi_test
 
 import (
-	"fmt"
 	culqi "github.com/culqi/culqi-go"
 	"net/url"
 	"strings"
@@ -14,16 +13,22 @@ func TestOrder_Create(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-	c := culqi.Order{
-		Amount:         10100, // Monto del cargo. Sin punto decimal Ejemplo: 100.00 serían 10000
-		CurrencyCode:   "PEN",
-		Description:    "Curso GO desde Cero",
-		OrderNumber:    "pedido-92592929295529",
-		ClientDetails:  map[string]string{"first_name": "Richard", "last_name": "Hendricks", "email": "richard@piedpiper.com", "phone_number": "+51945145280"},
-		ExpirationDate: 1673129486,
-	}
-	fmt.Println(c)
-	res, err := c.Create()
+
+	var jsonData = []byte(`{
+	  amount": 12000,
+	  "currency_code": "PEN", 
+	  "description": "Venta de prueba", 
+	  "order_number": "pedido299444343543344992",
+	  "client_details": {
+		"first_name": "Alexis", 
+		"last_name": "Pumayalla", 
+		"email": "apumayallag@gmail.com", 
+		"phone_number": "+51945145280"
+	  }, 
+	  "expiration_date": 1673186377,
+	  "confirm": false"
+	}`)
+	res, err := culqi.CreateOrder(jsonData)
 	if err != nil {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
 	}
@@ -43,9 +48,7 @@ func TestOrder_GetByID(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Order{}
-	res, err := c.GetByID("ord_test_HdkYBoii9Re5AOam")
+	res, err := culqi.GetByIDOrder("ord_test_HdkYBoii9Re5AOam")
 	if err != nil {
 		t.Fatalf("Order.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -61,12 +64,10 @@ func TestOrder_GetAll(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Order{}
 	params := url.Values{}
 	params.Set("paid", "false")
 
-	res, err := c.GetAll(params)
+	res, err := culqi.GetAllOrder(params)
 	if err != nil {
 		t.Fatalf("Order.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -82,9 +83,13 @@ func TestOrder_Update(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Order{}
-	res, err := c.Update("ord_test_4gLWlnFkNQB4iYhB", map[string]string{"orden_id": "789"})
+	var jsonData = []byte(`{
+		"expiration_date": 1661117022,
+		"metadata": {
+		"dni": "71701978"
+		}
+	}`)
+	res, err := culqi.UpdateOrder("ord_test_4gLWlnFkNQB4iYhB", jsonData)
 	if err != nil {
 		t.Fatalf("Order.Update() err = %v; want = %v", err, nil)
 	}
@@ -103,9 +108,7 @@ func TestOrder_Confirm(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Order{}
-	res, err := c.Confirm("ord_test_HdkYBoii9Re5AOam", map[string]string{"orden_id": "789"})
+	res, err := culqi.ConfirmOrder("ord_test_HdkYBoii9Re5AOam")
 	if err != nil {
 		t.Fatalf("Order.Confirm() err = %v; want = %v", err, nil)
 	}
@@ -127,13 +130,14 @@ func TestOrder_ConfirmTipo(t *testing.T) {
 	culqi.Key(publicKey)
 
 	//create array
-	var metodos = [2]string{"cuotealo", "cip"}
-
-	c := culqi.OrderTipo{
-		OrderId:    "ord_test_H28xMwYpp0qTLWGt",
-		OrderTypes: metodos,
-	}
-	res, err := c.ConfirmTipo()
+	var jsonData = []byte(`{
+		"id": "ord_test_xjmEW4dIyJM9G4cc",
+		"order_types": [
+		"cuotealo",
+		"cip"
+		]
+	}`)
+	res, err := culqi.ConfirmTipoOrder(jsonData)
 	if err != nil {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
 	}
@@ -154,9 +158,7 @@ func TestOrder_Delete(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	c := culqi.Order{}
-	res, err := c.Delete("ord_test_MrcA99oLfIRP0fKP", map[string]string{"orden_id": "789"})
+	res, err := culqi.DeleteOrder("ord_test_MrcA99oLfIRP0fKP")
 	if err != nil {
 		t.Fatalf("Order.Delete() err = %v; want = %v", err, nil)
 	}

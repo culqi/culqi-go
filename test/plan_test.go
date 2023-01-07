@@ -14,16 +14,17 @@ func TestPlan_Create(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-	p := culqi.Plan{
-		Name:          "Suscripción Premium",
-		Amount:        3000, // Monto del plan a cobrar recurrentemente. Sin punto decimal Ejemplo: 30.00 serían 3000
-		CurrencyCode:  "USD",
-		Interval:      "meses",
-		IntervalCount: 1,
-		Metadata:      map[string]string{"descripción": "Plan premium black friday"},
-	}
+	var jsonData = []byte(`{
+	  "name": "Prueba Webhook",
+	  "amount": 300,
+	  "currency_code": "PEN",
+	  "interval": "dias",
+	  "interval_count": 1,
+	  "limit": 3,
+	  "trial_days": 1
+	}`)
 
-	res, err := p.Create()
+	res, err := culqi.CreatePlan(jsonData)
 	if err != nil {
 		t.Fatalf("Plan.Create() err = %v; want = %v", err, nil)
 	}
@@ -43,9 +44,7 @@ func TestPlan_GetByID(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	p := culqi.Plan{}
-	res, err := p.GetByID("pln_test_oFvWoKSAZOAH1weu")
+	res, err := culqi.GetByIDPlan("pln_test_oFvWoKSAZOAH1weu")
 	if err != nil {
 		t.Fatalf("Plan.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -61,12 +60,10 @@ func TestPlan_GetAll(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	p := culqi.Plan{}
 	params := url.Values{}
 	params.Set("limit", "4")
 
-	res, err := p.GetAll(params)
+	res, err := culqi.GetAllPlan(params)
 	if err != nil {
 		t.Fatalf("Plan.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -80,11 +77,13 @@ func TestPlan_Update(t *testing.T) {
 	if secretKey == "" {
 		t.Skip("No se indicó una llave privada")
 	}
-
+	var jsonData = []byte(`{
+		"metadata": {
+		"descripcion": "Este es un plan simple."
+		}
+	}`)
 	culqi.Key(secretKey)
-
-	p := culqi.Plan{}
-	res, err := p.Update("pln_test_oFvWoKSAZOAH1weu", map[string]string{"tipo_plan": "universitario"})
+	res, err := culqi.UpdatePlan("pln_test_oFvWoKSAZOAH1weu", jsonData)
 	if err != nil {
 		t.Fatalf("Plan.Update() err = %v; want = %v", err, nil)
 	}
@@ -104,9 +103,7 @@ func TestPlan_Delete(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-
-	p := culqi.Plan{}
-	err := p.Delete("pln_test_W11YcJOCx4CP1XTv")
+	err := culqi.DeletePlan("pln_test_W11YcJOCx4CP1XTv")
 	if err != nil {
 		t.Fatalf("Plan.Delete() err = %v; want = %v", err, nil)
 	}

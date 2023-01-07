@@ -10,16 +10,6 @@ const (
 	ordersURL = baseURL + "/orders"
 )
 
-// Order objeto request orden
-type Order struct {
-	Amount         int               `json:"amount"`
-	CurrencyCode   string            `json:"currency_code"`
-	Description    string            `json:"description"`
-	OrderNumber    string            `json:"order_number"`
-	ClientDetails  map[string]string `json:"client_details"`
-	ExpirationDate int               `json:"expiration_date"`
-}
-
 // Order objeto request orden por tipo
 type OrderTipo struct {
 	OrderId    string    `json:"order_id"`
@@ -54,13 +44,8 @@ type ResponseOrderAll struct {
 }
 
 // Create método para crear una orden
-func (ch *Order) Create() (*ResponseOrder, error) {
-	j, err := json.Marshal(ch)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("POST", ordersURL, nil, bytes.NewBuffer(j))
+func CreateOrder(tk []byte) (*ResponseOrder, error) {
+	res, err := do("POST", ordersURL, nil, bytes.NewBuffer(tk))
 	if err != nil {
 		return nil, err
 	}
@@ -74,7 +59,7 @@ func (ch *Order) Create() (*ResponseOrder, error) {
 }
 
 // GetByID método para obtener una orden por id
-func (ch *Order) GetByID(id string) (*ResponseOrder, error) {
+func GetByIDOrder(id string) (*ResponseOrder, error) {
 	if id == "" {
 		return nil, ErrParameter
 	}
@@ -93,7 +78,7 @@ func (ch *Order) GetByID(id string) (*ResponseOrder, error) {
 }
 
 // GetAll método para obtener la lista de Ordenes
-func (ch *Order) GetAll(queryParams url.Values) (*ResponseOrderAll, error) {
+func GetAllOrder(queryParams url.Values) (*ResponseOrderAll, error) {
 	res, err := do("GET", ordersURL, queryParams, nil)
 	if err != nil {
 		return nil, err
@@ -108,23 +93,9 @@ func (ch *Order) GetAll(queryParams url.Values) (*ResponseOrderAll, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una orden
-func (ch *Order) Update(id string, metadata map[string]string) (*ResponseOrder, error) {
-	if id == "" || len(metadata) == 0 {
-		return nil, ErrParameter
-	}
+func UpdateOrder(id string, tk []byte) (*ResponseOrder, error) {
 
-	j, err := json.Marshal(
-		struct {
-			Metadata map[string]string `json:"metadata"`
-		}{
-			metadata,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("PATCH", ordersURL+"/"+id, nil, bytes.NewBuffer(j))
+	res, err := do("PATCH", ordersURL+"/"+id, nil, bytes.NewBuffer(tk))
 	if err != nil {
 		return nil, err
 	}
@@ -138,23 +109,12 @@ func (ch *Order) Update(id string, metadata map[string]string) (*ResponseOrder, 
 }
 
 // Delete método para eliminar una orden
-func (ch *Order) Delete(id string, metadata map[string]string) (*ResponseOrder, error) {
-	if id == "" || len(metadata) == 0 {
+func DeleteOrder(id string) (*ResponseOrder, error) {
+	if id == "" {
 		return nil, ErrParameter
 	}
 
-	j, err := json.Marshal(
-		struct {
-			Metadata map[string]string `json:"metadata"`
-		}{
-			metadata,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("DELETE", ordersURL+"/"+id, nil, bytes.NewBuffer(j))
+	res, err := do("DELETE", ordersURL+"/"+id, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -168,23 +128,8 @@ func (ch *Order) Delete(id string, metadata map[string]string) (*ResponseOrder, 
 }
 
 // Confirm método para confirmar una orden
-func (ch *Order) Confirm(id string, metadata map[string]string) (*ResponseOrder, error) {
-	if id == "" || len(metadata) == 0 {
-		return nil, ErrParameter
-	}
-
-	j, err := json.Marshal(
-		struct {
-			Metadata map[string]string `json:"metadata"`
-		}{
-			metadata,
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("POST", ordersURL+"/"+id+"/confirm", nil, bytes.NewBuffer(j))
+func ConfirmOrder(id string) (*ResponseOrder, error) {
+	res, err := do("POST", ordersURL+"/"+id+"/confirm", nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -198,13 +143,8 @@ func (ch *Order) Confirm(id string, metadata map[string]string) (*ResponseOrder,
 }
 
 // Confirm método para confirmar una orden por tipo
-func (ch *OrderTipo) ConfirmTipo() (*ResponseOrder, error) {
-	j, err := json.Marshal(ch)
-	if err != nil {
-		return nil, err
-	}
-
-	res, err := do("POST", ordersURL+"/confirm", nil, bytes.NewBuffer(j))
+func ConfirmTipoOrder(tk []byte) (*ResponseOrder, error) {
+	res, err := do("POST", ordersURL+"/confirm", nil, bytes.NewBuffer(tk))
 	if err != nil {
 		return nil, err
 	}
