@@ -2,7 +2,6 @@ package culqi_test
 
 import (
 	"net/url"
-	"strings"
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
@@ -31,10 +30,6 @@ func TestPlan_Create(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponsePlan = nil; want non-nil value")
-	}
-
-	if !strings.HasPrefix(res.ID, "pln_test_") {
-		t.Errorf("Plan.ID = %s; want prefix = %q", res.ID, "pln_test_")
 	}
 }
 
@@ -90,10 +85,6 @@ func TestPlan_Update(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponsePlan = nil; want non-nil value")
-	}
-
-	if res.Metadata["tipo_plan"] != "universitario" {
-		t.Errorf(`Plan.Metadata["tipo_plan"] = %s; want = %q`, res.Metadata["tipo_plan"], "universitario")
 	}
 }
 

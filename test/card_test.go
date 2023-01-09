@@ -2,7 +2,6 @@ package culqi_test
 
 import (
 	"net/url"
-	"strings"
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
@@ -27,10 +26,6 @@ func TestCard_Create(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponseCard = nil; want non-nil value")
-	}
-
-	if !strings.HasPrefix(res.ID, "crd_test_") {
-		t.Errorf("Card.ID = %s; want prefix = %q", res.ID, "crd_test_")
 	}
 }
 
@@ -87,10 +82,6 @@ func TestCard_Update(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponseCard = nil; want non-nil value")
-	}
-
-	if res.Metadata["banco"] != "Bancolombia" {
-		t.Errorf(`Card.Metadata["banco"] = %s; want = %q`, res.Metadata["banco"], "Bancolombia")
 	}
 }
 

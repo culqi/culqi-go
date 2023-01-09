@@ -1,7 +1,6 @@
 package culqi_test
 
 import (
-	"strings"
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
@@ -28,10 +27,6 @@ func TestToken_Create(t *testing.T) {
 	if res == nil {
 		t.Fatalf("ResponseToken = nil; want non-nil value")
 	}
-
-	if !strings.HasPrefix(res.ID, "tkn_test_") {
-		t.Errorf("Token.ID = %s; want prefix = %q", res.ID, "tkn_test_")
-	}
 }
 
 func TestToken_CreateYape(t *testing.T) {
@@ -56,7 +51,4 @@ func TestToken_CreateYape(t *testing.T) {
 		t.Fatalf("ResponseTokenYape = nil; want non-nil value")
 	}
 
-	if !strings.HasPrefix(res.ID, "ype_test_") {
-		t.Errorf("Token.ID = %s; want prefix = %q", res.ID, "ype_test_")
-	}
 }

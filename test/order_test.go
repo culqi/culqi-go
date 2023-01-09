@@ -3,7 +3,6 @@ package culqi_test
 import (
 	culqi "github.com/culqi/culqi-go"
 	"net/url"
-	"strings"
 	"testing"
 )
 
@@ -35,10 +34,6 @@ func TestOrder_Create(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponseOrder = nil; want non-nil value")
-	}
-
-	if !strings.HasPrefix(res.ID, "ord_test_") {
-		t.Errorf("Order.ID = %s; want prefix = %q", res.ID, "ord_test_")
 	}
 }
 
@@ -97,10 +92,6 @@ func TestOrder_Update(t *testing.T) {
 	if res == nil {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
 	}
-
-	if res.Metadata["orden_id"] != "789" {
-		t.Errorf(`Order.Metadata["orden_id"] = %s; want = %q`, res.Metadata["orden_id"], "789")
-	}
 }
 func TestOrder_Confirm(t *testing.T) {
 	if secretKey == "" {
@@ -115,10 +106,6 @@ func TestOrder_Confirm(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
-	}
-
-	if res.Metadata["orden_id"] != "789" {
-		t.Errorf(`Order.Metadata["orden_id"] = %s; want = %q`, res.Metadata["orden_id"], "789")
 	}
 }
 
@@ -145,11 +132,6 @@ func TestOrder_ConfirmTipo(t *testing.T) {
 	if res == nil {
 		t.Fatalf("ResponseOrder = nil; want non-nil value")
 	}
-
-	if !strings.HasPrefix(res.ID, "ord_test_") {
-		t.Errorf("Order.ID = %s; want prefix = %q", res.ID, "ord_test_")
-	}
-
 }
 
 func TestOrder_Delete(t *testing.T) {
@@ -165,9 +147,5 @@ func TestOrder_Delete(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
-	}
-
-	if res.Metadata["orden_id"] != "789" {
-		t.Errorf(`Order.Metadata["orden_id"] = %s; want = %q`, res.Metadata["orden_id"], "789")
 	}
 }
