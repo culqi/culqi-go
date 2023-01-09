@@ -1,6 +1,7 @@
 package culqi_test
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 
@@ -18,9 +19,10 @@ func TestToken_Create(t *testing.T) {
 		"cvv": "111",
 		"expiration_month": "07",
 		"expiration_year": "2023",
-		"email": "alexis.pumayalla@culqi.com"
+		"email": "prueba@culqi.com"
 	}`)
 	res, err := culqi.CreateToken(jsonData)
+	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
@@ -48,6 +50,7 @@ func TestToken_CreateYape(t *testing.T) {
 	}`)
 
 	res, err := culqi.CreateYape(jsonData)
+	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
