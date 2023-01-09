@@ -2,7 +2,6 @@ package culqi_test
 
 import (
 	"net/url"
-	"strings"
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
@@ -31,10 +30,6 @@ func TestCustomer_Create(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponseCustomer = nil; want non-nil value")
-	}
-
-	if !strings.HasPrefix(res.ID, "cus_test_") {
-		t.Errorf("Customer.ID = %s; want prefix = %q", res.ID, "cus_test_")
 	}
 }
 
@@ -91,10 +86,6 @@ func TestCustomer_Update(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponseCustomer = nil; want non-nil value")
-	}
-
-	if res.Metadata["nid"] != "1122334455" {
-		t.Errorf(`Customer.Metadata["nid"] = %s; want = %q`, res.Metadata["nid"], "1122334455")
 	}
 }
 

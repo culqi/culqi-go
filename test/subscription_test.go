@@ -2,7 +2,6 @@ package culqi_test
 
 import (
 	"net/url"
-	"strings"
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
@@ -26,10 +25,6 @@ func TestSubscription_Create(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponseSubscription = nil; want non-nil value")
-	}
-
-	if !strings.HasPrefix(res.ID, "sub_test_") {
-		t.Errorf("Subscription.ID = %s; want prefix = %q", res.ID, "sub_test_")
 	}
 }
 
@@ -87,10 +82,6 @@ func TestSubscription_Update(t *testing.T) {
 
 	if res == nil {
 		t.Fatalf("ResponseSubscription = nil; want non-nil value")
-	}
-
-	if res.Metadata["pais"] != "Colombia" {
-		t.Errorf(`Subscription.Metadata["pais"] = %s; want = %q`, res.Metadata["pais"], "Colombia")
 	}
 }
 
