@@ -28,7 +28,7 @@ func TestCustomer_Create(t *testing.T) {
 		t.Fatalf("Customer.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseCustomer = nil; want non-nil value")
 	}
 }
@@ -44,7 +44,7 @@ func TestCustomer_GetByID(t *testing.T) {
 		t.Fatalf("Customer.GetByID() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseCustomer = nil; want non-nil value")
 	}
 }
@@ -63,7 +63,7 @@ func TestCustomer_GetAll(t *testing.T) {
 		t.Fatalf("Customer.GetAll() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseCustomerAll = nil; want non-nil value")
 	}
 }
@@ -84,7 +84,7 @@ func TestCustomer_Update(t *testing.T) {
 		t.Fatalf("Customer.Update() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseCustomer = nil; want non-nil value")
 	}
 }

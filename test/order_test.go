@@ -32,7 +32,7 @@ func TestOrder_Create(t *testing.T) {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrder = nil; want non-nil value")
 	}
 }
@@ -48,7 +48,7 @@ func TestOrder_GetByID(t *testing.T) {
 		t.Fatalf("Order.GetByID() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrder = nil; want non-nil value")
 	}
 }
@@ -67,7 +67,7 @@ func TestOrder_GetAll(t *testing.T) {
 		t.Fatalf("Order.GetAll() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
 	}
 }
@@ -89,7 +89,7 @@ func TestOrder_Update(t *testing.T) {
 		t.Fatalf("Order.Update() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
 	}
 }
@@ -104,7 +104,7 @@ func TestOrder_Confirm(t *testing.T) {
 		t.Fatalf("Order.Confirm() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
 	}
 }
@@ -129,7 +129,7 @@ func TestOrder_ConfirmTipo(t *testing.T) {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrder = nil; want non-nil value")
 	}
 }
@@ -145,7 +145,7 @@ func TestOrder_Delete(t *testing.T) {
 		t.Fatalf("Order.Delete() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
 	}
 }

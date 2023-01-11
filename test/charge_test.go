@@ -27,7 +27,7 @@ func TestCharge_Create(t *testing.T) {
 		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseCharge = nil; want non-nil value")
 	}
 
@@ -44,7 +44,7 @@ func TestCharge_GetByID(t *testing.T) {
 		t.Fatalf("Charge.GetByID() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseCharge = nil; want non-nil value")
 	}
 }
@@ -63,7 +63,7 @@ func TestCharge_GetAll(t *testing.T) {
 		t.Fatalf("Charge.GetAll() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseChargeAll = nil; want non-nil value")
 	}
 }
@@ -85,7 +85,7 @@ func TestCharge_Update(t *testing.T) {
 		t.Fatalf("Charge.Update() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseChargeAll = nil; want non-nil value")
 	}
 }

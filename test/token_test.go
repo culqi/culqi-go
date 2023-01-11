@@ -1,6 +1,7 @@
 package culqi_test
 
 import (
+	"fmt"
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
@@ -20,11 +21,12 @@ func TestToken_Create(t *testing.T) {
 		"email": "prueba@culqi.com"
 	}`)
 	res, err := culqi.CreateToken(jsonData)
+	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseToken = nil; want non-nil value")
 	}
 }
@@ -47,7 +49,7 @@ func TestToken_CreateYape(t *testing.T) {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseTokenYape = nil; want non-nil value")
 	}
 
