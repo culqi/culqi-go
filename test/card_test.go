@@ -24,7 +24,7 @@ func TestCard_Create(t *testing.T) {
 		t.Fatalf("Card.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseCard = nil; want non-nil value")
 	}
 }
@@ -41,7 +41,7 @@ func TestCard_GetByID(t *testing.T) {
 		t.Fatalf("Card.GetByID() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseCard = nil; want non-nil value")
 	}
 }
@@ -60,7 +60,7 @@ func TestCard_GetAll(t *testing.T) {
 		t.Fatalf("Card.GetAll() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseCardAll = nil; want non-nil value")
 	}
 }
@@ -80,7 +80,7 @@ func TestCard_Update(t *testing.T) {
 		t.Fatalf("Card.Update() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseCard = nil; want non-nil value")
 	}
 }

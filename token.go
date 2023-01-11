@@ -10,59 +10,63 @@ const (
 )
 
 // Create método para crear un token
-func CreateToken(body []byte) ([]byte, error) {
+func CreateToken(body []byte) (string, error) {
 
 	res, err := do("POST", tokensURL, nil, bytes.NewBuffer(body))
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	//myString := string(res[:])
+	response := string(res[:])
 
-	return res, nil
+	return response, nil
 }
 
 // Create método para crear un token yape
-func CreateYape(body []byte) ([]byte, error) {
+func CreateYape(body []byte) (string, error) {
 
 	res, err := do("POST", tokensURL+"/yape", nil, bytes.NewBuffer(body))
 	if err != nil {
-		return nil, err
+		return "", err
 	}
+	response := string(res[:])
 
-	return res, nil
+	return response, nil
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un token
-func UpdateToken(id string, body []byte) ([]byte, error) {
+func UpdateToken(id string, body []byte) (string, error) {
 
 	res, err := do("PATCH", tokensURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
-		return nil, err
+		return "", err
 	}
+	response := string(res[:])
 
-	return res, nil
+	return response, nil
 }
 
 // GetByID método para obtener un token por id
-func GetByIDToken(id string) ([]byte, error) {
+func GetByIDToken(id string) (string, error) {
 	if id == "" {
-		return nil, ErrParameter
+		return " ", ErrParameter
 	}
 
 	res, err := do("GET", tokensURL+"/"+id, nil, nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
+	response := string(res[:])
 
-	return res, nil
+	return response, nil
 }
 
 // GetAll método para obtener la lista de tokens
-func GetAllToken(queryParams url.Values) ([]byte, error) {
+func GetAllToken(queryParams url.Values) (string, error) {
 	res, err := do("GET", tokensURL, queryParams, nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
+	response := string(res[:])
 
-	return res, nil
+	return response, nil
 }
