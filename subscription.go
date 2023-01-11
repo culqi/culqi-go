@@ -2,7 +2,6 @@ package culqi
 
 import (
 	"bytes"
-	"encoding/json"
 	"net/url"
 )
 
@@ -10,95 +9,52 @@ const (
 	subscriptionURL = baseURL + "/subscriptions"
 )
 
-// ResponseSubscription objeto respuesta de Subscription
-type ResponseSubscription struct {
-	Object             string            `json:"object"`
-	ID                 string            `json:"id"`
-	CreationDate       int               `json:"creation_date"`
-	Status             string            `json:"status"`
-	CurrentPeriod      int               `json:"current_period"`
-	TotalPeriods       int               `json:"total_periods"`
-	CurrentPeriodStart int               `json:"current_period_start"`
-	CurrentPeriodEnd   int               `json:"current_period_end"`
-	CancelAtPeriodEnd  bool              `json:"cancel_at_period_end"`
-	CanceledAt         int               `json:"canceled_at"`
-	EndedAt            int               `json:"ended_at"`
-	NextBillingDate    int               `json:"next_billing_date"`
-	TrialStart         int               `json:"trial_start"`
-	TrialEnd           int               `json:"trial_end"`
-	Charges            []ResponseCharge  `json:"charges"`
-	Plan               Plan              `json:"plan"`
-	Metadata           map[string]string `json:"metadata"`
-}
-
-// ResponseSubscriptionAll respuesta de subscripción para GetAll
-type ResponseSubscriptionAll struct {
-	Data []ResponseSubscription `json:"data"`
-	WrapperResponse
-}
-
 // Create método para crear una Subscripción
-func CreateSubscription(body []byte) (*ResponseSubscription, error) {
+func CreateSubscription(body []byte) (string, error) {
 	res, err := do("POST", subscriptionURL, nil, bytes.NewBuffer(body))
 	if err != nil {
-		return nil, err
+		return "", err
 	}
+	response := string(res[:])
 
-	rsub := &ResponseSubscription{}
-	if err = json.Unmarshal(res, rsub); err != nil {
-		return nil, err
-	}
-
-	return rsub, nil
+	return response, nil
 }
 
 // GetByID método para obtener una Subscripción por id
-func GetByIDSubscription(id string) (*ResponseSubscription, error) {
+func GetByIDSubscription(id string) (string, error) {
 	if id == "" {
-		return nil, ErrParameter
+		return "", ErrParameter
 	}
 
 	res, err := do("GET", subscriptionURL+"/"+id, nil, nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
+	response := string(res[:])
 
-	rsub := &ResponseSubscription{}
-	if err = json.Unmarshal(res, rsub); err != nil {
-		return nil, err
-	}
-
-	return rsub, nil
+	return response, nil
 }
 
 // GetAll método para obtener la lista de las subscripciones
-func GetAllSubscription(queryParams url.Values) (*ResponseSubscriptionAll, error) {
+func GetAllSubscription(queryParams url.Values) (string, error) {
 	res, err := do("GET", subscriptionURL, queryParams, nil)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
+	response := string(res[:])
 
-	rsub := &ResponseSubscriptionAll{}
-	if err = json.Unmarshal(res, rsub); err != nil {
-		return nil, err
-	}
-
-	return rsub, nil
+	return response, nil
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una Subscripción
-func UpdateSubscription(id string, body []byte) (*ResponseSubscription, error) {
+func UpdateSubscription(id string, body []byte) (string, error) {
 	res, err := do("PATCH", subscriptionURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
-		return nil, err
+		return "", err
 	}
+	response := string(res[:])
 
-	rsub := &ResponseSubscription{}
-	if err = json.Unmarshal(res, rsub); err != nil {
-		return nil, err
-	}
-
-	return rsub, nil
+	return response, nil
 }
 
 // Delete método para eliminar una Subscripción por id

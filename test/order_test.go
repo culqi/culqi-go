@@ -3,7 +3,6 @@ package culqi_test
 import (
 	culqi "github.com/culqi/culqi-go"
 	"net/url"
-	"strings"
 	"testing"
 )
 
@@ -15,7 +14,7 @@ func TestOrder_Create(t *testing.T) {
 	culqi.Key(secretKey)
 
 	var jsonData = []byte(`{
-	  amount": 12000,
+	  "amount": 12000,
 	  "currency_code": "PEN", 
 	  "description": "Venta de prueba", 
 	  "order_number": "pedido299444343543344992",
@@ -26,19 +25,15 @@ func TestOrder_Create(t *testing.T) {
 		"phone_number": "+51945145280"
 	  }, 
 	  "expiration_date": 1673186377,
-	  "confirm": false"
+	  "confirm": "false"
 	}`)
 	res, err := culqi.CreateOrder(jsonData)
 	if err != nil {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrder = nil; want non-nil value")
-	}
-
-	if !strings.HasPrefix(res.ID, "ord_test_") {
-		t.Errorf("Order.ID = %s; want prefix = %q", res.ID, "ord_test_")
 	}
 }
 
@@ -53,7 +48,7 @@ func TestOrder_GetByID(t *testing.T) {
 		t.Fatalf("Order.GetByID() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrder = nil; want non-nil value")
 	}
 }
@@ -72,7 +67,7 @@ func TestOrder_GetAll(t *testing.T) {
 		t.Fatalf("Order.GetAll() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
 	}
 }
@@ -94,12 +89,8 @@ func TestOrder_Update(t *testing.T) {
 		t.Fatalf("Order.Update() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
-	}
-
-	if res.Metadata["orden_id"] != "789" {
-		t.Errorf(`Order.Metadata["orden_id"] = %s; want = %q`, res.Metadata["orden_id"], "789")
 	}
 }
 func TestOrder_Confirm(t *testing.T) {
@@ -113,12 +104,8 @@ func TestOrder_Confirm(t *testing.T) {
 		t.Fatalf("Order.Confirm() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
-	}
-
-	if res.Metadata["orden_id"] != "789" {
-		t.Errorf(`Order.Metadata["orden_id"] = %s; want = %q`, res.Metadata["orden_id"], "789")
 	}
 }
 
@@ -142,14 +129,9 @@ func TestOrder_ConfirmTipo(t *testing.T) {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrder = nil; want non-nil value")
 	}
-
-	if !strings.HasPrefix(res.ID, "ord_test_") {
-		t.Errorf("Order.ID = %s; want prefix = %q", res.ID, "ord_test_")
-	}
-
 }
 
 func TestOrder_Delete(t *testing.T) {
@@ -163,11 +145,7 @@ func TestOrder_Delete(t *testing.T) {
 		t.Fatalf("Order.Delete() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
-	}
-
-	if res.Metadata["orden_id"] != "789" {
-		t.Errorf(`Order.Metadata["orden_id"] = %s; want = %q`, res.Metadata["orden_id"], "789")
 	}
 }

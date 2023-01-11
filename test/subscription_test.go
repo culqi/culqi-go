@@ -2,7 +2,6 @@ package culqi_test
 
 import (
 	"net/url"
-	"strings"
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
@@ -24,12 +23,8 @@ func TestSubscription_Create(t *testing.T) {
 		t.Fatalf("Subscription.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseSubscription = nil; want non-nil value")
-	}
-
-	if !strings.HasPrefix(res.ID, "sub_test_") {
-		t.Errorf("Subscription.ID = %s; want prefix = %q", res.ID, "sub_test_")
 	}
 }
 
@@ -44,7 +39,7 @@ func TestSubscription_GetByID(t *testing.T) {
 		t.Fatalf("Subscription.GetByID() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseSubscription = nil; want non-nil value")
 	}
 }
@@ -63,7 +58,7 @@ func TestSubscription_GetAll(t *testing.T) {
 		t.Fatalf("Subscription.GetAll() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseSubscriptionAll = nil; want non-nil value")
 	}
 }
@@ -85,12 +80,8 @@ func TestSubscription_Update(t *testing.T) {
 		t.Fatalf("Subscription.Update() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponseSubscription = nil; want non-nil value")
-	}
-
-	if res.Metadata["pais"] != "Colombia" {
-		t.Errorf(`Subscription.Metadata["pais"] = %s; want = %q`, res.Metadata["pais"], "Colombia")
 	}
 }
 

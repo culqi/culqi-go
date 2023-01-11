@@ -2,7 +2,6 @@ package culqi_test
 
 import (
 	"net/url"
-	"strings"
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
@@ -29,12 +28,8 @@ func TestPlan_Create(t *testing.T) {
 		t.Fatalf("Plan.Create() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponsePlan = nil; want non-nil value")
-	}
-
-	if !strings.HasPrefix(res.ID, "pln_test_") {
-		t.Errorf("Plan.ID = %s; want prefix = %q", res.ID, "pln_test_")
 	}
 }
 
@@ -49,7 +44,7 @@ func TestPlan_GetByID(t *testing.T) {
 		t.Fatalf("Plan.GetByID() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponsePlan = nil; want non-nil value")
 	}
 }
@@ -68,7 +63,7 @@ func TestPlan_GetAll(t *testing.T) {
 		t.Fatalf("Plan.GetAll() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponsePlanAll = nil; want non-nil value")
 	}
 }
@@ -88,12 +83,8 @@ func TestPlan_Update(t *testing.T) {
 		t.Fatalf("Plan.Update() err = %v; want = %v", err, nil)
 	}
 
-	if res == nil {
+	if res == "" {
 		t.Fatalf("ResponsePlan = nil; want non-nil value")
-	}
-
-	if res.Metadata["tipo_plan"] != "universitario" {
-		t.Errorf(`Plan.Metadata["tipo_plan"] = %s; want = %q`, res.Metadata["tipo_plan"], "universitario")
 	}
 }
 
