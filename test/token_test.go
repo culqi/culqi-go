@@ -46,7 +46,7 @@ func TestToken_CreateYape(t *testing.T) {
 	}`)
 
 	res, err := culqi.CreateYape(jsonData)
-	print(res)
+	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}

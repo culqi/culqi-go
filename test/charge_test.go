@@ -1,6 +1,7 @@
 package culqi_test
 
 import (
+	"fmt"
 	"net/url"
 	"testing"
 
@@ -18,11 +19,12 @@ func TestCharge_Create(t *testing.T) {
 		"capture": true,
 		"currency_code": "PEN",
 		"email":         "test@aj.rdrgz",
-		"source_id":     "tkn_test_WIouDPBhQH9OcKE8",
+		"source_id":     "tkn_test_E0wpKOMJC4ljuNaw",
 		"description":   "Curso GO desde Cero"		
 	}`)
 
 	res, err := culqi.CreateCharge(jsonData)
+	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
 	}
