@@ -2,6 +2,7 @@ package culqi
 
 import (
 	"bytes"
+	"io/ioutil"
 	"net/url"
 )
 
@@ -16,12 +17,12 @@ func CreateToken(body []byte) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	response := string(res[:])
+	response, _ := ioutil.ReadAll(bytes.NewReader(res))
 
-	return response, nil
+	return string(response), nil
 }
 
-// Create método para crear un token yape
+// CreateYape Create método para crear un token yape
 func CreateYape(body []byte) (string, error) {
 
 	res, err := do("POST", tokensURL+"/yape", nil, bytes.NewBuffer(body))
@@ -36,7 +37,7 @@ func CreateYape(body []byte) (string, error) {
 // Update método para agregar o remplazar información a los valores de la metadata de un token
 func UpdateToken(id string, body []byte) (string, error) {
 
-	res, err := do("PATCH", tokensURL+"/"+id, nil, bytes.NewBuffer(body))
+	res, err := do("PATCH", baseURL+"/tokens/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -46,12 +47,12 @@ func UpdateToken(id string, body []byte) (string, error) {
 }
 
 // GetByID método para obtener un token por id
-func GetByIDToken(id string) (string, error) {
+func GetByIDToken(id string, body []byte) (string, error) {
 	if id == "" {
 		return " ", ErrParameter
 	}
 
-	res, err := do("GET", tokensURL+"/"+id, nil, nil)
+	res, err := do("GET", baseURL+"/tokens/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -61,8 +62,8 @@ func GetByIDToken(id string) (string, error) {
 }
 
 // GetAll método para obtener la lista de tokens
-func GetAllToken(queryParams url.Values) (string, error) {
-	res, err := do("GET", tokensURL, queryParams, nil)
+func GetAllToken(queryParams url.Values, body []byte) (string, error) {
+	res, err := do("GET", baseURL+"/tokens", queryParams, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
