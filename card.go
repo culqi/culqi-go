@@ -22,12 +22,12 @@ func CreateCard(body []byte) (string, error) {
 }
 
 // GetByID método para obtener una tarjeta por id
-func GetByIDCard(id string) (string, error) {
+func GetByIDCard(id string, body []byte) (string, error) {
 	if id == "" {
 		return "", ErrParameter
 	}
 
-	res, err := do("GET", cardURL+"/"+id, nil, nil)
+	res, err := do("GET", cardURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -37,8 +37,8 @@ func GetByIDCard(id string) (string, error) {
 }
 
 // GetAll método para obtener la lista de las tarjetas
-func GetAllCard(queryParams url.Values) (string, error) {
-	res, err := do("GET", cardURL, queryParams, nil)
+func GetAllCard(queryParams url.Values, body []byte) (string, error) {
+	res, err := do("GET", cardURL, queryParams, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -60,12 +60,12 @@ func UpdateCard(id string, body []byte) (string, error) {
 }
 
 // Delete método para eliminar una tarjeta por id
-func DeleteCard(id string) error {
+func DeleteCard(id string, body []byte) error {
 	if id == "" {
 		return ErrParameter
 	}
 
-	_, err := do("DELETE", cardURL+"/"+id, nil, nil)
+	_, err := do("DELETE", cardURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return err
 	}
