@@ -19,7 +19,7 @@ func TestCharge_Create(t *testing.T) {
 		"capture": true,
 		"currency_code": "PEN",
 		"email":         "test@aj.rdrgz",
-		"source_id":     "tkn_test_E0wpKOMJC4ljuNaw",
+		"source_id":     "tkn_test_Wji2JScUQvzCfqnO",
 		"description":   "Curso GO desde Cero"		
 	}`)
 
@@ -41,7 +41,8 @@ func TestCharge_GetByID(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-	res, err := culqi.GetByICharge("chr_test_XCpvMiPnjQQpTIIv")
+	var jsonData = []byte(``)
+	res, err := culqi.GetByICharge("chr_test_b8zRMZZ1hVNF3rPB", jsonData)
 	if err != nil {
 		t.Fatalf("Charge.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -57,10 +58,11 @@ func TestCharge_GetAll(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
+	var jsonData = []byte(``)
 	params := url.Values{}
 	params.Set("paid", "false")
 
-	res, err := culqi.GetAllCharge(params)
+	res, err := culqi.GetAllCharge(params, jsonData)
 	if err != nil {
 		t.Fatalf("Charge.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -82,7 +84,7 @@ func TestCharge_Update(t *testing.T) {
 		"documentNumber": "99999999"
 		}
 	}`)
-	res, err := culqi.UpdateCharge("chr_test_XCpvMiPnjQQpTIIv", jsonData)
+	res, err := culqi.UpdateCharge("chr_test_b8zRMZZ1hVNF3rPB", jsonData)
 	if err != nil {
 		t.Fatalf("Charge.Update() err = %v; want = %v", err, nil)
 	}

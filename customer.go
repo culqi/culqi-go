@@ -21,12 +21,12 @@ func CreateCustomer(body []byte) (string, error) {
 }
 
 // GetByID método para obtener un cliente por id
-func GetByIDCustomer(id string) (string, error) {
+func GetByIDCustomer(id string, body []byte) (string, error) {
 	if id == "" {
 		return "", ErrParameter
 	}
 
-	res, err := do("GET", customerURL+"/"+id, nil, nil)
+	res, err := do("GET", customerURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -36,8 +36,8 @@ func GetByIDCustomer(id string) (string, error) {
 }
 
 // GetAll método para obtener la lista de clientes
-func GetAllCustomer(queryParams url.Values) (string, error) {
-	res, err := do("GET", customerURL, queryParams, nil)
+func GetAllCustomer(queryParams url.Values, body []byte) (string, error) {
+	res, err := do("GET", customerURL, queryParams, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -59,12 +59,12 @@ func UpdateCustomer(id string, body []byte) (string, error) {
 }
 
 // Delete método para eliminar un cliente por id
-func DeleteCustomer(id string) error {
+func DeleteCustomer(id string, body []byte) error {
 	if id == "" {
 		return ErrParameter
 	}
 
-	_, err := do("DELETE", customerURL+"/"+id, nil, nil)
+	_, err := do("DELETE", customerURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return err
 	}

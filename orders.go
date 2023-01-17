@@ -21,12 +21,12 @@ func CreateOrder(body []byte) (string, error) {
 }
 
 // GetByID método para obtener una orden por id
-func GetByIDOrder(id string) (string, error) {
+func GetByIDOrder(id string, body []byte) (string, error) {
 	if id == "" {
 		return "", ErrParameter
 	}
 
-	res, err := do("GET", ordersURL+"/"+id, nil, nil)
+	res, err := do("GET", ordersURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -36,8 +36,8 @@ func GetByIDOrder(id string) (string, error) {
 }
 
 // GetAll método para obtener la lista de Ordenes
-func GetAllOrder(queryParams url.Values) (string, error) {
-	res, err := do("GET", ordersURL, queryParams, nil)
+func GetAllOrder(queryParams url.Values, body []byte) (string, error) {
+	res, err := do("GET", ordersURL, queryParams, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -59,12 +59,12 @@ func UpdateOrder(id string, body []byte) (string, error) {
 }
 
 // Delete método para eliminar una orden
-func DeleteOrder(id string) (string, error) {
+func DeleteOrder(id string, body []byte) (string, error) {
 	if id == "" {
 		return "", ErrParameter
 	}
 
-	res, err := do("DELETE", ordersURL+"/"+id, nil, nil)
+	res, err := do("DELETE", ordersURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -74,8 +74,8 @@ func DeleteOrder(id string) (string, error) {
 }
 
 // Confirm método para confirmar una orden
-func ConfirmOrder(id string) (string, error) {
-	res, err := do("POST", ordersURL+"/"+id+"/confirm", nil, nil)
+func ConfirmOrder(id string, body []byte) (string, error) {
+	res, err := do("POST", ordersURL+"/"+id+"/confirm", nil, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
