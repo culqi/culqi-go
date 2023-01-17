@@ -21,12 +21,12 @@ func CreateSubscription(body []byte) (string, error) {
 }
 
 // GetByID método para obtener una Subscripción por id
-func GetByIDSubscription(id string) (string, error) {
+func GetByIDSubscription(id string, body []byte) (string, error) {
 	if id == "" {
 		return "", ErrParameter
 	}
 
-	res, err := do("GET", subscriptionURL+"/"+id, nil, nil)
+	res, err := do("GET", subscriptionURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -36,8 +36,8 @@ func GetByIDSubscription(id string) (string, error) {
 }
 
 // GetAll método para obtener la lista de las subscripciones
-func GetAllSubscription(queryParams url.Values) (string, error) {
-	res, err := do("GET", subscriptionURL, queryParams, nil)
+func GetAllSubscription(queryParams url.Values, body []byte) (string, error) {
+	res, err := do("GET", subscriptionURL, queryParams, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -58,12 +58,12 @@ func UpdateSubscription(id string, body []byte) (string, error) {
 }
 
 // Delete método para eliminar una Subscripción por id
-func DeleteSubscriptions(id string) error {
+func DeleteSubscriptions(id string, body []byte) error {
 	if id == "" {
 		return ErrParameter
 	}
 
-	_, err := do("DELETE", subscriptionURL+"/"+id, nil, nil)
+	_, err := do("DELETE", subscriptionURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return err
 	}

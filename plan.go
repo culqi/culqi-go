@@ -21,12 +21,12 @@ func CreatePlan(body []byte) (string, error) {
 }
 
 // GetByID método para obtener un plan por id
-func GetByIDPlan(id string) (string, error) {
+func GetByIDPlan(id string, body []byte) (string, error) {
 	if id == "" {
 		return "", ErrParameter
 	}
 
-	res, err := do("GET", planURL+"/"+id, nil, nil)
+	res, err := do("GET", planURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -36,8 +36,8 @@ func GetByIDPlan(id string) (string, error) {
 }
 
 // GetAll método para obtener la lista de los planes
-func GetAllPlan(queryParams url.Values) (string, error) {
-	res, err := do("GET", planURL, queryParams, nil)
+func GetAllPlan(queryParams url.Values, body []byte) (string, error) {
+	res, err := do("GET", planURL, queryParams, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -62,12 +62,12 @@ func UpdatePlan(id string, body []byte) (string, error) {
 }
 
 // Delete método para eliminar un plan por id
-func DeletePlan(id string) error {
+func DeletePlan(id string, body []byte) error {
 	if id == "" {
 		return ErrParameter
 	}
 
-	_, err := do("DELETE", planURL+"/"+id, nil, nil)
+	_, err := do("DELETE", planURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return err
 	}
