@@ -1,6 +1,7 @@
 package culqi_test
 
 import (
+	"fmt"
 	"net/url"
 	"testing"
 
@@ -24,6 +25,7 @@ func TestPlan_Create(t *testing.T) {
 	}`)
 
 	res, err := culqi.CreatePlan(jsonData)
+	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Plan.Create() err = %v; want = %v", err, nil)
 	}
@@ -39,7 +41,8 @@ func TestPlan_GetByID(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-	res, err := culqi.GetByIDPlan("pln_test_oFvWoKSAZOAH1weu")
+	var jsonData = []byte(``)
+	res, err := culqi.GetByIDPlan("pln_test_EtgAeMl4I1sALUwg", jsonData)
 	if err != nil {
 		t.Fatalf("Plan.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -57,8 +60,8 @@ func TestPlan_GetAll(t *testing.T) {
 	culqi.Key(secretKey)
 	params := url.Values{}
 	params.Set("limit", "4")
-
-	res, err := culqi.GetAllPlan(params)
+	var jsonData = []byte(``)
+	res, err := culqi.GetAllPlan(params, jsonData)
 	if err != nil {
 		t.Fatalf("Plan.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -78,7 +81,7 @@ func TestPlan_Update(t *testing.T) {
 		}
 	}`)
 	culqi.Key(secretKey)
-	res, err := culqi.UpdatePlan("pln_test_oFvWoKSAZOAH1weu", jsonData)
+	res, err := culqi.UpdatePlan("pln_test_EtgAeMl4I1sALUwg", jsonData)
 	if err != nil {
 		t.Fatalf("Plan.Update() err = %v; want = %v", err, nil)
 	}
@@ -94,7 +97,8 @@ func TestPlan_Delete(t *testing.T) {
 	}
 
 	culqi.Key(secretKey)
-	err := culqi.DeletePlan("pln_test_W11YcJOCx4CP1XTv")
+	var jsonData = []byte(``)
+	err := culqi.DeletePlan("pln_test_EtgAeMl4I1sALUwg", jsonData)
 	if err != nil {
 		t.Fatalf("Plan.Delete() err = %v; want = %v", err, nil)
 	}

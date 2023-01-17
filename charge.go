@@ -21,12 +21,12 @@ func CreateCharge(body []byte) (string, error) {
 }
 
 // GetByID método para obtener un cargo por id
-func GetByICharge(id string) (string, error) {
+func GetByICharge(id string, body []byte) (string, error) {
 	if id == "" {
 		return "", ErrParameter
 	}
 
-	res, err := do("GET", chargesURL+"/"+id, nil, nil)
+	res, err := do("GET", chargesURL+"/"+id, nil, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
@@ -36,8 +36,8 @@ func GetByICharge(id string) (string, error) {
 }
 
 // GetAll método para obtener la lista de Cargos
-func GetAllCharge(queryParams url.Values) (string, error) {
-	res, err := do("GET", chargesURL, queryParams, nil)
+func GetAllCharge(queryParams url.Values, body []byte) (string, error) {
+	res, err := do("GET", chargesURL, queryParams, bytes.NewBuffer(body))
 	if err != nil {
 		return "", err
 	}
