@@ -19,7 +19,7 @@ func TestSubscription_Create(t *testing.T) {
 	  "plan_id": "pln_test_tloghbnBOvPYu82A"
 	}`)
 
-	res, err := culqi.CreateSubscription(jsonData)
+	res, err := culqi.CreateSubscription(jsonData, nil)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Subscription.Create() err = %v; want = %v", err, nil)
@@ -79,7 +79,7 @@ func TestSubscription_Update(t *testing.T) {
 		"documento_identidad": "000551337"
 		}
 	}`)
-	res, err := culqi.UpdateSubscription("sub_test_yKlmZd0wWvcwdVA3", jsonData)
+	res, err := culqi.UpdateSubscription("sub_test_yKlmZd0wWvcwdVA3", jsonData, nil)
 	if err != nil {
 		t.Fatalf("Subscription.Update() err = %v; want = %v", err, nil)
 	}
