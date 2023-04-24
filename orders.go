@@ -10,8 +10,8 @@ const (
 )
 
 // Create método para crear una orden
-func CreateOrder(body []byte) (string, error) {
-	res, err := do("POST", ordersURL, nil, bytes.NewBuffer(body))
+func CreateOrder(body []byte, encryptionData []byte) (string, error) {
+	res, err := do("POST", ordersURL, nil, bytes.NewBuffer(body), encryptionData)
 	if err != nil {
 		return "", err
 	}
@@ -26,7 +26,9 @@ func GetByIDOrder(id string, body []byte) (string, error) {
 		return "", ErrParameter
 	}
 
-	res, err := do("GET", ordersURL+"/"+id, nil, bytes.NewBuffer(body))
+	var encryptionData []byte
+
+	res, err := do("GET", ordersURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData)
 	if err != nil {
 		return "", err
 	}
@@ -37,7 +39,8 @@ func GetByIDOrder(id string, body []byte) (string, error) {
 
 // GetAll método para obtener la lista de Ordenes
 func GetAllOrder(queryParams url.Values, body []byte) (string, error) {
-	res, err := do("GET", ordersURL, queryParams, bytes.NewBuffer(body))
+	var encryptionData []byte
+	res, err := do("GET", ordersURL, queryParams, bytes.NewBuffer(body), encryptionData)
 	if err != nil {
 		return "", err
 	}
@@ -47,9 +50,9 @@ func GetAllOrder(queryParams url.Values, body []byte) (string, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una orden
-func UpdateOrder(id string, body []byte) (string, error) {
+func UpdateOrder(id string, body []byte, encryptionData []byte) (string, error) {
 
-	res, err := do("PATCH", ordersURL+"/"+id, nil, bytes.NewBuffer(body))
+	res, err := do("PATCH", ordersURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData)
 	if err != nil {
 		return "", err
 	}
@@ -64,7 +67,9 @@ func DeleteOrder(id string, body []byte) (string, error) {
 		return "", ErrParameter
 	}
 
-	res, err := do("DELETE", ordersURL+"/"+id, nil, bytes.NewBuffer(body))
+	var encryptionData []byte
+
+	res, err := do("DELETE", ordersURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData)
 	if err != nil {
 		return "", err
 	}
@@ -74,8 +79,8 @@ func DeleteOrder(id string, body []byte) (string, error) {
 }
 
 // Confirm método para confirmar una orden
-func ConfirmOrder(id string, body []byte) (string, error) {
-	res, err := do("POST", ordersURL+"/"+id+"/confirm", nil, bytes.NewBuffer(body))
+func ConfirmOrder(id string, body []byte, encryptionData []byte) (string, error) {
+	res, err := do("POST", ordersURL+"/"+id+"/confirm", nil, bytes.NewBuffer(body), encryptionData)
 	if err != nil {
 		return "", err
 	}
@@ -85,8 +90,8 @@ func ConfirmOrder(id string, body []byte) (string, error) {
 }
 
 // Confirm método para confirmar una orden por tipo
-func ConfirmTipoOrder(body []byte) (string, error) {
-	res, err := do("POST", ordersURL+"/confirm", nil, bytes.NewBuffer(body))
+func ConfirmTipoOrder(body []byte, encryptionData []byte) (string, error) {
+	res, err := do("POST", ordersURL+"/confirm", nil, bytes.NewBuffer(body), encryptionData)
 	if err != nil {
 		return "", err
 	}

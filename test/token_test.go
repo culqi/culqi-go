@@ -8,6 +8,9 @@ import (
 	culqi "github.com/culqi/culqi-go"
 )
 
+/*var secretKey string = ""
+var publicKey string = ""*/
+
 func TestToken_Create(t *testing.T) {
 	if secretKey == "" {
 		t.Skip("No se indicó una llave privada")
@@ -15,13 +18,19 @@ func TestToken_Create(t *testing.T) {
 
 	culqi.Key(publicKey)
 	var jsonData = []byte(`{		
-		"card_number": "4456530000001096",
-		"cvv": "111",
+		"card_number": "4111111111111111",
+		"cvv": "123",
 		"expiration_month": "07",
-		"expiration_year": "2023",
-		"email": "prueba@culqi.com"
+		"expiration_year": "2025",
+		"email": "prueba1@culqi.com"
 	}`)
-	res, err := culqi.CreateToken(jsonData)
+
+	var encryptiondData = []byte(`{		
+		"rsa_public_key": "INSERTE_SU_LLAVE_RSA",
+		"rsa_id": "INSERTE_SU_RSA_ID"
+	}`)
+
+	res, err := culqi.CreateToken(jsonData, encryptiondData)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
@@ -45,7 +54,7 @@ func TestToken_CreateYape(t *testing.T) {
 		"otp":         "425251"
 	}`)
 
-	res, err := culqi.CreateYape(jsonData)
+	res, err := culqi.CreateYape(jsonData, nil)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
@@ -67,7 +76,7 @@ func TestToken_Update(t *testing.T) {
 		 "dni": "krthkrh"
 	   }
 	}`)
-	res, err := culqi.UpdateToken("tkn_test_lgMNwCh5CBICTsGu", jsonData)
+	res, err := culqi.UpdateToken("tkn_test_lgMNwCh5CBICTsGu", jsonData, nil)
 	fmt.Println(res)
 	fmt.Println(err)
 	if err != nil {
