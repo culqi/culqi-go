@@ -23,7 +23,7 @@ func TestCharge_Create(t *testing.T) {
 		"description":   "Curso GO desde Cero"		
 	}`)
 
-	res, err := culqi.CreateCharge(jsonData, nil)
+	res, err := culqi.CreateCharge(jsonData)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
@@ -84,7 +84,7 @@ func TestCharge_Update(t *testing.T) {
 		"documentNumber": "99999999"
 		}
 	}`)
-	res, err := culqi.UpdateCharge("chr_test_b8zRMZZ1hVNF3rPB", jsonData, nil)
+	res, err := culqi.UpdateCharge("chr_test_b8zRMZZ1hVNF3rPB", jsonData)
 	if err != nil {
 		t.Fatalf("Charge.Update() err = %v; want = %v", err, nil)
 	}
