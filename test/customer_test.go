@@ -24,7 +24,7 @@ func TestCustomer_Create(t *testing.T) {
 	  "phone_number": "987345123"
 	}`)
 
-	res, err := culqi.CreateCustomer(jsonData, nil)
+	res, err := culqi.CreateCustomer(jsonData)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Customer.Create() err = %v; want = %v", err, nil)
@@ -83,7 +83,7 @@ func TestCustomer_Update(t *testing.T) {
 		"dni": "71702323"
 		}
 	}`)
-	res, err := culqi.UpdateCustomer("cus_test_0xyybJvWxRfGMEoY", jsonData, nil)
+	res, err := culqi.UpdateCustomer("cus_test_0xyybJvWxRfGMEoY", jsonData)
 	if err != nil {
 		t.Fatalf("Customer.Update() err = %v; want = %v", err, nil)
 	}

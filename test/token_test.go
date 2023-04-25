@@ -8,9 +8,6 @@ import (
 	culqi "github.com/culqi/culqi-go"
 )
 
-/*var secretKey string = ""
-var publicKey string = ""*/
-
 func TestToken_Create(t *testing.T) {
 	if secretKey == "" {
 		t.Skip("No se indicó una llave privada")
@@ -30,7 +27,7 @@ func TestToken_Create(t *testing.T) {
 		"rsa_id": "INSERTE_SU_RSA_ID"
 	}`)
 
-	res, err := culqi.CreateToken(jsonData, encryptiondData)
+	res, err := culqi.CreateToken(jsonData, encryptiondData...)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
@@ -54,7 +51,7 @@ func TestToken_CreateYape(t *testing.T) {
 		"otp":         "425251"
 	}`)
 
-	res, err := culqi.CreateYape(jsonData, nil)
+	res, err := culqi.CreateYape(jsonData)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
@@ -76,7 +73,7 @@ func TestToken_Update(t *testing.T) {
 		 "dni": "krthkrh"
 	   }
 	}`)
-	res, err := culqi.UpdateToken("tkn_test_lgMNwCh5CBICTsGu", jsonData, nil)
+	res, err := culqi.UpdateToken("tkn_test_lgMNwCh5CBICTsGu", jsonData)
 	fmt.Println(res)
 	fmt.Println(err)
 	if err != nil {

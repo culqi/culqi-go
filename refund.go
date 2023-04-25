@@ -10,8 +10,8 @@ const (
 )
 
 // Create método para crear una devolucion
-func CreateRefund(body []byte, encryptionData []byte) ([]byte, error) {
-	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body), encryptionData)
+func CreateRefund(body []byte, encryptionData ...byte) ([]byte, error) {
+	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return nil, err
 	}
@@ -25,7 +25,7 @@ func GetByIDRefund(id string) ([]byte, error) {
 		return nil, ErrParameter
 	}
 
-	res, err := do("GET", refundURL+"/"+id, nil, nil, nil)
+	res, err := do("GET", refundURL+"/"+id, nil, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -35,7 +35,7 @@ func GetByIDRefund(id string) ([]byte, error) {
 
 // GetAll método para obtener la lista de devoluciones
 func GetAllRefund(queryParams url.Values) ([]byte, error) {
-	res, err := do("GET", refundURL, queryParams, nil, nil)
+	res, err := do("GET", refundURL, queryParams, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -44,8 +44,8 @@ func GetAllRefund(queryParams url.Values) ([]byte, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una devolucion
-func UpdateRefund(id string, body []byte, encryptionData []byte) ([]byte, error) {
-	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData)
+func UpdateRefund(id string, body []byte, encryptionData ...byte) ([]byte, error) {
+	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return nil, err
 	}

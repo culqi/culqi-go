@@ -51,7 +51,7 @@ type WrapperResponse struct {
 	} `json:"paging"`
 }
 
-func do(method, endpoint string, params url.Values, body io.Reader, encryptionData []byte) ([]byte, error) {
+func do(method, endpoint string, params url.Values, body io.Reader, encryptionData ...byte) ([]byte, error) {
 	idRsaHeader := ""
 	if encryptionData != nil {
 		body, idRsaHeader = encrypt(body, encryptionData)

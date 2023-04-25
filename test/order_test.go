@@ -36,7 +36,7 @@ func TestOrder_Create(t *testing.T) {
 	  "confirm": "false"
 	}`)
 	fmt.Println(string(jsonData))
-	res, err := culqi.CreateOrder(jsonData, nil)
+	res, err := culqi.CreateOrder(jsonData)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
@@ -96,7 +96,7 @@ func TestOrder_Update(t *testing.T) {
 		"dni": "71701978"
 		}
 	}`)
-	res, err := culqi.UpdateOrder("ord_test_ozYVmT8qkAvBo8rg", jsonData, nil)
+	res, err := culqi.UpdateOrder("ord_test_ozYVmT8qkAvBo8rg", jsonData)
 	if err != nil {
 		t.Fatalf("Order.Update() err = %v; want = %v", err, nil)
 	}
@@ -112,7 +112,7 @@ func TestOrder_Confirm(t *testing.T) {
 
 	culqi.Key(secretKey)
 	var jsonData = []byte(``)
-	res, err := culqi.ConfirmOrder("ord_test_hmiCojFBInTpbkEh", jsonData, nil)
+	res, err := culqi.ConfirmOrder("ord_test_hmiCojFBInTpbkEh", jsonData)
 	if err != nil {
 		t.Fatalf("Order.Confirm() err = %v; want = %v", err, nil)
 	}
@@ -137,7 +137,7 @@ func TestOrder_ConfirmTipo(t *testing.T) {
 		"cip"
 		]
 	}`)
-	res, err := culqi.ConfirmTipoOrder(jsonData, nil)
+	res, err := culqi.ConfirmTipoOrder(jsonData)
 	if err != nil {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
 	}
