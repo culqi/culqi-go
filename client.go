@@ -14,7 +14,7 @@ import (
 	"crypto/cipher"
 	"crypto/rand"
 	"crypto/rsa"
-	"crypto/sha1"
+	"crypto/sha256"
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/pem"
@@ -83,6 +83,8 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Println(obj)
 
 	switch res.StatusCode {
 	case 400:
@@ -167,16 +169,23 @@ func encrypt(body io.Reader, encryptionData []byte) (io.Reader, string) {
 	if !ok {
 		panic("failed to get RSA public key")
 	}
-	// Encrypt message with public key
-	ciphertext_key, err := rsa.EncryptOAEP(sha1.New(), rand.Reader, rsaPublicKey, key, nil)
-	if err != nil {
-		panic(err)
-	}
 
-	ciphertext_iv, err := rsa.EncryptOAEP(sha1.New(), rand.Reader, rsaPublicKey, iv, nil)
-	if err != nil {
-		panic(err)
-	}
+	// Encrypt the message with PKCS1_OAEP padding and SHA-256 hash function
+	ciphertext_key, _ := rsa.EncryptOAEP(
+		sha256.New(),
+		rand.Reader,
+		rsaPublicKey,
+		key,
+		nil,
+	)
+
+	ciphertext_iv, _ := rsa.EncryptOAEP(
+		sha256.New(),
+		rand.Reader,
+		rsaPublicKey,
+		iv,
+		nil,
+	)
 
 	// Encode ciphertext as base64
 	keyBase64 := base64.StdEncoding.EncodeToString(ciphertext_key)
