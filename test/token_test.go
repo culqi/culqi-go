@@ -8,26 +8,45 @@ import (
 	culqi "github.com/culqi/culqi-go"
 )
 
+var jsonData = []byte(`{		
+	"card_number": "4111111111111111",
+	"cvv": "123",
+	"expiration_month": "07",
+	"expiration_year": "2025",
+	"email": "prueba1@culqi.com"
+}`)
+
+var encryptiondData = []byte(`{		
+	"rsa_public_key": "-----BEGIN PUBLIC KEY-----
+	MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYR6Oqz+vX2amSnNzPosH1CIMocGnHCnxlr1RuRyYtrAAVv3oxpSx42R9KIbW3yBfWwFxpU9m1us1ZjPmISRmjy64z6q6rv5UZNOWllM5v2A+F2MceWHRIJYOxIwV9oAx36EH89qOEnOekVLqZhkdrAx2LvLfqGprKsDcfX06urwIDAQAB
+-----END PUBLIC KEY-----",
+	"rsa_id": "f355d27f-e735-46a7-b8bd-9773357ff034"
+}`)
+
 func TestToken_Create(t *testing.T) {
 	if secretKey == "" {
 		t.Skip("No se indicó una llave privada")
 	}
 
 	culqi.Key(publicKey)
-	var jsonData = []byte(`{		
-		"card_number": "4111111111111111",
-		"cvv": "123",
-		"expiration_month": "07",
-		"expiration_year": "2025",
-		"email": "prueba1@culqi.com"
-	}`)
 
-	var encryptiondData = []byte(`{		
-		"rsa_public_key": "-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYp0451xITpczkBrl5Goxkh7m1oynj8eDHypIn7HmbyoNJd8cS4OsT850hIDBwYmFuwmxF1YAJS8Cd2nes7fjCHh+7oNqgNKxM2P2NLaeo4Uz6n9Lu4KKSxTiIT7BHiSryC0+Dic91XLH7ZTzrfryxigsc+ZNndv0fQLOW2i6OhwIDAQAB
------END PUBLIC KEY-----",
-		"rsa_id": "508fc232-0a9d-4fc0-a192-364a0b782b89"
-	}`)
+	res, err := culqi.CreateToken(jsonData)
+	fmt.Println(res)
+	if err != nil {
+		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseToken = nil; want non-nil value")
+	}
+}
+
+func TestToken_CreateEncrypt(t *testing.T) {
+	if secretKey == "" {
+		t.Skip("No se indicó una llave privada")
+	}
+
+	culqi.Key(publicKey)
 
 	res, err := culqi.CreateToken(jsonData, encryptiondData...)
 	fmt.Println(res)
