@@ -8,24 +8,43 @@ import (
 	culqi "github.com/culqi/culqi-go"
 )
 
+var jsonData = []byte(`{		
+	"card_number": "4111111111111111",
+	"cvv": "123",
+	"expiration_month": "07",
+	"expiration_year": "2025",
+	"email": "prueba1@culqi.com"
+}`)
+
+var encryptiondData = []byte(`{		
+	"rsa_public_key": "INSERTE_SU_LLAVE_RSA",
+	"rsa_id": "INSERTE_SU_RSA_ID"
+}`)
+
 func TestToken_Create(t *testing.T) {
 	if secretKey == "" {
 		t.Skip("No se indicó una llave privada")
 	}
 
 	culqi.Key(publicKey)
-	var jsonData = []byte(`{		
-		"card_number": "4111111111111111",
-		"cvv": "123",
-		"expiration_month": "07",
-		"expiration_year": "2025",
-		"email": "prueba1@culqi.com"
-	}`)
 
-	var encryptiondData = []byte(`{		
-		"rsa_public_key": "INSERTE_SU_LLAVE_RSA",
-		"rsa_id": "INSERTE_SU_RSA_ID"
-	}`)
+	res, err := culqi.CreateToken(jsonData)
+	fmt.Println(res)
+	if err != nil {
+		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseToken = nil; want non-nil value")
+	}
+}
+
+func TestToken_CreateEncrypt(t *testing.T) {
+	if secretKey == "" {
+		t.Skip("No se indicó una llave privada")
+	}
+
+	culqi.Key(publicKey)
 
 	res, err := culqi.CreateToken(jsonData, encryptiondData...)
 	fmt.Println(res)
