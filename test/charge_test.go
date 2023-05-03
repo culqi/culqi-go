@@ -9,7 +9,7 @@ import (
 )
 
 var jsonDataCargo = []byte(`{		
-	"amount":      36200,
+	"amount":      300,
 	"capture": true,
 	"currency_code": "PEN",
 	"email":         "test@aj.rdrgz",
