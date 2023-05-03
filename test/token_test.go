@@ -11,7 +11,7 @@ import (
 var jsonData = []byte(`{		
 	"card_number": "4111111111111111",
 	"cvv": "123",
-	"expiration_month": "07",
+	"expiration_month": "09",
 	"expiration_year": "2025",
 	"email": "prueba1@culqi.com"
 }`)
@@ -66,7 +66,7 @@ func TestToken_CreateYape(t *testing.T) {
 
 	culqi.Key(publicKey)
 	var jsonData = []byte(`{		
-		"amount":      36200,
+		"amount":      300,
 		"fingerprint": "86d3c875769bf62b0471b47853bfda77",
 		"number_phone": "900000001",
 		"otp":         "425251"
