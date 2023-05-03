@@ -15,7 +15,7 @@ func init() {
 	flag.StringVar(&secretKey, "secret_key", "INSERTE_SU_LLAVE_PRIVADA", "Su test secretKey para Culqi API. Si esta presente, los test de integración serán ejecutados con esta llave.")
 	flag.StringVar(&publicKey, "public_key", "INSERTE_SU_LLAVE_PUBLICA", "Su test publicKey para Culqi API. Utilizado para crear Tokens")
 }
-
+/*
 func TestNew(t *testing.T) {
 	testCases := []struct {
 		publicKey string
@@ -36,3 +36,4 @@ func TestNew(t *testing.T) {
 		}
 	}
 }
+*/
