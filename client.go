@@ -8,6 +8,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	culqi "github.com/culqi/culqi-go/utils/encryption/rsa_aes"
 )
 
 const (
@@ -40,7 +42,11 @@ type WrapperResponse struct {
 	} `json:"paging"`
 }
 
-func do(method, endpoint string, params url.Values, body io.Reader) ([]byte, error) {
+func do(method, endpoint string, params url.Values, body io.Reader, encryptionData ...byte) ([]byte, error) {
+	idRsaHeader := ""
+	if encryptionData != nil {
+		body, idRsaHeader = culqi.Encrypt(body, encryptionData)
+	}
 	if len(params) != 0 {
 		endpoint += "?" + params.Encode()
 	}
@@ -53,8 +59,12 @@ func do(method, endpoint string, params url.Values, body io.Reader) ([]byte, err
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+keyInstance.Key)
+	if idRsaHeader != "" {
+		req.Header.Set("x-culqi-rsa-id", idRsaHeader)
+	}
 
 	c := &http.Client{}
+
 	res, err := c.Do(req)
 	if err != nil {
 		return nil, err
@@ -64,6 +74,8 @@ func do(method, endpoint string, params url.Values, body io.Reader) ([]byte, err
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Println(obj)
 
 	switch res.StatusCode {
 	case 400:

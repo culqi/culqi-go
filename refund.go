@@ -10,8 +10,8 @@ const (
 )
 
 // Create método para crear una devolucion
-func CreateRefund(body []byte) ([]byte, error) {
-	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body))
+func CreateRefund(body []byte, encryptionData ...byte) ([]byte, error) {
+	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return nil, err
 	}
@@ -44,8 +44,8 @@ func GetAllRefund(queryParams url.Values) ([]byte, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una devolucion
-func UpdateRefund(id string, body []byte) ([]byte, error) {
-	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body))
+func UpdateRefund(id string, body []byte, encryptionData ...byte) ([]byte, error) {
+	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return nil, err
 	}

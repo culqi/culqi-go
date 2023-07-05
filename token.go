@@ -11,9 +11,9 @@ const (
 )
 
 // Create método para crear un token
-func CreateToken(body []byte) (string, error) {
+func CreateToken(body []byte, encryptionData ...byte) (string, error) {
 
-	res, err := do("POST", tokensURL, nil, bytes.NewBuffer(body))
+	res, err := do("POST", tokensURL, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return "", err
 	}
@@ -23,9 +23,9 @@ func CreateToken(body []byte) (string, error) {
 }
 
 // CreateYape Create método para crear un token yape
-func CreateYape(body []byte) (string, error) {
+func CreateYape(body []byte, encryptionData ...byte) (string, error) {
 
-	res, err := do("POST", tokensURL+"/yape", nil, bytes.NewBuffer(body))
+	res, err := do("POST", tokensURL+"/yape", nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return "", err
 	}
@@ -35,9 +35,9 @@ func CreateYape(body []byte) (string, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un token
-func UpdateToken(id string, body []byte) (string, error) {
+func UpdateToken(id string, body []byte, encryptionData ...byte) (string, error) {
 
-	res, err := do("PATCH", baseURL+"/tokens/"+id, nil, bytes.NewBuffer(body))
+	res, err := do("PATCH", baseURL+"/tokens/"+id, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return "", err
 	}
