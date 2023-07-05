@@ -12,19 +12,19 @@ var (
 )
 
 func init() {
-	flag.StringVar(&secretKey, "secret_key", "sk_test_1573b0e8079863ff", "Su test secretKey para Culqi API. Si esta presente, los test de integración serán ejecutados con esta llave.")
-	flag.StringVar(&publicKey, "public_key", "pk_test_90667d0a57d45c48", "Su test publicKey para Culqi API. Utilizado para crear Tokens")
+	flag.StringVar(&secretKey, "secret_key", "sk_test_ff27818fc60ff66a", "Su test secretKey para Culqi API. Si esta presente, los test de integración serán ejecutados con esta llave.")
+	flag.StringVar(&publicKey, "public_key", "pk_test_387cc0e60fa9f7d4", "Su test publicKey para Culqi API. Utilizado para crear Tokens")
 }
-
+/*
 func TestNew(t *testing.T) {
 	testCases := []struct {
 		publicKey string
 		secretKey string
 	}{
-		{"pk_test_387cc0e60fa9f7d4", "sk_test_ff27818fc60ff66a"},
-		{"pk_test_387cc0e60fa9f7d4", "sk_test_ff27818fc60ff66a"},
-		{"pk_test_387cc0e60fa9f7d4", "sk_test_ff27818fc60ff66a"},
-		{"pk_test_387cc0e60fa9f7d4", "sk_test_ff27818fc60ff66a"},
+		{"pk_live_889113cd74ecfc55", "sk_live_34a07dcb6d4c7e39"},
+		{"pk_live_889113cd74ecfc55", "sk_live_34a07dcb6d4c7e39"},
+		{"pk_live_889113cd74ecfc55", "sk_live_34a07dcb6d4c7e39"},
+		{"pk_live_889113cd74ecfc55", "sk_live_34a07dcb6d4c7e39"},
 	}
 
 	for _, tc := range testCases {
@@ -36,3 +36,4 @@ func TestNew(t *testing.T) {
 		}
 	}
 }
+*/

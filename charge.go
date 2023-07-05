@@ -10,8 +10,8 @@ const (
 )
 
 // Create método para crear un cargo
-func CreateCharge(body []byte) (string, error) {
-	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body))
+func CreateCharge(body []byte, encryptionData ...byte) (string, error) {
+	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return "", err
 	}
@@ -41,14 +41,15 @@ func GetAllCharge(queryParams url.Values, body []byte) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	response := string(res[:])
 
 	return response, nil
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un cargo
-func UpdateCharge(id string, body []byte) (string, error) {
-	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body))
+func UpdateCharge(id string, body []byte, encryptionData ...byte) (string, error) {
+	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return "", err
 	}

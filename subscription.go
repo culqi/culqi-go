@@ -10,8 +10,8 @@ const (
 )
 
 // Create método para crear una Subscripción
-func CreateSubscription(body []byte) (string, error) {
-	res, err := do("POST", subscriptionURL, nil, bytes.NewBuffer(body))
+func CreateSubscription(body []byte, encryptionData ...byte) (string, error) {
+	res, err := do("POST", subscriptionURL, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return "", err
 	}
@@ -47,8 +47,8 @@ func GetAllSubscription(queryParams url.Values, body []byte) (string, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una Subscripción
-func UpdateSubscription(id string, body []byte) (string, error) {
-	res, err := do("PATCH", subscriptionURL+"/"+id, nil, bytes.NewBuffer(body))
+func UpdateSubscription(id string, body []byte, encryptionData ...byte) (string, error) {
+	res, err := do("PATCH", subscriptionURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return "", err
 	}

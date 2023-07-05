@@ -2,20 +2,16 @@ package culqi_test
 
 import (
 	"fmt"
-	culqi "github.com/culqi/culqi-go"
 	"math/rand"
 	"net/url"
 	"strconv"
 	"testing"
 	"time"
+
+	culqi "github.com/culqi/culqi-go"
 )
 
-func TestOrder_Create(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
-
-	culqi.Key(secretKey)
+func getJsonData() (json []byte) {
 	rand.Seed(time.Now().UnixNano())
 	number := rand.Intn(1000000000)
 	now := time.Now()
@@ -34,8 +30,39 @@ func TestOrder_Create(t *testing.T) {
 	  "expiration_date":` + strconv.FormatInt(twoDaysLater.Unix(), 10) + `,
 	  "confirm": "false"
 	}`)
+	return jsonData
+}
+
+func TestOrder_Create(t *testing.T) {
+	if secretKey == "" {
+		t.Skip("No se indicó una llave privada")
+	}
+
+	culqi.Key(secretKey)
+	jsonData = getJsonData()
 	fmt.Println(string(jsonData))
 	res, err := culqi.CreateOrder(jsonData)
+	fmt.Println(res)
+	if err != nil {
+		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseOrder = nil; want non-nil value")
+	}
+}
+
+func TestOrder_CreateEncrypt(t *testing.T) {
+	if secretKey == "" {
+		t.Skip("No se indicó una llave privada")
+	}
+
+	culqi.Key(secretKey)
+	jsonData = getJsonData()
+	//encryptiondData = getEncryptionParams()
+
+	fmt.Println(string(jsonData))
+	res, err := culqi.CreateOrder(jsonData, encryptiondData...)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)

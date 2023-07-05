@@ -10,8 +10,8 @@ const (
 )
 
 // Create método para crear un plan
-func CreatePlan(body []byte) (string, error) {
-	res, err := do("POST", planURL, nil, bytes.NewBuffer(body))
+func CreatePlan(body []byte, encryptionData ...byte) (string, error) {
+	res, err := do("POST", planURL, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return "", err
 	}
@@ -51,8 +51,8 @@ func GetAllPlan(queryParams url.Values, body []byte) (string, error) {
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un plan
-func UpdatePlan(id string, body []byte) (string, error) {
-	res, err := do("PATCH", planURL+"/"+id, nil, bytes.NewBuffer(body))
+func UpdatePlan(id string, body []byte, encryptionData ...byte) (string, error) {
+	res, err := do("PATCH", planURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData...)
 	if err != nil {
 		return "", err
 	}
