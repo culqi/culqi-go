@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
+	util "github.com/culqi/culqi-go/utils"
 )
 
 var jsonData = []byte(`{		
@@ -16,22 +17,25 @@ var jsonData = []byte(`{
 	"email": "prueba1@culqi.com"
 }`)
 
-var encryptiondData = []byte(`{		
-	"rsa_public_key": "-----BEGIN PUBLIC KEY-----
-	MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYR6Oqz+vX2amSnNzPosH1CIMocGnHCnxlr1RuRyYtrAAVv3oxpSx42R9KIbW3yBfWwFxpU9m1us1ZjPmISRmjy64z6q6rv5UZNOWllM5v2A+F2MceWHRIJYOxIwV9oAx36EH89qOEnOekVLqZhkdrAx2LvLfqGprKsDcfX06urwIDAQAB
------END PUBLIC KEY-----",
-	"rsa_id": "f355d27f-e735-46a7-b8bd-9773357ff034"
+var jsonDataYape = []byte(`{		
+	"amount":      700,
+	"number_phone": "900000001",
+	"otp":         "425251"
 }`)
 
+func GetIdToken() string {
+	_, res1, _ := culqi.CreateToken(jsonData)
+	var mapData map[string]interface{}
+	mapData = util.JsonToMap([]byte(res1))
+	id := fmt.Sprintf("%v", mapData["id"])
+
+	return id
+}
+
 func TestToken_Create(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
-
-	culqi.Key(publicKey)
-
-	res, err := culqi.CreateToken(jsonData)
+	_, res, err := culqi.CreateToken(jsonData)
 	fmt.Println(res)
+
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
@@ -42,13 +46,7 @@ func TestToken_Create(t *testing.T) {
 }
 
 func TestToken_CreateEncrypt(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
-
-	culqi.Key(publicKey)
-
-	res, err := culqi.CreateToken(jsonData, encryptiondData...)
+	_, res, err := culqi.CreateToken(jsonData, encryptiondData...)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
@@ -60,19 +58,7 @@ func TestToken_CreateEncrypt(t *testing.T) {
 }
 
 func TestToken_CreateYape(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
-
-	culqi.Key(publicKey)
-	var jsonData = []byte(`{		
-		"amount":      300,
-		"fingerprint": "86d3c875769bf62b0471b47853bfda77",
-		"number_phone": "900000001",
-		"otp":         "425251"
-	}`)
-
-	res, err := culqi.CreateYape(jsonData)
+	_, res, err := culqi.CreateYape(jsonDataYape)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
@@ -84,17 +70,15 @@ func TestToken_CreateYape(t *testing.T) {
 
 }
 func TestToken_Update(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
+	var id string
+	id = GetIdToken()
 
-	culqi.Key(secretKey)
 	var jsonData = []byte(`{
 	  "metadata": {
-		 "dni": "krthkrh"
+		 "dni": "4312354"
 	   }
 	}`)
-	res, err := culqi.UpdateToken("tkn_test_lgMNwCh5CBICTsGu", jsonData)
+	_, res, err := culqi.UpdateToken(id, jsonData)
 	fmt.Println(res)
 	fmt.Println(err)
 	if err != nil {
@@ -106,13 +90,11 @@ func TestToken_Update(t *testing.T) {
 	}
 }
 func TestToken_GetByID(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave secreta")
-	}
+	var id string
+	id = GetIdToken()
 
-	culqi.Key(secretKey)
 	var jsonData = []byte(``)
-	res, err := culqi.GetByIDToken("tkn_test_lgMNwCh5CBICTsGu", jsonData)
+	_, res, err := culqi.GetByIDToken(id, jsonData)
 	fmt.Println(err)
 	fmt.Println(res)
 	if err != nil {
@@ -125,16 +107,11 @@ func TestToken_GetByID(t *testing.T) {
 }
 
 func TestToken_GetAll(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
-
-	culqi.Key(secretKey)
 	var jsonData = []byte(``)
 	params := url.Values{}
 	params.Set("paid", "false")
 
-	res, err := culqi.GetAllToken(params, jsonData)
+	_, res, err := culqi.GetAllToken(params, jsonData)
 	if err != nil {
 		t.Fatalf("Order.GetAll() err = %v; want = %v", err, nil)
 	}
