@@ -1,7 +1,6 @@
 package culqi
 
 import (
-	"bytes"
 	"net/url"
 )
 
@@ -10,67 +9,31 @@ const (
 )
 
 // Create método para crear un plan
-func CreatePlan(body []byte, encryptionData ...byte) (string, error) {
-	res, err := do("POST", planURL, nil, bytes.NewBuffer(body), encryptionData...)
-	if err != nil {
-		return "", err
-	}
-	response := string(res[:])
-
-	return response, nil
+func CreatePlan(body []byte, encryptionData ...byte) (int, string, error) {
+	statusCode, res, err := Create(planURL, body, encryptionData...)
+	return statusCode, res, err
 }
 
 // GetByID método para obtener un plan por id
-func GetByIDPlan(id string, body []byte) (string, error) {
-	if id == "" {
-		return "", ErrParameter
-	}
-
-	res, err := do("GET", planURL+"/"+id, nil, bytes.NewBuffer(body))
-	if err != nil {
-		return "", err
-	}
-	response := string(res[:])
-
-	return response, nil
+func GetByIDPlan(id string, body []byte) (int, string, error) {
+	statusCode, res, err := GetById(planURL, id, body)
+	return statusCode, res, err
 }
 
 // GetAll método para obtener la lista de los planes
-func GetAllPlan(queryParams url.Values, body []byte) (string, error) {
-	res, err := do("GET", planURL, queryParams, bytes.NewBuffer(body))
-	if err != nil {
-		return "", err
-	}
-
-	if err != nil {
-		return "", err
-	}
-	response := string(res[:])
-
-	return response, nil
+func GetAllPlan(queryParams url.Values, body []byte) (int, string, error) {
+	statusCode, res, err := GetAll(planURL, queryParams, body)
+	return statusCode, res, err
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un plan
-func UpdatePlan(id string, body []byte, encryptionData ...byte) (string, error) {
-	res, err := do("PATCH", planURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData...)
-	if err != nil {
-		return "", err
-	}
-	response := string(res[:])
-
-	return response, nil
+func UpdatePlan(id string, body []byte, encryptionData ...byte) (int, string, error) {
+	statusCode, res, err := Update(planURL, id, body, encryptionData...)
+	return statusCode, res, err
 }
 
 // Delete método para eliminar un plan por id
-func DeletePlan(id string, body []byte) error {
-	if id == "" {
-		return ErrParameter
-	}
-
-	_, err := do("DELETE", planURL+"/"+id, nil, bytes.NewBuffer(body))
-	if err != nil {
-		return err
-	}
-
-	return nil
+func DeletePlan(id string, body []byte) (int, string, error) {
+	statusCode, res, err := Delete(planURL, id, body)
+	return statusCode, res, err
 }
