@@ -6,25 +6,31 @@ import (
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
+	util "github.com/culqi/culqi-go/utils"
 )
 
+var jsonDataPlan = []byte(`{
+	"name": "Prueba Webhook",
+	"amount": 300,
+	"currency_code": "PEN",
+	"interval": "dias",
+	"interval_count": 1,
+	"limit": 3,
+	"trial_days": 1
+  }`)
+
+func GetIdPlan() string {
+	_, res1, _ := culqi.CreatePlan(jsonDataPlan)
+
+	var mapData map[string]interface{}
+	mapData = util.JsonToMap([]byte(res1))
+	id := fmt.Sprintf("%v", mapData["id"])
+
+	return id
+}
+
 func TestPlan_Create(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
-
-	culqi.Key(secretKey)
-	var jsonData = []byte(`{
-	  "name": "Prueba Webhook",
-	  "amount": 300,
-	  "currency_code": "PEN",
-	  "interval": "dias",
-	  "interval_count": 1,
-	  "limit": 3,
-	  "trial_days": 1
-	}`)
-
-	res, err := culqi.CreatePlan(jsonData)
+	_, res, err := culqi.CreatePlan(jsonDataPlan)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Plan.Create() err = %v; want = %v", err, nil)
@@ -36,13 +42,13 @@ func TestPlan_Create(t *testing.T) {
 }
 
 func TestPlan_GetByID(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
 
-	culqi.Key(secretKey)
+	var idPlan string
+	idPlan = GetIdPlan()
+	fmt.Println(idPlan)
+
 	var jsonData = []byte(``)
-	res, err := culqi.GetByIDPlan("pln_test_EtgAeMl4I1sALUwg", jsonData)
+	_, res, err := culqi.GetByIDPlan(idPlan, jsonData)
 	if err != nil {
 		t.Fatalf("Plan.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -53,15 +59,11 @@ func TestPlan_GetByID(t *testing.T) {
 }
 
 func TestPlan_GetAll(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
 
-	culqi.Key(secretKey)
 	params := url.Values{}
 	params.Set("limit", "4")
 	var jsonData = []byte(``)
-	res, err := culqi.GetAllPlan(params, jsonData)
+	_, res, err := culqi.GetAllPlan(params, jsonData)
 	if err != nil {
 		t.Fatalf("Plan.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -72,16 +74,17 @@ func TestPlan_GetAll(t *testing.T) {
 }
 
 func TestPlan_Update(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
+	var idPlan string
+	idPlan = GetIdPlan()
+	fmt.Println(idPlan)
+
 	var jsonData = []byte(`{
 		"metadata": {
 		"descripcion": "Este es un plan simple."
 		}
 	}`)
-	culqi.Key(secretKey)
-	res, err := culqi.UpdatePlan("pln_test_EtgAeMl4I1sALUwg", jsonData)
+
+	_, res, err := culqi.UpdatePlan(idPlan, jsonData)
 	if err != nil {
 		t.Fatalf("Plan.Update() err = %v; want = %v", err, nil)
 	}
@@ -92,13 +95,13 @@ func TestPlan_Update(t *testing.T) {
 }
 
 func TestPlan_Delete(t *testing.T) {
-	if secretKey == "" {
-		t.Skip("No se indicó una llave privada")
-	}
+	var idPlan string
+	idPlan = GetIdPlan()
+	fmt.Println(idPlan)
 
-	culqi.Key(secretKey)
 	var jsonData = []byte(``)
-	err := culqi.DeletePlan("pln_test_EtgAeMl4I1sALUwg", jsonData)
+	_, res, err := culqi.DeletePlan(idPlan, jsonData)
+	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Plan.Delete() err = %v; want = %v", err, nil)
 	}
