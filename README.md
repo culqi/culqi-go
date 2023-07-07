@@ -28,6 +28,7 @@ Biblioteca de CULQI para el lenguaje Go (golang), pagos simples en tu sitio web.
 
 ```bash
 go get github.com/culqi/culqi-go
+go get "github.com/google/uuid"
 ```
 
 
