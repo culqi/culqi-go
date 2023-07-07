@@ -1,7 +1,6 @@
 package culqi
 
 import (
-	"bytes"
 	"net/url"
 )
 
@@ -10,45 +9,25 @@ const (
 )
 
 // Create método para crear una devolucion
-func CreateRefund(body []byte, encryptionData ...byte) ([]byte, error) {
-	res, err := do("POST", chargesURL, nil, bytes.NewBuffer(body), encryptionData...)
-	if err != nil {
-		return nil, err
-	}
-
-	return res, nil
+func CreateRefund(body []byte, encryptionData ...byte) (int, string, error) {
+	statusCode, res, err := Create(refundURL, body, encryptionData...)
+	return statusCode, res, err
 }
 
 // GetByID método para obtener una devolucion por id
-func GetByIDRefund(id string) ([]byte, error) {
-	if id == "" {
-		return nil, ErrParameter
-	}
-
-	res, err := do("GET", refundURL+"/"+id, nil, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return res, nil
+func GetByIDRefund(id string, body []byte) (int, string, error) {
+	statusCode, res, err := GetById(refundURL, id, body)
+	return statusCode, res, err
 }
 
 // GetAll método para obtener la lista de devoluciones
-func GetAllRefund(queryParams url.Values) ([]byte, error) {
-	res, err := do("GET", refundURL, queryParams, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return res, nil
+func GetAllRefund(queryParams url.Values, body []byte) (int, string, error) {
+	statusCode, res, err := GetAll(refundURL, queryParams, body)
+	return statusCode, res, err
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de una devolucion
-func UpdateRefund(id string, body []byte, encryptionData ...byte) ([]byte, error) {
-	res, err := do("PATCH", chargesURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData...)
-	if err != nil {
-		return nil, err
-	}
-
-	return res, nil
+func UpdateRefund(id string, body []byte, encryptionData ...byte) (int, string, error) {
+	statusCode, res, err := Update(refundURL, id, body, encryptionData...)
+	return statusCode, res, err
 }

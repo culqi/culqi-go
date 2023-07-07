@@ -1,7 +1,6 @@
 package culqi
 
 import (
-	"bytes"
 	"net/url"
 )
 
@@ -10,64 +9,32 @@ const (
 )
 
 // Create método para crear un cliente
-func CreateCustomer(body []byte, encryptionData ...byte) (string, error) {
-	res, err := do("POST", customerURL, nil, bytes.NewBuffer(body), encryptionData...)
-	if err != nil {
-		return "", err
-	}
-	response := string(res[:])
-
-	return response, nil
+func CreateCustomer(body []byte, encryptionData ...byte) (int, string, error) {
+	statusCode, res, err := Create(customerURL, body, encryptionData...)
+	return statusCode, res, err
 }
 
 // GetByID método para obtener un cliente por id
-func GetByIDCustomer(id string, body []byte) (string, error) {
-	if id == "" {
-		return "", ErrParameter
-	}
-
-	res, err := do("GET", customerURL+"/"+id, nil, bytes.NewBuffer(body))
-	if err != nil {
-		return "", err
-	}
-	response := string(res[:])
-
-	return response, nil
+func GetByIDCustomer(id string, body []byte) (int, string, error) {
+	statusCode, res, err := GetById(customerURL, id, body)
+	return statusCode, res, err
 }
 
 // GetAll método para obtener la lista de clientes
-func GetAllCustomer(queryParams url.Values, body []byte) (string, error) {
-	res, err := do("GET", customerURL, queryParams, bytes.NewBuffer(body))
-	if err != nil {
-		return "", err
-	}
-	response := string(res[:])
-
-	return response, nil
+func GetAllCustomer(queryParams url.Values, body []byte) (int, string, error) {
+	statusCode, res, err := GetAll(customerURL, queryParams, body)
+	return statusCode, res, err
 }
 
 // Update método para agregar o remplazar información a los valores de la metadata de un cliente
-func UpdateCustomer(id string, body []byte, encryptionData ...byte) (string, error) {
-	res, err := do("PATCH", customerURL+"/"+id, nil, bytes.NewBuffer(body), encryptionData...)
-	if err != nil {
-		return "", err
-	}
-	response := string(res[:])
-
-	return response, nil
+func UpdateCustomer(id string, body []byte, encryptionData ...byte) (int, string, error) {
+	statusCode, res, err := Update(customerURL, id, body, encryptionData...)
+	return statusCode, res, err
 
 }
 
 // Delete método para eliminar un cliente por id
-func DeleteCustomer(id string, body []byte) error {
-	if id == "" {
-		return ErrParameter
-	}
-
-	_, err := do("DELETE", customerURL+"/"+id, nil, bytes.NewBuffer(body))
-	if err != nil {
-		return err
-	}
-
-	return nil
+func DeleteCustomer(id string, body []byte) (int, string, error) {
+	statusCode, res, err := Delete(customerURL, id, body)
+	return statusCode, res, err
 }
