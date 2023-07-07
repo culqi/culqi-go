@@ -6,38 +6,7 @@ import (
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
-	util "github.com/culqi/culqi-go/utils"
 )
-
-func GetJsonSuscripcion() []byte {
-
-	var idPlan string
-	idPlan = GetIdPlan()
-	fmt.Println(idPlan)
-
-	var idCard string
-	idCard = GetIdCard()
-	fmt.Println(idCard)
-
-	var jsonData = []byte(`{
-		"plan_id": "` + idPlan + `",
-		"card_id": "` + idCard + `"
-	  }`)
-
-	return jsonData
-}
-
-func GetIdSuscripcion() string {
-	jsonData = GetJsonSuscripcion()
-
-	_, res1, _ := culqi.CreateSubscription(jsonData)
-
-	var mapData map[string]interface{}
-	mapData = util.JsonToMap([]byte(res1))
-	id := fmt.Sprintf("%v", mapData["id"])
-
-	return id
-}
 
 func TestSubscription_Create(t *testing.T) {
 	jsonData = GetJsonSuscripcion()

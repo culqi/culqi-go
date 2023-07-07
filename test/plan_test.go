@@ -6,28 +6,7 @@ import (
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
-	util "github.com/culqi/culqi-go/utils"
 )
-
-var jsonDataPlan = []byte(`{
-	"name": "Prueba Webhook",
-	"amount": 300,
-	"currency_code": "PEN",
-	"interval": "dias",
-	"interval_count": 1,
-	"limit": 3,
-	"trial_days": 1
-  }`)
-
-func GetIdPlan() string {
-	_, res1, _ := culqi.CreatePlan(jsonDataPlan)
-
-	var mapData map[string]interface{}
-	mapData = util.JsonToMap([]byte(res1))
-	id := fmt.Sprintf("%v", mapData["id"])
-
-	return id
-}
 
 func TestPlan_Create(t *testing.T) {
 	_, res, err := culqi.CreatePlan(jsonDataPlan)

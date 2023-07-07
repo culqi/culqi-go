@@ -6,31 +6,7 @@ import (
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
-	util "github.com/culqi/culqi-go/utils"
 )
-
-var jsonData = []byte(`{		
-	"card_number": "4111111111111111",
-	"cvv": "123",
-	"expiration_month": "09",
-	"expiration_year": "2025",
-	"email": "prueba1@culqi.com"
-}`)
-
-var jsonDataYape = []byte(`{		
-	"amount":      700,
-	"number_phone": "900000001",
-	"otp":         "425251"
-}`)
-
-func GetIdToken() string {
-	_, res1, _ := culqi.CreateToken(jsonData)
-	var mapData map[string]interface{}
-	mapData = util.JsonToMap([]byte(res1))
-	id := fmt.Sprintf("%v", mapData["id"])
-
-	return id
-}
 
 func TestToken_Create(t *testing.T) {
 	_, res, err := culqi.CreateToken(jsonData)

@@ -2,49 +2,11 @@ package culqi_test
 
 import (
 	"fmt"
-	"math/rand"
 	"net/url"
-	"strconv"
 	"testing"
-	"time"
 
 	culqi "github.com/culqi/culqi-go"
-	util "github.com/culqi/culqi-go/utils"
 )
-
-func getJsonData() (json []byte) {
-	rand.Seed(time.Now().UnixNano())
-	number := rand.Intn(1000000000)
-	now := time.Now()
-	twoDaysLater := now.Add(time.Hour * 24 * 2)
-	var jsonData = []byte(`{
-	  "amount": 12000,
-	  "currency_code": "PEN",
-	  "description": "Venta de prueba",
-	  "order_number": "pedido` + strconv.Itoa(number) + `",
-	  "client_details": {
-		"first_name": "Alexis",
-		"last_name": "Pumayalla",
-		"email": "prueba@gmail.com",
-		"phone_number": "+51945145280"
-	  },
-	  "expiration_date":` + strconv.FormatInt(twoDaysLater.Unix(), 10) + `,
-	  "confirm": "false"
-	}`)
-	return jsonData
-}
-
-func GetIdOrder() string {
-	jsonData = getJsonData()
-
-	_, res1, _ := culqi.CreateOrder(jsonData)
-
-	var mapData map[string]interface{}
-	mapData = util.JsonToMap([]byte(res1))
-	id := fmt.Sprintf("%v", mapData["id"])
-
-	return id
-}
 
 func TestOrder_Create(t *testing.T) {
 	jsonData = getJsonData()
