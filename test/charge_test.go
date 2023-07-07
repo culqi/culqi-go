@@ -1,52 +1,12 @@
 package culqi_test
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/url"
 	"testing"
 
 	culqi "github.com/culqi/culqi-go"
-	util "github.com/culqi/culqi-go/utils"
 )
-
-/*
-	var jsonDataCargo = []byte(`{
-		"amount":      300,
-		"capture": true,
-		"currency_code": "PEN",
-		"email":         "test@aj.rdrgz",
-		"source_id":     "tkn_test_XHqSZQtniMR547PE",
-		"description":   "Curso GO desde Cero"
-	}`)
-*/
-func GetJsonCharge(id string) []byte {
-	mapDataCargo := map[string]interface{}{
-		"amount":        300,
-		"capture":       true,
-		"currency_code": "PEN",
-		"email":         "test@aj.rdrgz",
-		"source_id":     id,
-		"description":   "Curso GO desde Cero",
-	}
-	jsonStr, _ := json.Marshal(mapDataCargo)
-	return jsonStr
-}
-
-func GetIdCharge() string {
-	var idToken string
-	idToken = GetIdToken()
-
-	var json []byte
-	json = GetJsonCharge(idToken)
-
-	_, res1, _ := culqi.CreateCharge(json)
-	var mapData map[string]interface{}
-	mapData = util.JsonToMap([]byte(res1))
-	id := fmt.Sprintf("%v", mapData["id"])
-
-	return id
-}
 
 func TestCharge_Create(t *testing.T) {
 	var idToken string
