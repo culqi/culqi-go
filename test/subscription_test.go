@@ -10,6 +10,7 @@ import (
 )
 
 func GetJsonSuscripcion() []byte {
+
 	var idPlan string
 	idPlan = GetIdPlan()
 	fmt.Println(idPlan)
