@@ -113,7 +113,7 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 	}
 
 	if res.StatusCode >= 200 && res.StatusCode <= 206 {
-		return ErrorGenerico, obj, nil
+		return res.StatusCode, obj, nil
 	}
 
 	return ErrorGenerico, nil, ErrUnexpected
