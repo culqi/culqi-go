@@ -20,28 +20,32 @@ func Encrypt(body io.Reader, encryptionData []byte) (io.Reader, string) {
 		panic(err)
 	}
 
-	iv := make([]byte, 16)
+	iv := make([]byte, 12) // GCM mode requires a 96-bit (12 bytes) random initialization vector
 	if _, err := io.ReadFull(rand.Reader, iv); err != nil {
 		panic(err)
 	}
 
-	block_aes, err := aes.NewCipher(key)
+	blockAES, err := aes.NewCipher(key)
 	if err != nil {
 		panic(err)
 	}
 
 	// Read the contents of the file into a byte slice
-	body_byte, err := io.ReadAll(body)
+	bodyBytes, err := io.ReadAll(body)
 	if err != nil {
 		panic(err)
 	}
 
-	paddedMessage := pad([]byte(body_byte), block_aes.BlockSize())
+	// Create the GCM mode block
+	aesGCM, err := cipher.NewGCM(blockAES)
+	if err != nil {
+		panic(err)
+	}
 
-	mode := cipher.NewCBCEncrypter(block_aes, iv)
+	// Seal the plaintext using GCM encryption
+	ciphertext := aesGCM.Seal(nil, iv, bodyBytes, nil)
 
-	ciphertext := make([]byte, len(paddedMessage))
-	mode.CryptBlocks(ciphertext, paddedMessage)
+	// Base64 encode the ciphertext
 	encryptedData64 := base64.StdEncoding.EncodeToString(ciphertext)
 
 	reRsa := regexp.MustCompile(`"rsa_id":\s*"([^"]+)"`)
@@ -70,7 +74,7 @@ func Encrypt(body io.Reader, encryptionData []byte) (io.Reader, string) {
 	}
 
 	// Encrypt the message with PKCS1_OAEP padding and SHA-256 hash function
-	ciphertext_key, _ := rsa.EncryptOAEP(
+	ciphertextKey, _ := rsa.EncryptOAEP(
 		sha256.New(),
 		rand.Reader,
 		rsaPublicKey,
@@ -78,7 +82,7 @@ func Encrypt(body io.Reader, encryptionData []byte) (io.Reader, string) {
 		nil,
 	)
 
-	ciphertext_iv, _ := rsa.EncryptOAEP(
+	ciphertextIV, _ := rsa.EncryptOAEP(
 		sha256.New(),
 		rand.Reader,
 		rsaPublicKey,
@@ -87,8 +91,8 @@ func Encrypt(body io.Reader, encryptionData []byte) (io.Reader, string) {
 	)
 
 	// Encode ciphertext as base64
-	keyBase64 := base64.StdEncoding.EncodeToString(ciphertext_key)
-	ivBase64 := base64.StdEncoding.EncodeToString(ciphertext_iv)
+	keyBase64 := base64.StdEncoding.EncodeToString(ciphertextKey)
+	ivBase64 := base64.StdEncoding.EncodeToString(ciphertextIV)
 
 	var data = []byte(`{		
 		"encrypted_data": "` + encryptedData64 + `",
