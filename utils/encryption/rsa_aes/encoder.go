@@ -20,37 +20,46 @@ func Encrypt(body io.Reader, encryptionData []byte) (io.Reader, string) {
 		panic(err)
 	}
 
-	iv := make([]byte, 16)
-	if _, err := io.ReadFull(rand.Reader, iv); err != nil {
+	nonce := make([]byte, 12)
+	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
 		panic(err)
 	}
 
-	block_aes, err := aes.NewCipher(key)
+	blockAES, err := aes.NewCipher(key)
 	if err != nil {
 		panic(err)
 	}
 
 	// Read the contents of the file into a byte slice
-	body_byte, err := io.ReadAll(body)
+	bodyByte, err := io.ReadAll(body)
 	if err != nil {
 		panic(err)
 	}
 
-	paddedMessage := pad([]byte(body_byte), block_aes.BlockSize())
+	// Create a new GCM mode
+	aesGCM, err := cipher.NewGCM(blockAES)
+	if err != nil {
+		panic(err)
+	}
 
-	mode := cipher.NewCBCEncrypter(block_aes, iv)
+	// Generate a random nonce (IV) for GCM
+	nonce = make([]byte, aesGCM.NonceSize())
+	if _, err := io.ReadFull(rand.Reader, nonce); err != nil {
+		panic(err)
+	}
 
-	ciphertext := make([]byte, len(paddedMessage))
-	mode.CryptBlocks(ciphertext, paddedMessage)
+	// Encrypt the data with GCM
+	ciphertext := aesGCM.Seal(nil, nonce, bodyByte, nil)
+
 	encryptedData64 := base64.StdEncoding.EncodeToString(ciphertext)
 
 	reRsa := regexp.MustCompile(`"rsa_id":\s*"([^"]+)"`)
 	rePk := regexp.MustCompile(`"rsa_public_key":\s*"([^"]+)"`)
 
-	matchesIdRsa := reRsa.FindSubmatch(encryptionData)
+	matchesIDRsa := reRsa.FindSubmatch(encryptionData)
 	matchesPk := rePk.FindSubmatch(encryptionData)
 
-	rsaID := string(matchesIdRsa[1])
+	rsaID := string(matchesIDRsa[1])
 	publicKeyString := string(matchesPk[1])
 
 	// Decode the public key
@@ -69,39 +78,26 @@ func Encrypt(body io.Reader, encryptionData []byte) (io.Reader, string) {
 		panic("failed to get RSA public key")
 	}
 
-	// Encrypt the message with PKCS1_OAEP padding and SHA-256 hash function
-	ciphertext_key, _ := rsa.EncryptOAEP(
-		sha256.New(),
-		rand.Reader,
-		rsaPublicKey,
-		key,
-		nil,
-	)
+	// Encrypt the key and nonce with RSA public key
+	encryptedKey, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, rsaPublicKey, key, nil)
+	if err != nil {
+		panic("failed to encrypt key with RSA: " + err.Error())
+	}
 
-	ciphertext_iv, _ := rsa.EncryptOAEP(
-		sha256.New(),
-		rand.Reader,
-		rsaPublicKey,
-		iv,
-		nil,
-	)
+	encryptedNonce, err := rsa.EncryptOAEP(sha256.New(), rand.Reader, rsaPublicKey, nonce, nil)
+	if err != nil {
+		panic("failed to encrypt nonce with RSA: " + err.Error())
+	}
 
-	// Encode ciphertext as base64
-	keyBase64 := base64.StdEncoding.EncodeToString(ciphertext_key)
-	ivBase64 := base64.StdEncoding.EncodeToString(ciphertext_iv)
+	// Encode encrypted key and nonce as base64
+	encryptedKeyBase64 := base64.StdEncoding.EncodeToString(encryptedKey)
+	encryptedNonceBase64 := base64.StdEncoding.EncodeToString(encryptedNonce)
 
 	var data = []byte(`{		
 		"encrypted_data": "` + encryptedData64 + `",
-		"encrypted_key": "` + keyBase64 + `",
-		"encrypted_iv": "` + ivBase64 + `"
+		"encrypted_key": "` + encryptedKeyBase64 + `",
+		"encrypted_nonce": "` + encryptedNonceBase64 + `"
 	}`)
 
 	return bytes.NewBuffer(data), rsaID
-}
-
-// Pads a message to a multiple of the block size using PKCS#7 padding
-func pad(message []byte, blockSize int) []byte {
-	padding := blockSize - len(message)%blockSize
-	padText := bytes.Repeat([]byte{byte(padding)}, padding)
-	return append(message, padText...)
 }
