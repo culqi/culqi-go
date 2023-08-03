@@ -17,7 +17,7 @@ var jsonData = []byte(`{
 	"cvv": "039",
 	"expiration_month": "06",
 	"expiration_year": "2025",
-	"email": "prueba1` + strconv.FormatInt(time.Now().UnixNano()/1000000, 10) + `@culqi.commmmmmmmmmmm"
+	"email": "prueba1` + strconv.FormatInt(time.Now().UnixNano()/1000000, 10) + `@culqi.com"
 }`)
 
 var jsonDataYape = []byte(`{		
