@@ -15,8 +15,8 @@ import (
 
 const (
 	apiVersion    = "v2.0"
-	baseURL       = "https://qa-api.culqi.xyz/v2"
-	baseURLSecure = "https://qa-secure.culqi.xyz/v2"
+	baseURL       = "https://api.culqi.com/v2"
+	baseURLSecure = "https://secure.culqi.com/v2"
 )
 
 // Errors API
