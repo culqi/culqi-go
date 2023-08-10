@@ -50,7 +50,7 @@ import (
 )
 ```
 
-Configurar credenciales.
+## Configurar credenciales.
 ```go
 func main() {
 
