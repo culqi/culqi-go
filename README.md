@@ -58,6 +58,21 @@ func main() {
   culqi.Key("pk_test_xxx", "sk_test_xxx")
 }
 ```
+
+## Encriptar payload
+
+Para encriptar el payload necesitas crear un id RSA y llave RSA, para esto debes ingresa a tu panel y hacer click en la sección “Desarrollo / RSA Keys” de la barra de navegación a la mano izquierda.
+
+Luego declara en variables el id RSA y llave RSA en tu backend, y envialo en las funciones de la librería.
+
+Ejemplo
+
+```go
+rsa_public_key := "la llave pública RSA";
+rsa_id := "el id de tu llave"
+
+_, res, err := culqi.CreateToken(jsonData, encryptiondData...)
+```
 ### Crear un *token*
 
 
