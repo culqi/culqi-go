@@ -189,7 +189,7 @@ $ go test -v ./test/ -public_key=pk_test_xxx -secret_key=sk_test_xxx
 ## Changelog
 
 Todos los cambios en las versiones de esta biblioteca están listados en
-[CHANGELOG.md](CHANGELOG.md).
+[CHANGELOG](CHANGELOG).
 
 ## Autor
 Team Culqi
