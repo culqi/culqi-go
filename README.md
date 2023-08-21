@@ -50,12 +50,20 @@ import (
 )
 ```
 
-## Configurar credenciales.
+## Configuración
+
+Para empezar a enviar peticiones al API de Culqi debes configurar tu llave pública (pk), llave privada (sk).
+Para habilitar encriptación de payload debes configurar tu rsa_id y rsa_public_key.
+
 ```go
 func main() {
-
   // 1. llaves
   culqi.Key("pk_test_xxx", "sk_test_xxx")
+
+  encryptiondData = []byte(`{		
+		"rsa_public_key": "` + rsa_public_key + `",
+		"rsa_id":  "` + rsa_id + `"
+	}`)
 }
 ```
 
@@ -73,139 +81,95 @@ rsa_id := "el id de tu llave"
 
 _, res, err := culqi.CreateToken(jsonData, encryptiondData...)
 ```
-### Crear un *token*
 
+### Crear un token
 
-```go
-  // 2. Crear una instancia de token
-  tk := culqi.Token{
-    CardNumber:      "4111111111111111",
-    Cvv:             "123",
-    ExpirationMonth: "09",
-    ExpirationYear:  "2020",
-    Email:           "test@aj.rdrgz",
-    Metadata:        map[string]string{"user_id": "777"},
-  }
+Antes de crear un Cargo o Card es necesario crear un `token` de tarjeta. 
+Lo recomendable es generar los 'tokens' con [Culqi Checkout v4](https://docs.culqi.com/es/documentacion/checkout/v4/culqi-checkout/) o [Culqi JS v4](https://docs.culqi.com/es/documentacion/culqi-js/v4/culqi-js/) **debido a que es muy importante que los datos de tarjeta sean enviados desde el dispositivo de tus clientes directamente a los servidores de Culqi**, para no poner en riesgo los datos sensibles de la tarjeta de crédito/débito.
 
-  // 3. Crear Token
-  resp, err := tk.Create()
-  if err != nil {
-      panic(err)
-  }
-```
-
-### Crear un *cargo* (charge)
+> Recuerda que cuando interactúas directamente con el [API Token](https://apidocs.culqi.com/#tag/Tokens/operation/crear-token) necesitas cumplir la normativa de PCI DSS 3.2. Por ello, te pedimos que llenes el [formulario SAQ-D](https://listings.pcisecuritystandards.org/documents/SAQ_D_v3_Merchant.pdf) y lo envíes al buzón de riesgos Culqi.
 
 ```go
-  // 2. Crear una instancia de Cargo
-  c := culqi.Charge{
-    Amount:       10100, // Monto del cargo. Sin punto decimal Ejemplo: 100.00 serían 10000
-    Capture:      true,
-    CurrencyCode: "PEN",
-    Email:        "test@aj.rdrgz",
-    SourceID:     "tkn_test_WIouDPBhQH9OcKE8",
-    Description:  "Curso GO desde Cero",
-    Metadata:     map[string]string{"user_id": "777"},
-  }
-
-  // 3. Crear Cargo
-  res, err := c.Create()
-  if err != nil {
-      panic(err)
-  }
+statusCode, res, err := culqi.CreateToken(jsonData)
 ```
 
+### Crear un cargo
+
+Crear un cargo significa cobrar una venta a una tarjeta. Para esto previamente deberías generar el  `token` y enviarlo en parámetro **source_id**.
+
+Los cargos pueden ser creados vía [API de devolución](https://apidocs.culqi.com/#tag/Cargos/operation/crear-cargo).
+
+```go
+statusCode, res, err := culqi.CreateCharge(json)
+```
+
+### Crear devolución
+
+Solicita la devolución de las compras de tus clientes (parcial o total) de forma gratuita a través del API y CulqiPanel. 
+
+Las devoluciones pueden ser creados vía [API de devolución](https://apidocs.culqi.com/#tag/Devoluciones/operation/crear-devolucion).
+
+```go
+statusCode, res, err := culqi.CreateRefund(json)
+```
 
 ### Crear un Cliente (customer)
 
-```go
-  // 2. Crear una instancia de Cliente
-  c := culqi.Customer{
-    FirstName:   "Alejandro",
-    LastName:    "Rodriguez",
-    Email:       "test@aj.rdrgz",
-    Address:     "Bogotá, Colombia",
-    AddressCity: "Bogotá",
-    CountryCode: "CO",
-    PhoneNumber: "3207777777",
-    Metadata:    map[string]string{"nid": "123456789"},
-  }
+El **cliente** es un servicio que te permite guardar la información de tus clientes. Es un paso necesario para generar una [tarjeta](/es/documentacion/pagos-online/recurrencia/one-click/tarjetas).
 
-  // 3. Crear un Cliente
-  res, err := c.Create()
-  if err != nil {
-      panic(err)
-  }
-```
-
-
-### Crear una *tarjeta* (card)
+Los clientes pueden ser creados vía [API de cliente](https://apidocs.culqi.com/#tag/Clientes/operation/crear-cliente).
 
 ```go
-  // 2. Crear una instancia de Tarjeta
-  c := culqi.Card{
-    CustomerID: "cus_test_XBpeiZRN49fZRofA",
-    TokenID:    "tkn_test_m5YOT23kaGf8vCQy",
-    Validate:   true,
-    Metadata:   map[string]string{"pais": "Colombia"},
-  }
-
-  // 3. Crear una tarjeta
-  res, err := c.Create()
-  if err != nil {
-      panic(err)
-  }
+statusCode, res, err := culqi.CreateCustomer(json)
 ```
 
+### Crear una tarjeta (card)
 
-### Crear un *plan*
+La **tarjeta** es un servicio que te permite guardar la información de las tarjetas de crédito o débito de tus clientes para luego realizarles cargos one click o recurrentes (cargos posteriores sin que tus clientes vuelvan a ingresar los datos de su tarjeta).
+
+Las tarjetas pueden ser creadas vía [API de tarjeta](https://apidocs.culqi.com/#tag/Tarjetas/operation/crear-tarjeta).
 
 ```go
-  // 2. Crear una instancia de un Plan
-  p := culqi.Plan{
-    Name:          "Suscripción Premium",
-    Amount:        3000, // Monto del plan a cobrar recurrentemente. Sin punto decimal Ejemplo: 30.00 serían 3000
-    CurrencyCode:  "USD",
-    Interval:      "meses",
-    IntervalCount: 1,
-    Metadata:      map[string]string{"descripción": "Plan premium black friday"},
-}
-
-  // 3. Crear un plan
-  res, err := p.Create()
-  if err != nil {
-      panic(err)
-  }
+statusCode, res, err := culqi.CreateCard(json)
 ```
 
 
-### Crear una *suscripción* (suscription)  
+### Crear un plan
+
+El plan es un servicio que te permite definir con qué frecuencia deseas realizar cobros a tus clientes.
+
+Un plan define el comportamiento de las suscripciones. Los planes pueden ser creados vía el [API de Plan](https://apidocs.culqi.com/#/planes#create) o desde el **CulqiPanel**.
 
 ```go
-  // 2. Crear una instancia de una Suscripción
-  s := culqi.Subscription{
-    CardID:   "crd_test_Qe0HG7VTfmTdFvgr",
-    PlanID:   "pln_test_oFvWoKSAZOAH1weu",
-    Metadata: map[string]string{"user_id": "723"},
-  }
-
-  // 3. Crear una suscripción
-  res, err := s.Create()
-  if err != nil {
-      panic(err)
-  }
+statusCode, res, err := culqi.CreatePlan(jsonDataPlan)
 ```
 
 
-### Devolver un cargo (refund)
+### Crear una suscripción (suscription)  
+
+La suscripción es un servicio que asocia la tarjeta de un cliente con un plan establecido por el comercio.
+
+Las suscripciones pueden ser creadas vía [API de suscripción](https://apidocs.culqi.com/#tag/Suscripciones/operation/crear-suscripcion).
+
+```go
+statusCode, res, err := culqi.CreateSubscription(jsonData)
+```
+
+
+### Crear una orden
+
+Es un servicio que te permite generar una orden de pago para una compra potencial.
+La orden contiene la información necesaria para la venta y es usado por el sistema de **PagoEfectivo** para realizar los pagos diferidos.
+
+Las órdenes pueden ser creadas vía [API de orden](https://apidocs.culqi.com/#tag/Ordenes/operation/crear-orden).
+
+```go
+statusCode, res, err := culqi.CreateOrder(jsonData)
 
 ```
-Code
-
-```
 
 
-## Tests
+## Pruebas
 
 ```bash
 $ go test -v ./test/ -public_key=pk_test_xxx -secret_key=sk_test_xxx
@@ -215,26 +179,18 @@ $ go test -v ./test/ -public_key=pk_test_xxx -secret_key=sk_test_xxx
 
 ## Documentación
 
-¿Necesitas más información para integrar `culqi-go`? La documentación completa se encuentra en https://www.culqi.com/docs/#/
-
-
-## Licencia
-
-El código fuente de `culqi-go` está distribuido bajo MIT License, revisar el archivo [LICENSE](LICENSE).
-
-
-## Contribuir
-
-TO-DO
-
+- [Referencia de Documentación](https://docs.culqi.com/)
+- [Referencia de API](https://apidocs.culqi.com/)
+- [Demo Checkout V4 + Culqi 3DS](https://github.com/culqi/culqi-go-demo-checkoutv4-culqi3ds)
+- [Wiki](https://github.com/culqi/culqi-go/wiki)
 
 ## Changelog
 
-Todos los cambios en las versiones de esta biblioteca están listados en [CHANGELOG](CHANGELOG).   
-
+Todos los cambios en las versiones de esta biblioteca están listados en
+[CHANGELOG.md](CHANGELOG.md).
 
 ## Autor
+Team Culqi
 
-Alejandro Rodríguez (**gitlab**: [@AJRDRGZ](https://gitlab.com/AJRDRGZ), **github**: [@AJRDRGZ](https://github.com/AJRDRGZ))
-
-Brayan Cruces ([@brayancruces](https://github.com/brayancruces) - Team Culqi)  
+## Licencia
+El código fuente de culqi-python está distribuido bajo MIT License, revisar el archivo LICENSE.
