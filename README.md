@@ -35,6 +35,7 @@ Nuestra biblioteca te da la posibilidad de capturar el `status_code` de la solic
 
 ### Vía "go get"
 
+Ejecuta los siguientes comandos:
 
 ```bash
 go get github.com/culqi/culqi-go
