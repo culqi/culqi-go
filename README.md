@@ -7,18 +7,28 @@
 ![](http://i.imgur.com/Djajj50.png)
 
 
-Biblioteca de CULQI para el lenguaje Go (golang), pagos simples en tu sitio web. Consume el Culqi API.
+Nuestra Biblioteca Go oficial, es compatible con la v2.0 del Culqi API, con el cual tendrás la posibilidad de realizar cobros con tarjetas de débito y crédito, Yape, PagoEfectivo, billeteras móviles y Cuotéalo con solo unos simples pasos de configuración.
+
+Nuestra biblioteca te da la posibilidad de capturar el `status_code` de la solicitud HTTP que se realiza al API de Culqi, así como el `response` que contiene el cuerpo de la respuesta obtenida.
 
 | Versión actual| Culqi API|
 |----|----|
-| 0.1.0 (09-01-2017) |v2 (ir a referencia)|
-
+| 1.0.0 (15-08-2023) |v2 [Referencia de API](https://apidocs.culqi.com/)|
 
 
 ## Requisitos
 
 - Go 1.6+
-- Credenciales de comercio en Culqi (1).
+* Afiliate [aquí](https://afiliate.culqi.com/).
+* Si vas a realizar pruebas obtén tus llaves desde [aquí](https://integ-panel.culqi.com/#/registro), si vas a realizar transacciones reales obtén tus llaves desde [aquí](https://panel.culqi.com/#/registro).
+
+> Recuerda que para obtener tus llaves debes ingresar a tu CulqiPanel > Desarrollo > ***API Keys***.
+
+![alt tag](http://i.imgur.com/NhE6mS9.png)
+
+> Recuerda que las credenciales son enviadas al correo que registraste en el proceso de afiliación.
+
+* Para encriptar el payload debes generar un id y llave RSA  ingresando a CulqiPanel > Desarrollo  > RSA Keys.
 
 ## Instalación
 
