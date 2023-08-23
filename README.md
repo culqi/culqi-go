@@ -1,6 +1,6 @@
 # Culqi-Go
 
-
+[![Go Reference](https://pkg.go.dev/badge/github.com/culqi/culqi-go.svg)](https://pkg.go.dev/github.com/culqi/culqi-go)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/culqi/culqi-go)
 [![Code Climate](https://codeclimate.com/github/culqi/culqi-go/badges/gpa.svg)](https://codeclimate.com/github/culqi/culqi-go)
 
