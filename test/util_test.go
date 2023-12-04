@@ -12,8 +12,8 @@ import (
 )
 
 // token
-var jsonData = []byte(`{		
-	"card_number": "5111111111111118",
+var jsonData = []byte(`{
+	"card_number": "511118",
 	"cvv": "039",
 	"expiration_month": "06",
 	"expiration_year": "2025",

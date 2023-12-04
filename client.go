@@ -10,6 +10,7 @@ import (
 	"net/url"
 	"strings"
 
+	utils "github.com/culqi/culqi-go/utils"
 	culqi "github.com/culqi/culqi-go/utils/encryption/rsa_aes"
 )
 
@@ -72,6 +73,10 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 	}
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+key)
+	req.Header.Set("x-culqi-env", utils.XCulqiEnv)
+	req.Header.Set("x-api-version", utils.XApiVersion)
+	req.Header.Set("x-culqi-client", utils.XCulqiClient)
+	req.Header.Set("x-culqi-client-version", utils.XCulqiClientVersion)
 	if idRsaHeader != "" {
 		req.Header.Set("x-culqi-rsa-id", idRsaHeader)
 	}
