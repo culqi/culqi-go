@@ -1,7 +1,10 @@
 package culqi
 
 import (
+	"encoding/json"
 	"net/url"
+
+	utils "github.com/culqi/culqi-go/utils/validation"
 )
 
 const (
@@ -11,6 +14,20 @@ const (
 
 // Create método para crear un token
 func CreateToken(body []byte, encryptionData ...byte) (int, string, error) {
+	// Unmarshal the body into a map
+	var data map[string]string
+	err := json.Unmarshal(body, &data)
+	if err != nil {
+		return 0, "", err
+	}
+
+	// Perform validation
+	validator := utils.NewCulqiValidation()
+	err = validator.CreateTokenValidation(data)
+	if err != nil {
+		return 0, "", err
+	}
+
 	statusCode, res, err := Create(tokensSecureURL, body, encryptionData...)
 	return statusCode, res, err
 }
