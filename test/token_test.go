@@ -86,6 +86,7 @@ func TestToken_GetAll(t *testing.T) {
 	var jsonData = []byte(``)
 	params := url.Values{}
 	params.Set("paid", "false")
+	params.Set("device_type", "tester")
 
 	_, res, err := culqi.GetAllToken(params, jsonData)
 	if err != nil {
