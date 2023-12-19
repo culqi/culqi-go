@@ -22,8 +22,8 @@ func CreateToken(body []byte, encryptionData ...byte) (int, string, error) {
 	}
 
 	// Perform validation
-	validator := utils.NewCulqiValidation()
-	err = validator.CreateTokenValidation(data)
+	validator := utils.NewTokenValidation()
+	err = validator.Create(data)
 	if err != nil {
 		return 0, "", err
 	}
