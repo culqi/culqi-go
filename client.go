@@ -30,6 +30,7 @@ var (
 	ErrResource       = errors.New("El recurso no puede ser encontrado, es inválido o tiene un estado diferente al permitido")
 	ErrAPI            = errors.New("Error interno del servidor de Culqi")
 	ErrUnexpected     = errors.New("Error inesperado, el código de respuesta no se encuentra controlado")
+	ErrKey            = errors.New("El formato de llaves debe iniciar con pk_test, pk_live, sk_test o sk_live")
 	ErrorGenerico     = 502
 )
 
@@ -47,6 +48,10 @@ type WrapperResponse struct {
 
 // create
 func do(method, endpoint string, params url.Values, body io.Reader, encryptionData ...byte) (int, []byte, error) {
+	errKey := CheckKey(keyInstance.publicKey, keyInstance.secretKey)
+	if errKey != nil {
+		return ErrorGenerico, nil, errKey
+	}
 	idRsaHeader := ""
 	key := ""
 	if encryptionData != nil {
@@ -71,6 +76,7 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 	} else {
 		key = keyInstance.secretKey
 	}
+
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+key)
 	req.Header.Set("x-culqi-env", utils.XCulqiEnv)
@@ -187,15 +193,16 @@ func Delete(URL string, id string, body []byte) (int, string, error) {
 	return statusCode, response, nil
 }
 
-/*
-func JsonToMap(data []byte) map[string]interface{} {
-	var mapData map[string]interface{}
-	errorJson := json.Unmarshal([]byte(data), &mapData)
-	if errorJson != nil {
-		fmt.Println("Error while decoding the data", errorJson.Error())
+func CheckKey(publicKey string, secretKey string) error {
+	if !strings.HasPrefix(publicKey, "pk_test_") &&
+		!strings.HasPrefix(publicKey, "pk_live_") {
+		return ErrKey
 	}
-	fmt.Println(mapData)
-	fmt.Println(mapData["id"])
-	return mapData
+
+	if !strings.HasPrefix(secretKey, "sk_test_") &&
+		!strings.HasPrefix(secretKey, "sk_live_") {
+		return ErrKey
+	}
+
+	return nil
 }
-*/
