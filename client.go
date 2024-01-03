@@ -77,9 +77,15 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 		key = keyInstance.secretKey
 	}
 
+	env := utils.XCulqiEnvLive
+
+	if strings.Contains(key, "test") {
+		env = utils.XCulqiEnvTest
+	}
+
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+key)
-	req.Header.Set("x-culqi-env", utils.XCulqiEnv)
+	req.Header.Set("x-culqi-env", env)
 	req.Header.Set("x-api-version", utils.XApiVersion)
 	req.Header.Set("x-culqi-client", utils.XCulqiClient)
 	req.Header.Set("x-culqi-client-version", utils.XCulqiClientVersion)
