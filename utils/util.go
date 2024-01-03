@@ -34,7 +34,8 @@ func GetCountryCodes() []string {
 }
 
 const (
-	XCulqiEnv           = "test"
+	XCulqiEnvTest       = "test"
+	XCulqiEnvLive       = "live"
 	XApiVersion         = "2"
 	XCulqiClient        = "culqi-go"
 	XCulqiClientVersion = "1.0.0"
