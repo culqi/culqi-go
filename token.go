@@ -35,6 +35,10 @@ func CreateToken(body []byte, encryptionData ...byte) (int, string, error) {
 // CreateYape Create método para crear un token yape
 func CreateYape(body []byte, encryptionData ...byte) (int, string, error) {
 	var data map[string]interface{}
+	errassign := json.Unmarshal(body, &data)
+	if errassign != nil {
+		return 0, "", errassign
+	}
 	err := utils.CreateTokenYape(data)
 	if err != nil {
 		return 0, "", err
