@@ -21,9 +21,9 @@ var jsonData = []byte(`{
 }`)
 
 var jsonDataYape = []byte(`{		
-	"amount":      700,
+	"amount": "700",
 	"number_phone": "900000001",
-	"otp":         "425251"
+	"otp": "425251"
 }`)
 
 func GetIdToken() string {

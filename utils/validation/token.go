@@ -68,18 +68,19 @@ func CreateTokenYape(data map[string]interface{}) error {
 		return NewCustomError("Amount field is missing.")
 	}
 
-	switch amt := amount.(type) {
-	case float64:
-		if amt != float64(int(amt)) {
-			return NewCustomError("Invalid amount.")
-		}
+	switch v := amount.(type) {
 	case int:
-		// Valid case, no action needed
+		return nil
+	case string:
+		if _, err := strconv.Atoi(v); err == nil {
+			return nil
+		} else {
+			return NewCustomError("Amount is not a valid integer.")
+		}
 	default:
-		return NewCustomError("Invalid amount type.")
+		// If it's neither an integer nor a string, it's not a valid integer
+		return NewCustomError("Invalid amount type. It must be int or string.")
 	}
-
-	return nil
 }
 
 func TokenListValidation(data map[string]string) error {
