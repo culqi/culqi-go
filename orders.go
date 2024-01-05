@@ -87,8 +87,12 @@ func ConfirmOrder(id string, body []byte, encryptionData ...byte) (int, string, 
 
 // Confirm método para confirmar una orden por tipo
 func ConfirmTipoOrder(body []byte, encryptionData ...byte) (int, string, error) {
-	var data map[string]string
-	err := utils.ValidateStringStart(data["order_id"], "ord")
+	var data map[string]interface{}
+	errassign := json.Unmarshal(body, &data)
+	if errassign != nil {
+		return 0, "", errassign
+	}
+	err := utils.ValidateStringStart(data["order_id"].(string), "ord")
 	if err != nil {
 		return 0, "", err
 	}
