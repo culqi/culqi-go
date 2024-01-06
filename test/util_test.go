@@ -12,18 +12,18 @@ import (
 )
 
 // token
-var jsonData = []byte(`{		
-	"card_number": "5111111111111118",
-	"cvv": "039",
-	"expiration_month": "06",
+var jsonData = []byte(`{
+	"card_number": "4111111111111111",
+	"cvv": "123",
+	"expiration_month": "09",
 	"expiration_year": "2025",
 	"email": "prueba1` + strconv.FormatInt(time.Now().UnixNano()/1000000, 10) + `@culqi.com"
 }`)
 
 var jsonDataYape = []byte(`{		
-	"amount":      700,
+	"amount": "700",
 	"number_phone": "900000001",
-	"otp":         "425251"
+	"otp": "425251"
 }`)
 
 func GetIdToken() string {
@@ -69,8 +69,8 @@ func GetIdCharge() string {
 func getJsonData() (json []byte) {
 	rand.Seed(time.Now().UnixNano())
 	number := rand.Intn(1000000000)
-	now := time.Now()
-	twoDaysLater := now.Add(time.Hour * 24 * 2)
+	//now := time.Now()
+	//twoDaysLater := now.Add(time.Hour * 24 * 2)
 	var jsonData = []byte(`{
 	  "amount": 12000,
 	  "currency_code": "PEN",
@@ -82,7 +82,7 @@ func getJsonData() (json []byte) {
 		"email": "prueba` + strconv.Itoa(number) + `@gmail.com",
 		"phone_number": "+51945145280"
 	  },
-	  "expiration_date":` + strconv.FormatInt(twoDaysLater.Unix(), 10) + `,
+	  "expiration_date": "1893474000",
 	  "confirm": "false"
 	}`)
 	return jsonData
