@@ -2,13 +2,15 @@ package culqi
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	"net/url"
 
 	utils "github.com/culqi/culqi-go/utils/validation"
 )
 
 const (
-	subscriptionURL = baseURL + "/subscriptions"
+	subscriptionURL = baseURL + "/recurrent/subscriptions"
 )
 
 // Create método para crear una Subscripción
@@ -24,7 +26,7 @@ func CreateSubscription(body []byte, encryptionData ...byte) (int, string, error
 	if err != nil {
 		return 0, "", err
 	}
-	statusCode, res, err := Create(subscriptionURL, body, encryptionData...)
+	statusCode, res, err := Create(subscriptionURL+"/create", body, encryptionData...)
 	return statusCode, res, err
 }
 
@@ -32,6 +34,10 @@ func CreateSubscription(body []byte, encryptionData ...byte) (int, string, error
 func GetByIDSubscription(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "sxn")
 	if err != nil {
+		return 0, "", err
+	}
+	validator := utils.NewSubscriptionValidation()
+	if err := validator.ValidateId(id); err != nil {
 		return 0, "", err
 	}
 	statusCode, res, err := GetById(subscriptionURL, id, body)
@@ -61,6 +67,24 @@ func UpdateSubscription(id string, body []byte, encryptionData ...byte) (int, st
 	if err != nil {
 		return 0, "", err
 	}
+
+	var data map[string]interface{}
+
+	// Deserializar el JSON en un mapa
+	if err := json.Unmarshal(body, &data); err != nil {
+		return 0, "", fmt.Errorf("error al decodificar JSON: %w", err)
+	}
+
+	// Verificar si data es nil después de la deserialización
+	if data == nil {
+		return 0, "", errors.New("el cuerpo JSON no se deserializó correctamente")
+	}
+
+	validator := utils.NewSubscriptionValidation()
+	if err := validator.Update(data, id); err != nil {
+		return 0, "", err
+	}
+
 	statusCode, res, err := Update(subscriptionURL, id, body, encryptionData...)
 	return statusCode, res, err
 }
@@ -69,6 +93,10 @@ func UpdateSubscription(id string, body []byte, encryptionData ...byte) (int, st
 func DeleteSubscriptions(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "sxn")
 	if err != nil {
+		return 0, "", err
+	}
+	validator := utils.NewSubscriptionValidation()
+	if err := validator.ValidateId(id); err != nil {
 		return 0, "", err
 	}
 	statusCode, res, err := Delete(subscriptionURL, id, body)

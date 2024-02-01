@@ -10,7 +10,7 @@ import (
 
 func TestSubscription_Create(t *testing.T) {
 	jsonData = GetJsonSuscripcion()
-
+	// jsonDataSubscription : se puede usar este payload
 	_, res, err := culqi.CreateSubscription(jsonData)
 	fmt.Println(res)
 	if err != nil {
@@ -59,9 +59,10 @@ func TestSubscription_Update(t *testing.T) {
 	fmt.Println(idSuscripcion)
 
 	var jsonData = []byte(`{
+		"card_id": "crd_live_***********",
 		"metadata": {
-		"cliente_id": "259",
-		"documento_identidad": "000551337"
+			"cliente_id": "259",
+			"documento_identidad": "000551337"
 		}
 	}`)
 	_, res, err := culqi.UpdateSubscription(idSuscripcion, jsonData)
