@@ -132,10 +132,10 @@ func validateCurrency(currency string, amount float64) error {
 		return NewCustomError(err.Error())
 	}
 
-	MIN_AMOUNT_PEN := 1
-	MAX_AMOUNT_PEN := 100
-	MIN_AMOUNT_USD := 10
-	MAX_AMOUNT_USD := 1000
+	MIN_AMOUNT_PEN := 3
+	MAX_AMOUNT_PEN := 5000
+	MIN_AMOUNT_USD := 1
+	MAX_AMOUNT_USD := 1500
 
 	minAmountPublicApi := MIN_AMOUNT_PEN * 100
 	maxAmountPublicApi := MAX_AMOUNT_PEN * 100
