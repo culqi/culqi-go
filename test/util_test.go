@@ -20,6 +20,16 @@ var jsonData = []byte(`{
 	"email": "prueba1` + strconv.FormatInt(time.Now().UnixNano()/1000000, 10) + `@culqi.com"
 }`)
 
+// token
+var jsonDataSubscription = []byte(`{
+	"card_id": "crd_live_************",
+	"plan_id": "pln_live_************",
+	"tyc": true,
+	"metadata":{
+		"reference": "123123123"
+	}
+}`)
+
 var jsonDataYape = []byte(`{		
 	"amount": "700",
 	"number_phone": "900000001",
@@ -162,18 +172,37 @@ func GetIdCard() string {
 
 // plan
 var jsonDataPlan = []byte(`{
-	"name": "Prueba Webhook",
-	"amount": 300,
-	"currency_code": "PEN",
-	"interval": "dias",
-	"interval_count": 1,
-	"limit": 3,
-	"trial_days": 1
-  }`)
+    "short_name": "cp-prueb2442",
+    "description": "Cypress PCI | ERRROR NO USAR",
+    "amount": 300,
+    "currency": "PEN",
+    "interval_unit_time": 1,
+    "interval_count": 1,
+    "initial_cycles": {
+      "count": 1,
+      "has_initial_charge": true,
+      "amount": 400,
+      "interval_unit_time": 1
+    },
+    "name": "CY PCI - ERROR 100015",
+    "image": "https://recurrencia-suscripciones-qa.s3.amazonaws.com/f097e1d5-e365-42f3-bc40-a27beab80f54",
+	"metadata":{
+		"key": "value"
+	}
+}`)
+
+var jsonDataUpdatePlan = []byte(`{
+    "short_name": "cp-prueb2442",
+    "description": "Cypress PCI | ERRROR NO USAR",
+    "status": 2,
+    "name": "CY PCI - ERROR 100012",
+	"metadata":{
+		"key": "value"
+	}
+}`)
 
 func GetIdPlan() string {
 	_, res1, _ := culqi.CreatePlan(jsonDataPlan)
-
 	var mapData map[string]interface{}
 	mapData = util.JsonToMap([]byte(res1))
 	id := fmt.Sprintf("%v", mapData["id"])
@@ -192,10 +221,17 @@ func GetJsonSuscripcion() []byte {
 	idCard = GetIdCard()
 	fmt.Println(idCard)
 
-	var jsonData = []byte(`{
-		"plan_id": "` + idPlan + `",
-		"card_id": "` + idCard + `"
-	  }`)
+	jsonData := []byte(`{
+		"cardToken": "` + idCard + `",
+		"planId": "` + idPlan + `",
+		"customer": {},
+		"metadata": {
+			"envTest": "Autogenerado de Cypress"
+		},
+		"merchantId": "pk_live_0c301d16d8b892db",
+		"tyc": true,
+		"isPublicApi": true
+	}`)
 
 	return jsonData
 }

@@ -8,6 +8,8 @@ import (
 	culqi "github.com/culqi/culqi-go"
 )
 
+//go test -run TestPlan_Create test/plan_test.go
+
 func TestPlan_Create(t *testing.T) {
 	_, res, err := culqi.CreatePlan(jsonDataPlan)
 	fmt.Println(res)
@@ -41,6 +43,13 @@ func TestPlan_GetAll(t *testing.T) {
 
 	params := url.Values{}
 	params.Set("limit", "4")
+	params.Set("before", "pln_live_qnJOtJiuGT88dAa5")
+	params.Set("after", "pln_live_c6cm1JuefM0WVkli")
+	params.Set("min_amount", "300")
+	params.Set("max_amount", "500000")
+	params.Set("status", "1")
+	//params.Set("creation_date_from", "2023-12-20T00:00:00.000Z")
+	//params.Set("creation_date_to", "2023-12-20T00:00:00.000Z")
 	var jsonData = []byte(``)
 	_, res, err := culqi.GetAllPlan(params, jsonData)
 	if err != nil {
@@ -56,14 +65,7 @@ func TestPlan_Update(t *testing.T) {
 	var idPlan string
 	idPlan = GetIdPlan()
 	fmt.Println(idPlan)
-
-	var jsonData = []byte(`{
-		"metadata": {
-		"descripcion": "Este es un plan simple."
-		}
-	}`)
-
-	_, res, err := culqi.UpdatePlan(idPlan, jsonData)
+	_, res, err := culqi.UpdatePlan(idPlan, jsonDataUpdatePlan)
 	if err != nil {
 		t.Fatalf("Plan.Update() err = %v; want = %v", err, nil)
 	}
