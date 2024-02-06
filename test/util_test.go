@@ -222,15 +222,12 @@ func GetJsonSuscripcion() []byte {
 	fmt.Println(idCard)
 
 	jsonData := []byte(`{
-		"cardToken": "` + idCard + `",
-		"planId": "` + idPlan + `",
-		"customer": {},
+		"card_id": "` + idCard + `",
+		"plan_id": "` + idPlan + `",
 		"metadata": {
-			"envTest": "Autogenerado de Cypress"
+			"envTest": "value parameters sdk"
 		},
-		"merchantId": "INSERTE_SU_LLAVE_PUBLICA",
-		"tyc": true,
-		"isPublicApi": true
+		"tyc": true
 	}`)
 
 	return jsonData
