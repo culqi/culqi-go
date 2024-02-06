@@ -33,7 +33,7 @@ func TestPlan_GetByID(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Plan.GetByID() err = %v; want = %v", err, nil)
 	}
-
+	fmt.Println(res)
 	if res == "" {
 		t.Fatalf("ResponsePlan = nil; want non-nil value")
 	}
@@ -55,7 +55,7 @@ func TestPlan_GetAll(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Plan.GetAll() err = %v; want = %v", err, nil)
 	}
-
+	fmt.Println(res)
 	if res == "" {
 		t.Fatalf("ResponsePlanAll = nil; want non-nil value")
 	}
