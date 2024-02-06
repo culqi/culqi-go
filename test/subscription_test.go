@@ -47,7 +47,7 @@ func TestSubscription_GetAll(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Subscription.GetAll() err = %v; want = %v", err, nil)
 	}
-
+	fmt.Println(res)
 	if res == "" {
 		t.Fatalf("ResponseSubscriptionAll = nil; want non-nil value")
 	}
