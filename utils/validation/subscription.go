@@ -53,7 +53,7 @@ func (t *SubscriptionValidation) Create(data map[string]interface{}) error {
 				// El tipo es correcto, puedes acceder a los valores dentro de metadata si es necesario
 				err := validateMetadataSchema(valueMetadata)
 				if err != nil {
-					return NewCustomError(err.Error())
+					return NewCustomError("Enviaste el campo metadata con un formato incorrecto.")
 				}
 			} else {
 				// El tipo no es correcto
@@ -85,7 +85,7 @@ func SubscriptionListValidation(data map[string]interface{}) error {
 				return NewCustomError("El campo 'plan_id' es inválido. La longitud debe ser de 25.")
 			}
 			if err := ValidateStringStart(data["plan_id"].(string), "pln"); err != nil {
-				return err
+				return NewCustomError("El campo 'plan_id' es inválido. La longitud debe ser de 25.")
 			}
 
 		} else {
@@ -99,7 +99,7 @@ func SubscriptionListValidation(data map[string]interface{}) error {
 		if valuesLimit, typemLimit := limit.(string); typemLimit {
 			valLimit, err := strconv.ParseFloat(valuesLimit, 64)
 			if err != nil {
-				return NewCustomError(err.Error())
+				return NewCustomError("El filtro 'limit' admite valores en el rango 1 a 100")
 			}
 			typeLimit := validateIsInteger(valLimit)
 			if !typeLimit || !validateInRange(valLimit, 1, 100) {
@@ -174,7 +174,7 @@ func SubscriptionListValidation(data map[string]interface{}) error {
 			allowedStatusPlanValues := []float64{1, 2}
 			valStatus, err := strconv.ParseFloat(valuesStatus, 64)
 			if err != nil {
-				return NewCustomError(err.Error())
+				return NewCustomError("El filtro 'status' tiene un valor inválido o está vacío. Estos son los únicos valores permitidos: 1, 2.")
 			}
 			if !validateFloat64InArray(valStatus, allowedStatusPlanValues) || !ok {
 				return NewCustomError("El filtro 'status' tiene un valor inválido o está vacío. Estos son los únicos valores permitidos: 1, 2.")
@@ -217,7 +217,7 @@ func (t *SubscriptionValidation) Update(data map[string]interface{}, id string) 
 				// El tipo es correcto, puedes acceder a los valores dentro de metadata si es necesario
 				err := validateMetadataSchema(valueMetadata)
 				if err != nil {
-					return NewCustomError(err.Error())
+					return NewCustomError("Enviaste el campo metadata con un formato incorrecto.")
 				}
 			} else {
 				// El tipo no es correcto
