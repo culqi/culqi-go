@@ -70,7 +70,7 @@ func (t *PlanValidation) Create(data map[string]interface{}) error {
 
 		// Validate parameter: initial_cycles
 		requiredFieldsInitialCycles := []string{"has_initial_charge", "count", "amount", "interval_unit_time"}
-		err := additionalValidation(data["initial_cycles"].(map[string]interface{}), requiredFieldsInitialCycles)
+		err := additionalValidation(data["initial_cycles"].(map[string]interface{}), requiredFieldsInitialCycles, "initial_cycles")
 		if err != nil {
 			return NewCustomError(err.Error())
 

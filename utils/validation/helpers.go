@@ -65,17 +65,15 @@ func ValidateDateFilter(dateFrom int64, dateTo int64) error {
 	return nil
 }
 
-func additionalValidation(data map[string]interface{}, requiredFields []string) error {
+func additionalValidation(data map[string]interface{}, requiredFields []string, message ...string) error {
 	for _, field := range requiredFields {
 		// Verificar si el campo especificado está presente en data
 		value, ok := data[field]
-		if !ok {
-			return errors.New(fmt.Sprintf("el campo '%s' es requerido y no está presente", field))
-		}
-
-		// Verificar si el campo especificado es nil
-		if value == nil {
-			return errors.New(fmt.Sprintf("el campo '%s' no puede ser nulo", field))
+		if !ok || value == nil {
+			if len(message) > 0 && message[0] != "" {
+				return errors.New(fmt.Sprintf("el campo '%s.%s' es requerido.", message[0], field))
+			}
+			return errors.New(fmt.Sprintf("el campo '%s' es requerido.", field))
 		}
 	}
 
