@@ -43,6 +43,12 @@ func (t *PlanValidation) Create(data map[string]interface{}) error {
 			return NewCustomError("El campo 'amount' es inválido o está vacío, debe tener un valor numérico.")
 		}
 
+		currency, ok := data["currency"].(string)
+		if !ok || currency == "" {
+			return NewCustomError("El campo 'currency' es inválido o está vacío, el código de la moneda en tres letras (Formato ISO 4217). Culqi actualmente soporta las siguientes monedas: ['PEN','USD'].")
+
+		}
+
 		if err := validateCurrency(data["currency"].(string), amount); err != nil {
 			return NewCustomError(err.Error())
 		}
