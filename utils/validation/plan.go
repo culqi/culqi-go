@@ -109,7 +109,7 @@ func (t *PlanValidation) Create(data map[string]interface{}) error {
 				// El tipo es correcto, puedes acceder a los valores dentro de metadata si es necesario
 				err := validateMetadataSchema(valueMetadata)
 				if err != nil {
-					return NewCustomError(err.Error())
+					return NewCustomError("Enviaste el campo metadata con un formato incorrecto.")
 				}
 			} else {
 				// El tipo no es correcto
@@ -138,7 +138,7 @@ func PlanListValidation(data map[string]interface{}) error {
 		if valuesMin_amount, typemMin_amount := min_amount.(string); typemMin_amount {
 			valMinAmount, err := strconv.ParseFloat(valuesMin_amount, 64)
 			if err != nil {
-				return NewCustomError(err.Error())
+				return NewCustomError("El filtro 'min_amount' admite valores en el rango 300 a 500000")
 			}
 			typeMin_amount := validateIsInteger(valMinAmount)
 			if !typeMin_amount || !validateInRange(valMinAmount, 300, 500000) {
@@ -155,7 +155,7 @@ func PlanListValidation(data map[string]interface{}) error {
 		if valuesMax_amount, typemMax_amount := max_amount.(string); typemMax_amount {
 			valMaxAmount, err := strconv.ParseFloat(valuesMax_amount, 64)
 			if err != nil {
-				return NewCustomError(err.Error())
+				return NewCustomError("El filtro 'max_amount' admite valores en el rango 300 a 500000")
 			}
 			typeMax_amount := validateIsInteger(valMaxAmount)
 			if !typeMax_amount || !validateInRange(valMaxAmount, 300, 500000) {
@@ -173,7 +173,7 @@ func PlanListValidation(data map[string]interface{}) error {
 		if valuesLimit, typemLimit := limit.(string); typemLimit {
 			valLimit, err := strconv.ParseFloat(valuesLimit, 64)
 			if err != nil {
-				return NewCustomError(err.Error())
+				return NewCustomError("El filtro 'limit' admite valores en el rango 1 a 100")
 			}
 			typeLimit := validateIsInteger(valLimit)
 			if !typeLimit || !validateInRange(valLimit, 1, 100) {
@@ -248,7 +248,7 @@ func PlanListValidation(data map[string]interface{}) error {
 			allowedStatusPlanValues := []float64{1, 2}
 			valStatus, err := strconv.ParseFloat(valuesStatus, 64)
 			if err != nil {
-				return NewCustomError(err.Error())
+				return NewCustomError("El filtro 'status' tiene un valor inválido o está vacío. Estos son los únicos valores permitidos: 1, 2.")
 			}
 			if !validateFloat64InArray(valStatus, allowedStatusPlanValues) || !ok {
 				return NewCustomError("El filtro 'status' tiene un valor inválido o está vacío. Estos son los únicos valores permitidos: 1, 2.")
@@ -328,7 +328,7 @@ func (t *PlanValidation) Update(data map[string]interface{}, id string) error {
 			// El tipo es correcto, puedes acceder a los valores dentro de metadata si es necesario
 			err := validateMetadataSchema(valueMetadata)
 			if err != nil {
-				return NewCustomError(err.Error())
+				return NewCustomError("Enviaste el campo metadata con un formato incorrecto.")
 			}
 		} else {
 			// El tipo no es correcto
