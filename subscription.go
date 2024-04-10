@@ -70,12 +70,10 @@ func UpdateSubscription(id string, body []byte, encryptionData ...byte) (int, st
 
 	var data map[string]interface{}
 
-	// Deserializar el JSON en un mapa
 	if err := json.Unmarshal(body, &data); err != nil {
 		return 0, "", fmt.Errorf("error al decodificar JSON: %w", err)
 	}
 
-	// Verificar si data es nil después de la deserialización
 	if data == nil {
 		return 0, "", errors.New("el cuerpo JSON no se deserializó correctamente")
 	}
