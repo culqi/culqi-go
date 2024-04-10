@@ -10,7 +10,6 @@ import (
 
 func TestSubscription_Create(t *testing.T) {
 	jsonData = GetJsonSuscripcion()
-	// jsonDataSubscription : se puede usar este payload
 	_, res, err := culqi.CreateSubscription(jsonData)
 	fmt.Println(res)
 	if err != nil {
@@ -47,7 +46,6 @@ func TestSubscription_GetAll(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Subscription.GetAll() err = %v; want = %v", err, nil)
 	}
-	fmt.Println(res)
 	if res == "" {
 		t.Fatalf("ResponseSubscriptionAll = nil; want non-nil value")
 	}
