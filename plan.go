@@ -17,26 +17,21 @@ const (
 func CreatePlan(body []byte, encryptionData ...byte) (int, string, error) {
 	var data map[string]interface{}
 
-	// Deserializar el JSON en un mapa
 	if err := json.Unmarshal(body, &data); err != nil {
 		return 0, "", fmt.Errorf("error al decodificar JSON: %w", err)
 	}
 
-	// Verificar si data es nil después de la deserialización
 	if data == nil {
 		return 0, "", errors.New("el cuerpo JSON no se deserializó correctamente")
 	}
 
-	// Perform additional validation before calling Create
 	validator := utils.NewPlanValidation()
 	if err := validator.Create(data); err != nil {
 		return 0, "", err
 	}
 
-	// Asegúrate de manejar la URL correctamente, incluyendo la barra diagonal si es necesario
 	createURL := planURL + "/create"
 
-	// Llamada a Create
 	statusCode, res, err := Create(createURL, body, encryptionData...)
 	if err != nil {
 		return 0, "", fmt.Errorf("error al crear el plan: %w", err)
@@ -64,7 +59,7 @@ func GetAllPlan(queryParams url.Values, body []byte) (int, string, error) {
 	data := make(map[string]interface{})
 	for key, values := range queryParams {
 		if len(values) > 0 {
-			data[key] = values[0] // Taking only the first value for each key.
+			data[key] = values[0]
 		}
 	}
 
@@ -85,12 +80,10 @@ func UpdatePlan(id string, body []byte, encryptionData ...byte) (int, string, er
 
 	var data map[string]interface{}
 
-	// Deserializar el JSON en un mapa
 	if err := json.Unmarshal(body, &data); err != nil {
 		return 0, "", fmt.Errorf("error al decodificar JSON: %w", err)
 	}
 
-	// Verificar si data es nil después de la deserialización
 	if data == nil {
 		return 0, "", errors.New("el cuerpo JSON no se deserializó correctamente")
 	}
