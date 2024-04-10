@@ -67,7 +67,6 @@ func ValidateDateFilter(dateFrom int64, dateTo int64) error {
 
 func additionalValidation(data map[string]interface{}, requiredFields []string, message ...string) error {
 	for _, field := range requiredFields {
-		// Verificar si el campo especificado está presente en data
 		value, ok := data[field]
 		if !ok || value == nil {
 			if len(message) > 0 && message[0] != "" {
