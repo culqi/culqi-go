@@ -115,12 +115,10 @@ func validateEnumCurrency(str string) error {
 	allowedValues := []string{"PEN", "USD"}
 	for _, v := range allowedValues {
 		if v == str {
-			// El valor está en la lista, no hay error
 			return nil
 		}
 	}
 
-	// Si llega aquí, significa que el valor no está en la lista
 	return NewCustomError("El campo 'currency' es inválido o está vacío, el código de la moneda en tres letras (Formato ISO 4217). Culqi actualmente soporta las siguientes monedas: ['PEN','USD'].")
 }
 
@@ -212,17 +210,14 @@ func validateInitialCycles(initialCycles map[string]interface{}, currency string
 }
 
 func validateMetadataSchema(objMetadata map[string]interface{}) error {
-	// Permitir un mapa vacío para el campo metadata
 	if len(objMetadata) == 0 {
 		return nil
 	}
 
-	// Verificar límites de longitud de claves y valores
 	if err := validateKeyAndValueLength(objMetadata); err != nil {
 		return err
 	}
 
-	// Convertir el mapa transformado a JSON
 	if _, err := json.Marshal(objMetadata); err != nil {
 		return err
 	}
