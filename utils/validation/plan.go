@@ -22,20 +22,18 @@ func (t *PlanValidation) Create(data map[string]interface{}) error {
 	} else {
 		allowedDeviceValues := []float64{1, 2, 3, 4, 5, 6}
 		intervalUnitTime, ok := data["interval_unit_time"].(float64)
-		if !validateFloat64InArray(intervalUnitTime, allowedDeviceValues) || !ok {
+		if !validateIsInteger(intervalUnitTime) || !validateFloat64InArray(intervalUnitTime, allowedDeviceValues) || !ok {
 			return NewCustomError("El campo 'interval_unit_time' tiene un valor inválido o está vacío. Estos son los únicos valores permitidos: [ 1, 2, 3, 4, 5, 6]")
 		}
 
 		intervalCount, ok := data["interval_count"].(float64)
-		typeIntervalCount := validateIsInteger(intervalCount)
-		if !typeIntervalCount || !validateInRange(intervalUnitTime, 0, 9999) {
+		if !ok || !validateIsInteger(intervalCount) || !validateInRange(intervalUnitTime, 0, 9999) {
 			return NewCustomError("El campo 'interval_count' solo admite valores numéricos en el rango 0 a 9999.")
 		}
 
 		amount, ok := data["amount"].(float64)
-		typeAmount := validateIsInteger(amount)
-		if !typeAmount {
-			return NewCustomError("El campo 'amount' es inválido o está vacío, debe tener un valor numérico.")
+		if !ok || !validateIsInteger(amount) {
+			return NewCustomError("El campo 'amount' es inválido o está vacío, debe tener un valor numérico entero.")
 		}
 
 		currency, ok := data["currency"].(string)
@@ -44,7 +42,7 @@ func (t *PlanValidation) Create(data map[string]interface{}) error {
 
 		}
 
-		if err := validateCurrency(data["currency"].(string), amount); err != nil {
+		if err := validateEnumCurrency(data["currency"].(string)); err != nil {
 			return NewCustomError(err.Error())
 		}
 
@@ -72,7 +70,7 @@ func (t *PlanValidation) Create(data map[string]interface{}) error {
 			return NewCustomError(err.Error())
 
 		} else {
-			if err := validateInitialCycles(data["initial_cycles"].(map[string]interface{}), data["currency"].(string), data["amount"].(float64)); err != nil {
+			if err := validateInitialCycles(data["initial_cycles"].(map[string]interface{}), data["currency"].(string)); err != nil {
 				return NewCustomError(err.Error())
 			}
 		}
@@ -121,15 +119,14 @@ func PlanListValidation(data map[string]interface{}) error {
 		if valuesMin_amount, typemMin_amount := min_amount.(string); typemMin_amount {
 			valMinAmount, err := strconv.ParseFloat(valuesMin_amount, 64)
 			if err != nil {
-				return NewCustomError("El filtro 'min_amount' admite valores en el rango 300 a 500000")
+				return NewCustomError("El filtro 'min_amount' es invalido, debe tener un valor numérico entero.")
 			}
-			typeMin_amount := validateIsInteger(valMinAmount)
-			if !typeMin_amount || !validateInRange(valMinAmount, 300, 500000) {
-				return NewCustomError("El filtro 'min_amount' admite valores en el rango 300 a 500000")
+			if !validateIsInteger(valMinAmount) {
+				return NewCustomError("El filtro 'min_amount' es invalido, debe tener un valor numérico entero.")
 			}
 
 		} else {
-			return NewCustomError("El filtro 'min_amount' admite valores en el rango 300 a 500000")
+			return NewCustomError("El filtro 'min_amount' es invalido, debe tener un valor numérico entero.")
 		}
 	}
 
@@ -137,15 +134,14 @@ func PlanListValidation(data map[string]interface{}) error {
 		if valuesMax_amount, typemMax_amount := max_amount.(string); typemMax_amount {
 			valMaxAmount, err := strconv.ParseFloat(valuesMax_amount, 64)
 			if err != nil {
-				return NewCustomError("El filtro 'max_amount' admite valores en el rango 300 a 500000")
+				return NewCustomError("El filtro 'max_amount' es invalido, debe tener un valor numérico entero.")
 			}
-			typeMax_amount := validateIsInteger(valMaxAmount)
-			if !typeMax_amount || !validateInRange(valMaxAmount, 300, 500000) {
-				return NewCustomError("El filtro 'max_amount' admite valores en el rango 300 a 500000")
+			if !validateIsInteger(valMaxAmount) {
+				return NewCustomError("El filtro 'max_amount' es invalido, debe tener un valor numérico entero.")
 			}
 
 		} else {
-			return NewCustomError("El filtro 'max_amount' admite valores en el rango 300 a 500000")
+			return NewCustomError("El filtro 'max_amount' es invalido, debe tener un valor numérico entero.")
 		}
 	}
 
@@ -155,8 +151,7 @@ func PlanListValidation(data map[string]interface{}) error {
 			if err != nil {
 				return NewCustomError("El filtro 'limit' admite valores en el rango 1 a 100")
 			}
-			typeLimit := validateIsInteger(valLimit)
-			if !typeLimit || !validateInRange(valLimit, 1, 100) {
+			if !validateIsInteger(valLimit) || !validateInRange(valLimit, 1, 100) {
 				return NewCustomError("El filtro 'limit' admite valores en el rango 1 a 100")
 			}
 

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"math"
 	"regexp"
 	"strconv"
 	"strings"
@@ -104,11 +103,14 @@ func validateInRange(value float64, minValue float64, maxValue float64) bool {
 	return true
 }
 
-func validateIsInteger(value float64) bool {
-	if math.Mod(value, 1) != 0 {
+func validateIsInteger(value interface{}) bool {
+	switch value.(type) {
+	case int, int8, int16, int32, int64,
+		uint, uint8, uint16, uint32, uint64:
 		return false
+	default:
+		return true
 	}
-	return true
 }
 func validateEnumCurrency(str string) error {
 	allowedValues := []string{"PEN", "USD"}
@@ -121,39 +123,7 @@ func validateEnumCurrency(str string) error {
 	return NewCustomError("El campo 'currency' es inválido o está vacío, el código de la moneda en tres letras (Formato ISO 4217). Culqi actualmente soporta las siguientes monedas: ['PEN','USD'].")
 }
 
-func validateCurrency(currency string, amount float64) error {
-	err := validateEnumCurrency(currency)
-	if err != nil {
-		return NewCustomError(err.Error())
-	}
-
-	MIN_AMOUNT_PEN := 3
-	MAX_AMOUNT_PEN := 5000
-	MIN_AMOUNT_USD := 1
-	MAX_AMOUNT_USD := 1500
-
-	minAmountPublicApi := MIN_AMOUNT_PEN * 100
-	maxAmountPublicApi := MAX_AMOUNT_PEN * 100
-
-	if currency == "USD" {
-		minAmountPublicApi = MIN_AMOUNT_USD * 100
-		maxAmountPublicApi = MAX_AMOUNT_USD * 100
-	}
-
-	validAmount := int(amount) >= minAmountPublicApi && int(amount) <= maxAmountPublicApi
-
-	if !validAmount {
-		if currency == "USD" {
-			return NewCustomError("El campo 'amount' admite valores en el rango 100 a 150000.")
-		}
-
-		return NewCustomError("El campo 'amount' admite valores en el rango 300 a 500000.")
-	}
-
-	return nil
-}
-
-func validateInitialCycles(initialCycles map[string]interface{}, currency string, amount float64) error {
+func validateInitialCycles(initialCycles map[string]interface{}, currency string) error {
 	hasInitialCharge, okInitialCyclesHasInitialCharge := initialCycles["has_initial_charge"].(bool)
 	if !okInitialCyclesHasInitialCharge {
 		return NewCustomError("El campo 'initial_cycles.has_initial_charge' es inválido o está vacío. El valor debe ser un booleano (true o false).")
@@ -180,29 +150,16 @@ func validateInitialCycles(initialCycles map[string]interface{}, currency string
 	}
 
 	if hasInitialCharge {
-		if err := validateCurrency(currency, amount); err != nil {
-			return err
-		}
-
-		if amount == payAmount {
-			return NewCustomError("El campo 'initial_cycles.amount' es inválido o está vacío. El valor no debe ser igual al monto del plan.")
-		}
 
 		if count < 1 || count > 9999 {
 			return NewCustomError("El campo 'initial_cycles.count' solo admite valores numéricos en el rango 1 a 9999.")
 		}
 
-		if payAmount < 300 || payAmount > 500000 {
-			return NewCustomError("El campo 'initial_cycles.amount' solo admite valores numéricos en el rango 300 a 500000.")
-		}
 	} else {
 		if count < 0 || count > 9999 {
 			return NewCustomError("El campo 'initial_cycles.count' solo admite valores numéricos en el rango 0 a 9999.")
 		}
 
-		if payAmount != 0 {
-			return NewCustomError("El campo 'initial_cycles.amount' es inválido, debe ser 0.")
-		}
 	}
 
 	return nil

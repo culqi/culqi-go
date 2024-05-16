@@ -173,7 +173,7 @@ func GetIdCard() string {
 // plan
 var jsonDataPlan = []byte(`{
     "short_name": "cp-prueb2442",
-    "description": "Cypress PCI | ERRROR NO USAR",
+    "description": "Cypress PCI ERRROR NO USAR",
     "amount": 300,
     "currency": "PEN",
     "interval_unit_time": 1,
@@ -184,7 +184,7 @@ var jsonDataPlan = []byte(`{
       "amount": 400,
       "interval_unit_time": 1
     },
-    "name": "CY PCI - ERROR 100015",
+    "name": "CY PCI - ERROR 100099",
     "image": "https://recurrencia-suscripciones-qa.s3.amazonaws.com/f097e1d5-e365-42f3-bc40-a27beab80f54",
 	"metadata":{
 		"key": "value"
@@ -193,7 +193,7 @@ var jsonDataPlan = []byte(`{
 
 var jsonDataUpdatePlan = []byte(`{
     "short_name": "cp-prueb2442",
-    "description": "Cypress PCI | ERRROR NO USAR",
+    "description": "Cypress PCI ERRROR NO USAR",
     "status": 2,
     "name": "CY PCI - ERROR 100012",
 	"metadata":{
