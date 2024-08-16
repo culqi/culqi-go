@@ -15,7 +15,28 @@ func TestCharge_Create(t *testing.T) {
 	json = GetJsonCharge(idToken)
 
 	_, res, err := culqi.CreateCharge(json)
-	fmt.Println(res)
+	if err != nil {
+		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseCharge = nil; want non-nil value")
+	}
+}
+
+func TestCharge_RecurrentHeader(t *testing.T) {
+	var idToken string
+	idToken = GetIdToken()
+	var json []byte
+	var optiomalParams []byte
+	json = GetJsonCharge(idToken)
+	optiomalParams = []byte(`{
+				"custom_headers": {
+					"X-Charge-Channel": "recurrent"
+				}
+			}`)
+
+	_, res, err := culqi.CreateCharge(json, optiomalParams...)
 	if err != nil {
 		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
 	}

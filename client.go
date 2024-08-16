@@ -2,10 +2,12 @@ package culqi
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"net/url"
 	"strings"
@@ -54,9 +56,6 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 	}
 	idRsaHeader := ""
 	key := ""
-	if encryptionData != nil {
-		body, idRsaHeader = culqi.Encrypt(body, encryptionData)
-	}
 	if len(params) != 0 {
 		endpoint += "?" + params.Encode()
 	}
@@ -67,6 +66,49 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 	if err != nil {
 		return ErrorGenerico, nil, err
 	}
+	if encryptionData != nil {
+		// Deserializar el JSON en un mapa
+		var source map[string]interface{}
+		err := json.Unmarshal([]byte(encryptionData), &source)
+		if err != nil {
+			log.Fatalf("Error al deserializar el JSON: %v", err)
+		}
+
+		// Crear un objeto vacío
+		destination := make(map[string]interface{})
+
+		// Iterar sobre las claves del mapa original
+		for key, value := range source {
+			switch key {
+			case "custom_headers":
+				fmt.Println(value)
+				for header, HeaderVale := range value.(map[string]interface{}) {
+					fmt.Println(`Adding header '`, header, `' with value '`, HeaderVale, `'`)
+					req.Header.Set(header, HeaderVale.(string))
+				}
+			case "rsa_public_key":
+				destination["rsa_public_key"] = value
+			case "rsa_id":
+				destination["rsa_id"] = value
+			default:
+				// Manejo para claves desconocidas (si es necesario)
+				fmt.Printf("Clave '%s' no está manejada en el switch\n", key)
+			}
+		}
+
+		// Convertir el objeto vacío actualizado de nuevo a JSON
+		updatedJSON, err := json.Marshal(destination)
+		if err != nil {
+			log.Fatalf("Error al serializar el JSON: %v", err)
+		}
+
+		encryptionData = updatedJSON
+
+		if string(updatedJSON) != "{}" {
+			body, idRsaHeader = culqi.Encrypt(body, updatedJSON)
+		}
+	}
+
 	if method == "POST" {
 		if strings.Contains(endpoint, "v2/tokens") || strings.Contains(endpoint, "confirm") {
 			key = keyInstance.publicKey
