@@ -116,7 +116,7 @@ Los cargos pueden ser creados vía [API de devolución](https://apidocs.culqi.co
 statusCode, res, err := culqi.CreateCharge(json)
 ```
 
-El parámetro custom_headers es opcional y define los headers personalizados que se enviarán en la solicitud HTTP.
+Para realizar un cargo recurrente, puedes utilizar el siguiente código:
 ```go
 var optiomalParams := []byte(`{
 				"custom_headers": {
