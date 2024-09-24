@@ -13,10 +13,10 @@ import (
 
 // token
 var jsonData = []byte(`{
-	"card_number": "4772890013506094",
-	"cvv": "726",
-	"expiration_month": "08",
-	"expiration_year": "2029",
+	"card_number": "4111111111111111",
+	"cvv": "123",
+	"expiration_month": "09",
+	"expiration_year": "2025",
 	"email": "prueba1` + strconv.FormatInt(time.Now().UnixNano()/1000000, 10) + `@culqi.com"
 }`)
 
