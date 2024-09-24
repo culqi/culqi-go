@@ -88,6 +88,27 @@ func TestOrder_Update(t *testing.T) {
 		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
 	}
 }
+func TestOrder_UpdateEncrypt(t *testing.T) {
+	var idOrder string
+	idOrder = GetIdOrder(encryptiondData...)
+	fmt.Println(idOrder)
+
+	var jsonData = []byte(`{
+		"expiration_date": 1661117022,
+		"metadata": {
+		"dni": "71701978"
+		}
+	}`)
+	_, res, err := culqi.UpdateOrder(idOrder, jsonData, encryptiondData...)
+	if err != nil {
+		t.Fatalf("Order.Update() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseOrderAll = nil; want non-nil value")
+	}
+}
+
 func TestOrder_Confirm(t *testing.T) {
 	var idOrder string
 	idOrder = GetIdOrder()
