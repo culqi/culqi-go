@@ -11,10 +11,22 @@ import (
 //go test -run TestPlan_Create test/plan_test.go
 
 func TestPlan_Create(t *testing.T) {
-	_, res, err := culqi.CreatePlan(jsonDataPlan)
+	_, res, err := culqi.CreatePlan(getJsonPlan())
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Plan.Create() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponsePlan = nil; want non-nil value")
+	}
+}
+
+func TestPlan_CreateEncrypt(t *testing.T) {
+	_, res, err := culqi.CreatePlan(getJsonPlan(), encryptiondData...)
+	fmt.Println(res)
+	if err != nil {
+		t.Fatalf("Plan.CreateEncrypt() err = %v; want = %v", err, nil)
 	}
 
 	if res == "" {
@@ -64,6 +76,19 @@ func TestPlan_Update(t *testing.T) {
 	idPlan = GetIdPlan()
 	fmt.Println(idPlan)
 	_, res, err := culqi.UpdatePlan(idPlan, jsonDataUpdatePlan)
+	if err != nil {
+		t.Fatalf("Plan.Update() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponsePlan = nil; want non-nil value")
+	}
+}
+func TestPlan_UpdateEncrypt(t *testing.T) {
+	var idPlan string
+	idPlan = GetIdPlan(encryptiondData...)
+	fmt.Println(idPlan)
+	_, res, err := culqi.UpdatePlan(idPlan, jsonDataUpdatePlan, encryptiondData...)
 	if err != nil {
 		t.Fatalf("Plan.Update() err = %v; want = %v", err, nil)
 	}
