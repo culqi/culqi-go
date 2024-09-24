@@ -28,6 +28,16 @@ func CreateCharge(body []byte, encryptionData ...byte) (int, string, error) {
 	return statusCode, res, err
 }
 
+// Capturar un cargo
+func ChargeCapture(id string, body []byte, encryptionData ...byte) (int, string, error) {
+	err := utils.ValidateStringStart(id, "chr")
+	if err != nil {
+		return 0, "", err
+	}
+	statusCode, res, err := Create(chargesURL+"/"+id+"/capture", body, encryptionData...)
+	return statusCode, res, err
+}
+
 // GetByID método para obtener un cargo por id
 func GetByIdCharge(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "chr")

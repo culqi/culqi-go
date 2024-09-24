@@ -27,7 +27,7 @@ func TestCharge_Create(t *testing.T) {
 
 func TestCharge_CreateEncrypt(t *testing.T) {
 	var idToken string
-	idToken = GetIdToken()
+	idToken = GetIdToken(encryptiondData...)
 	var json []byte
 	json = GetJsonCharge(idToken)
 
@@ -35,6 +35,38 @@ func TestCharge_CreateEncrypt(t *testing.T) {
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseCharge = nil; want non-nil value")
+	}
+}
+
+func TestCharge_Capture(t *testing.T) {
+	var id string
+	id = GetIdCharge()
+
+	var jsonData = []byte(``)
+	_, res, err := culqi.ChargeCapture(id, jsonData)
+	fmt.Println(res)
+	if err != nil {
+		t.Fatalf("Charge.Capture() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseCharge = nil; want non-nil value")
+	}
+}
+
+func TestCharge_CaptureEncrypt(t *testing.T) {
+	var id string
+	id = GetIdCharge(encryptiondData...)
+
+	var jsonData = []byte(``)
+	_, res, err := culqi.ChargeCapture(id, jsonData, encryptiondData...)
+	fmt.Println(res)
+	if err != nil {
+		t.Fatalf("Charge.Capture() err = %v; want = %v", err, nil)
 	}
 
 	if res == "" {
@@ -84,6 +116,26 @@ func TestCharge_Update(t *testing.T) {
 		}
 	}`)
 	_, res, err := culqi.UpdateCharge(id, jsonData)
+	if err != nil {
+		t.Fatalf("Charge.Update() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseChargeAll = nil; want non-nil value")
+	}
+}
+
+func TestCharge_UpdateEncrypt(t *testing.T) {
+	var id string
+	id = GetIdCharge(encryptiondData...)
+
+	var jsonData = []byte(`{
+	"metadata": {
+		"documentType": "1",
+		"documentNumber": "99999999"
+		}
+	}`)
+	_, res, err := culqi.UpdateCharge(id, jsonData, encryptiondData...)
 	if err != nil {
 		t.Fatalf("Charge.Update() err = %v; want = %v", err, nil)
 	}

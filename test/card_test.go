@@ -23,6 +23,21 @@ func TestCard_Create(t *testing.T) {
 	}
 }
 
+func TestCard_CreateEncrypt(t *testing.T) {
+	var json []byte
+	json = GetJsonCard(encryptiondData...)
+	fmt.Println(json)
+
+	_, res, err := culqi.CreateCard(json, encryptiondData...)
+	if err != nil {
+		t.Fatalf("Card.CreateEncrypt() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseCard = nil; want non-nil value")
+	}
+}
+
 func TestCard_GetByID(t *testing.T) {
 	var idCard string
 	idCard = GetIdCard()
@@ -66,6 +81,25 @@ func TestCard_Update(t *testing.T) {
 	_, res, err := culqi.UpdateCard(idCard, jsonData)
 	if err != nil {
 		t.Fatalf("Card.Update() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseCard = nil; want non-nil value")
+	}
+}
+
+func TestCard_UpdateEncrypt(t *testing.T) {
+	var idCard string
+	idCard = GetIdCard(encryptiondData...)
+	fmt.Println(idCard)
+	var jsonData = []byte(`{
+		"metadata": {
+		"dni": "71702323"
+		}
+	}`)
+	_, res, err := culqi.UpdateCard(idCard, jsonData, encryptiondData...)
+	if err != nil {
+		t.Fatalf("Card.UpdateEncrypt() err = %v; want = %v", err, nil)
 	}
 
 	if res == "" {

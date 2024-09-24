@@ -20,14 +20,24 @@ var jsonData = []byte(`{
 	"email": "prueba1` + strconv.FormatInt(time.Now().UnixNano()/1000000, 10) + `@culqi.com"
 }`)
 
+// token
+var jsonDataSubscription = []byte(`{
+	"card_id": "crd_live_************",
+	"plan_id": "pln_live_************",
+	"tyc": true,
+	"metadata":{
+		"reference": "123123123"
+	}
+}`)
+
 var jsonDataYape = []byte(`{		
 	"amount": "700",
 	"number_phone": "900000001",
 	"otp": "425251"
 }`)
 
-func GetIdToken() string {
-	_, res1, _ := culqi.CreateToken(jsonData)
+func GetIdToken(encryptionData ...byte) string {
+	_, res1, _ := culqi.CreateToken(jsonData, encryptionData...)
 	var mapData map[string]interface{}
 	mapData = util.JsonToMap([]byte(res1))
 	id := fmt.Sprintf("%v", mapData["id"])
@@ -40,7 +50,7 @@ func GetJsonCharge(id string) []byte {
 	msec := strconv.FormatInt(time.Now().UnixNano()/1000000, 10)
 	mapDataCargo := map[string]interface{}{
 		"amount":        300,
-		"capture":       true,
+		"capture":       false,
 		"currency_code": "PEN",
 		"email":         "test" + msec + "@aj.rdrgz",
 		"source_id":     id,
@@ -50,16 +60,44 @@ func GetJsonCharge(id string) []byte {
 	return jsonStr
 }
 
-func GetIdCharge() string {
+func GetIdCharge(encryptionData ...byte) string {
 	var idToken string
-	idToken = GetIdToken()
+	idToken = GetIdToken(encryptionData...)
 
 	var json []byte
 	json = GetJsonCharge(idToken)
 
-	_, res1, _ := culqi.CreateCharge(json)
+	_, res1, _ := culqi.CreateCharge(json, encryptionData...)
 	var mapData map[string]interface{}
 	mapData = util.JsonToMap([]byte(res1))
+	id := fmt.Sprintf("%v", mapData["id"])
+
+	return id
+}
+
+// devolución
+func GetJsonRefund(encryptionData ...byte) []byte {
+	var idCharge string
+	idCharge = GetIdCharge(encryptionData...)
+
+	mapDataRefund := map[string]interface{}{
+		"charge_id": idCharge,
+		"amount":    300,
+		"reason":    "solicitud_comprador",
+	}
+	jsonStr, _ := json.Marshal(mapDataRefund)
+	return jsonStr
+}
+
+func GetIdRefund(encryptionData ...byte) string {
+	var json []byte
+	json = GetJsonRefund()
+	fmt.Println(json)
+
+	_, res, _ := culqi.CreateRefund(json, encryptionData...)
+
+	var mapData map[string]interface{}
+	mapData = util.JsonToMap([]byte(res))
 	id := fmt.Sprintf("%v", mapData["id"])
 
 	return id
@@ -88,10 +126,10 @@ func getJsonData() (json []byte) {
 	return jsonData
 }
 
-func GetIdOrder() string {
+func GetIdOrder(encryptionData ...byte) string {
 	jsonData = getJsonData()
 
-	_, res1, _ := culqi.CreateOrder(jsonData)
+	_, res1, _ := culqi.CreateOrder(jsonData, encryptionData...)
 
 	var mapData map[string]interface{}
 	mapData = util.JsonToMap([]byte(res1))
@@ -116,12 +154,12 @@ func GetJsonCustomer() []byte {
 	return jsonStr
 }
 
-func GetIdCustomer() string {
+func GetIdCustomer(encryptionData ...byte) string {
 
 	var json []byte
 	json = GetJsonCustomer()
 
-	_, res1, _ := culqi.CreateCustomer(json)
+	_, res1, _ := culqi.CreateCustomer(json, encryptionData...)
 
 	var mapData map[string]interface{}
 	mapData = util.JsonToMap([]byte(res1))
@@ -131,9 +169,9 @@ func GetIdCustomer() string {
 }
 
 // card
-func GetJsonCard() []byte {
+func GetJsonCard(encryptionData ...byte) []byte {
 	var idToken string
-	idToken = GetIdToken()
+	idToken = GetIdToken(encryptionData...)
 
 	var idCustomer string
 	idCustomer = GetIdCustomer()
@@ -147,11 +185,11 @@ func GetJsonCard() []byte {
 	return jsonStr
 }
 
-func GetIdCard() string {
+func GetIdCard(encryptionData ...byte) string {
 	var json []byte
 	json = GetJsonCard()
 
-	_, res1, _ := culqi.CreateCard(json)
+	_, res1, _ := culqi.CreateCard(json, encryptionData...)
 
 	var mapData map[string]interface{}
 	mapData = util.JsonToMap([]byte(res1))
@@ -161,19 +199,43 @@ func GetIdCard() string {
 }
 
 // plan
-var jsonDataPlan = []byte(`{
-	"name": "Prueba Webhook",
-	"amount": 300,
-	"currency_code": "PEN",
-	"interval": "dias",
-	"interval_count": 1,
-	"limit": 3,
-	"trial_days": 1
-  }`)
 
-func GetIdPlan() string {
-	_, res1, _ := culqi.CreatePlan(jsonDataPlan)
+var jsonDataUpdatePlan = []byte(`{
+    "short_name": "cp-prueb2442",
+    "description": "Cypress PCI ERRROR NO USAR",
+    "status": 2,
+    "name": "CY PCI - ERROR 100012",
+	"metadata":{
+		"key": "value"
+	}
+}`)
 
+func getJsonPlan() []byte {
+	msec := strconv.FormatInt(time.Now().UnixNano()/1000000, 10)
+	jsonDataPlan := []byte(`{
+		"short_name": "plan-` + msec + `",
+		"description": "Cypress PCI ERRROR NO USAR",
+		"amount": 300,
+		"currency": "PEN",
+		"interval_unit_time": 1,
+		"interval_count": 1,
+		"initial_cycles": {
+		  "count": 1,
+		  "has_initial_charge": true,
+		  "amount": 400,
+		  "interval_unit_time": 1
+		},
+		"name": "Plan` + msec + `",
+		"image": "https://recurrencia-suscripciones-qa.s3.amazonaws.com/f097e1d5-e365-42f3-bc40-a27beab80f54",
+		"metadata":{
+			"key": "value"
+		}
+	}`)
+	return jsonDataPlan
+}
+
+func GetIdPlan(encryptionData ...byte) string {
+	_, res1, _ := culqi.CreatePlan(getJsonPlan(), encryptionData...)
 	var mapData map[string]interface{}
 	mapData = util.JsonToMap([]byte(res1))
 	id := fmt.Sprintf("%v", mapData["id"])
@@ -182,28 +244,32 @@ func GetIdPlan() string {
 }
 
 // Suscripción
-func GetJsonSuscripcion() []byte {
+func GetJsonSuscripcion(encryptionData ...byte) []byte {
 
 	var idPlan string
-	idPlan = GetIdPlan()
+	idPlan = GetIdPlan(encryptionData...)
 	fmt.Println(idPlan)
 
 	var idCard string
-	idCard = GetIdCard()
+	idCard = GetIdCard(encryptionData...)
 	fmt.Println(idCard)
 
-	var jsonData = []byte(`{
+	jsonData := []byte(`{
+		"card_id": "` + idCard + `",
 		"plan_id": "` + idPlan + `",
-		"card_id": "` + idCard + `"
-	  }`)
+		"metadata": {
+			"envTest": "value parameters sdk"
+		},
+		"tyc": true
+	}`)
 
 	return jsonData
 }
 
-func GetIdSuscripcion() string {
+func GetIdSuscripcion(encryptionData ...byte) string {
 	jsonData = GetJsonSuscripcion()
 
-	_, res1, _ := culqi.CreateSubscription(jsonData)
+	_, res1, _ := culqi.CreateSubscription(jsonData, encryptionData...)
 
 	var mapData map[string]interface{}
 	mapData = util.JsonToMap([]byte(res1))
