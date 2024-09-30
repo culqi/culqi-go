@@ -185,7 +185,6 @@ var jsonDataPlan = []byte(`{
       "interval_unit_time": 1
     },
     "name": "CY PCI - ERROR 100099",
-    "image": "https://recurrencia-suscripciones-qa.s3.amazonaws.com/f097e1d5-e365-42f3-bc40-a27beab80f54",
 	"metadata":{
 		"key": "value"
 	}
