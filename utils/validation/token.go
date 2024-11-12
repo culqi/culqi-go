@@ -85,7 +85,7 @@ func CreateTokenYape(data map[string]interface{}) error {
 
 func TokenListValidation(data map[string]string) error {
 	if _, exists := data["device_type"]; exists {
-		allowedDeviceValues := []string{"desktop", "mobile", "tablet"}
+		allowedDeviceValues := []string{"escritorio", "movil", "tablet"}
 		err := ValidateValue(data["device_type"], allowedDeviceValues)
 		if err != nil {
 			return err

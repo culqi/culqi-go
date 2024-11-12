@@ -116,6 +116,16 @@ Los cargos pueden ser creados vía [API de devolución](https://apidocs.culqi.co
 statusCode, res, err := culqi.CreateCharge(json)
 ```
 
+Para realizar un cargo recurrente, puedes utilizar el siguiente código:
+```go
+var optiomalParams := []byte(`{
+				"custom_headers": {
+					"X-Charge-Channel": "recurrent"
+				}
+			}`)
+statusCode, res, err := culqi.CreateCharge(json, optiomalParams...)
+```
+
 ### Crear devolución
 
 Solicita la devolución de las compras de tus clientes (parcial o total) de forma gratuita a través del API y CulqiPanel. 
