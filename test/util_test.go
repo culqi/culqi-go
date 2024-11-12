@@ -30,7 +30,17 @@ var jsonDataSubscription = []byte(`{
 	}
 }`)
 
-var jsonDataYape = []byte(`{		
+func generateTimeStamp() string {
+	now := time.Now()
+
+	futureDate := now.Add(3 * 24 * time.Hour)
+	unixTimestamp := futureDate.Unix()
+	unixTimestampStr := strconv.FormatInt(unixTimestamp, 10)
+
+	return unixTimestampStr;
+}
+
+var jsonDataYape = []byte(`{
 	"amount": "700",
 	"number_phone": "900000001",
 	"otp": "425251"
@@ -77,12 +87,11 @@ func GetIdCharge() string {
 
 // order
 func getJsonData() (json []byte) {
-	rand.Seed(time.Now().UnixNano())
 	number := rand.Intn(1000000000)
-	//now := time.Now()
-	//twoDaysLater := now.Add(time.Hour * 24 * 2)
+	expiration_date := generateTimeStamp()
+
 	var jsonData = []byte(`{
-	  "amount": 12000,
+	  "amount": 13000,
 	  "currency_code": "PEN",
 	  "description": "Venta de prueba",
 	  "order_number": "pedido` + strconv.Itoa(number) + `",
@@ -92,8 +101,8 @@ func getJsonData() (json []byte) {
 		"email": "prueba` + strconv.Itoa(number) + `@gmail.com",
 		"phone_number": "+51945145280"
 	  },
-	  "expiration_date": "1893474000",
-	  "confirm": "false"
+	  "expiration_date": "` + expiration_date + `",
+	  "confirm": false
 	}`)
 	return jsonData
 }
@@ -171,8 +180,9 @@ func GetIdCard() string {
 }
 
 // plan
+// * modificar el valor de "name"
 var jsonDataPlan = []byte(`{
-    "short_name": "cp-prueb2442",
+    "short_name": "cp-prueb245",
     "description": "Cypress PCI ERRROR NO USAR",
     "amount": 300,
     "currency": "PEN",
@@ -184,7 +194,7 @@ var jsonDataPlan = []byte(`{
       "amount": 400,
       "interval_unit_time": 1
     },
-    "name": "CY PCI - ERROR 100099",
+    "name": "CY PCI - ERROR 1000993",
 	"metadata":{
 		"key": "value"
 	}
