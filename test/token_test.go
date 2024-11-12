@@ -35,6 +35,7 @@ func TestToken_CreateEncrypt(t *testing.T) {
 
 func TestToken_CreateYape(t *testing.T) {
 	_, res, err := culqi.CreateYape(jsonDataYape)
+	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
@@ -85,9 +86,11 @@ func TestToken_GetAll(t *testing.T) {
 	var jsonData = []byte(``)
 	params := url.Values{}
 	params.Set("paid", "false")
-	params.Set("device_type", "mobile")
+	params.Set("limit", "2")
+	params.Set("device_type", "escritorio")
 
 	_, res, err := culqi.GetAllToken(params, jsonData)
+	fmt.Println("res: ",res)
 	if err != nil {
 		t.Fatalf("Order.GetAll() err = %v; want = %v", err, nil)
 	}
