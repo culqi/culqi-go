@@ -20,7 +20,27 @@ var jsonData = []byte(`{
 	"email": "prueba1` + strconv.FormatInt(time.Now().UnixNano()/1000000, 10) + `@culqi.com"
 }`)
 
-var jsonDataYape = []byte(`{		
+// token
+var jsonDataSubscription = []byte(`{
+	"card_id": "crd_live_************",
+	"plan_id": "pln_live_************",
+	"tyc": true,
+	"metadata":{
+		"reference": "123123123"
+	}
+}`)
+
+func generateTimeStamp() string {
+	now := time.Now()
+
+	futureDate := now.Add(3 * 24 * time.Hour)
+	unixTimestamp := futureDate.Unix()
+	unixTimestampStr := strconv.FormatInt(unixTimestamp, 10)
+
+	return unixTimestampStr;
+}
+
+var jsonDataYape = []byte(`{
 	"amount": "700",
 	"number_phone": "900000001",
 	"otp": "425251"
@@ -67,12 +87,11 @@ func GetIdCharge() string {
 
 // order
 func getJsonData() (json []byte) {
-	rand.Seed(time.Now().UnixNano())
 	number := rand.Intn(1000000000)
-	//now := time.Now()
-	//twoDaysLater := now.Add(time.Hour * 24 * 2)
+	expiration_date := generateTimeStamp()
+
 	var jsonData = []byte(`{
-	  "amount": 12000,
+	  "amount": 13000,
 	  "currency_code": "PEN",
 	  "description": "Venta de prueba",
 	  "order_number": "pedido` + strconv.Itoa(number) + `",
@@ -82,8 +101,8 @@ func getJsonData() (json []byte) {
 		"email": "prueba` + strconv.Itoa(number) + `@gmail.com",
 		"phone_number": "+51945145280"
 	  },
-	  "expiration_date": "1893474000",
-	  "confirm": "false"
+	  "expiration_date": "` + expiration_date + `",
+	  "confirm": false
 	}`)
 	return jsonData
 }
@@ -161,19 +180,38 @@ func GetIdCard() string {
 }
 
 // plan
+// * modificar el valor de "name"
 var jsonDataPlan = []byte(`{
-	"name": "Prueba Webhook",
-	"amount": 300,
-	"currency_code": "PEN",
-	"interval": "dias",
-	"interval_count": 1,
-	"limit": 3,
-	"trial_days": 1
-  }`)
+    "short_name": "cp-prueb245",
+    "description": "Cypress PCI ERRROR NO USAR",
+    "amount": 300,
+    "currency": "PEN",
+    "interval_unit_time": 1,
+    "interval_count": 1,
+    "initial_cycles": {
+      "count": 1,
+      "has_initial_charge": true,
+      "amount": 400,
+      "interval_unit_time": 1
+    },
+    "name": "CY PCI - ERROR 1000993",
+	"metadata":{
+		"key": "value"
+	}
+}`)
+
+var jsonDataUpdatePlan = []byte(`{
+    "short_name": "cp-prueb2442",
+    "description": "Cypress PCI ERRROR NO USAR",
+    "status": 2,
+    "name": "CY PCI - ERROR 100012",
+	"metadata":{
+		"key": "value"
+	}
+}`)
 
 func GetIdPlan() string {
 	_, res1, _ := culqi.CreatePlan(jsonDataPlan)
-
 	var mapData map[string]interface{}
 	mapData = util.JsonToMap([]byte(res1))
 	id := fmt.Sprintf("%v", mapData["id"])
@@ -192,10 +230,14 @@ func GetJsonSuscripcion() []byte {
 	idCard = GetIdCard()
 	fmt.Println(idCard)
 
-	var jsonData = []byte(`{
+	jsonData := []byte(`{
+		"card_id": "` + idCard + `",
 		"plan_id": "` + idPlan + `",
-		"card_id": "` + idCard + `"
-	  }`)
+		"metadata": {
+			"envTest": "value parameters sdk"
+		},
+		"tyc": true
+	}`)
 
 	return jsonData
 }

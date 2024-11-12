@@ -71,12 +71,13 @@ func TestOrder_GetAll(t *testing.T) {
 func TestOrder_Update(t *testing.T) {
 	var idOrder string
 	idOrder = GetIdOrder()
+	expiration_date := generateTimeStamp()
 	fmt.Println(idOrder)
 
 	var jsonData = []byte(`{
-		"expiration_date": 1661117022,
+		"expiration_date": "` + expiration_date + `",
 		"metadata": {
-		"dni": "71701978"
+		"dni": "77777777"
 		}
 	}`)
 	_, res, err := culqi.UpdateOrder(idOrder, jsonData)
