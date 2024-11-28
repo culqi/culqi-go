@@ -22,7 +22,7 @@ func CreateCustomer(body []byte, encryptionData ...byte) (int, string, error) {
 	validator := utils.NewCustomerValidation()
 	err = validator.Create(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Create(customerURL, body, encryptionData...)
 	return statusCode, res, err
@@ -32,7 +32,7 @@ func CreateCustomer(body []byte, encryptionData ...byte) (int, string, error) {
 func GetByIDCustomer(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "cus")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetById(customerURL, id, body)
 	return statusCode, res, err
@@ -49,7 +49,7 @@ func GetAllCustomer(queryParams url.Values, body []byte) (int, string, error) {
 
 	err := utils.CustomerListValidation(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetAll(customerURL, queryParams, body)
 	return statusCode, res, err
@@ -59,7 +59,7 @@ func GetAllCustomer(queryParams url.Values, body []byte) (int, string, error) {
 func UpdateCustomer(id string, body []byte, encryptionData ...byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "cus")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Update(customerURL, id, body, encryptionData...)
 	return statusCode, res, err
@@ -70,7 +70,7 @@ func UpdateCustomer(id string, body []byte, encryptionData ...byte) (int, string
 func DeleteCustomer(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "cus")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Delete(customerURL, id, body)
 	return statusCode, res, err

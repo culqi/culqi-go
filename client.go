@@ -34,6 +34,7 @@ var (
 	ErrUnexpected     = errors.New("Error inesperado, el código de respuesta no se encuentra controlado")
 	ErrKey            = errors.New("El formato de llaves debe iniciar con pk_test, pk_live, sk_test o sk_live")
 	ErrorGenerico     = 502
+	ErrorBadRequest   = 400
 )
 
 // WrapperResponse respuesta generica para respuestas GetAll

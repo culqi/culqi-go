@@ -22,7 +22,7 @@ func CreateRefund(body []byte, encryptionData ...byte) (int, string, error) {
 	validator := utils.NewRefundValidation()
 	err = validator.Create(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Create(refundURL, body, encryptionData...)
 	return statusCode, res, err
@@ -32,7 +32,7 @@ func CreateRefund(body []byte, encryptionData ...byte) (int, string, error) {
 func GetByIDRefund(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "ref")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetById(refundURL, id, body)
 	return statusCode, res, err
@@ -49,7 +49,7 @@ func GetAllRefund(queryParams url.Values, body []byte) (int, string, error) {
 
 	err := utils.RefundListValidation(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetAll(refundURL, queryParams, body)
 	return statusCode, res, err
@@ -59,7 +59,7 @@ func GetAllRefund(queryParams url.Values, body []byte) (int, string, error) {
 func UpdateRefund(id string, body []byte, encryptionData ...byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "ref")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Update(refundURL, id, body, encryptionData...)
 	return statusCode, res, err

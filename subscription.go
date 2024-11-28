@@ -24,7 +24,7 @@ func CreateSubscription(body []byte, encryptionData ...byte) (int, string, error
 	validator := utils.NewSubscriptionValidation()
 	err = validator.Create(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Create(subscriptionURL+"/create", body, encryptionData...)
 	return statusCode, res, err
@@ -34,11 +34,11 @@ func CreateSubscription(body []byte, encryptionData ...byte) (int, string, error
 func GetByIDSubscription(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "sxn")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	validator := utils.NewSubscriptionValidation()
 	if err := validator.ValidateId(id); err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetById(subscriptionURL, id, body)
 	return statusCode, res, err
@@ -55,7 +55,7 @@ func GetAllSubscription(queryParams url.Values, body []byte) (int, string, error
 
 	err := utils.SubscriptionListValidation(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetAll(subscriptionURL, queryParams, body)
 	return statusCode, res, err
@@ -65,7 +65,7 @@ func GetAllSubscription(queryParams url.Values, body []byte) (int, string, error
 func UpdateSubscription(id string, body []byte, encryptionData ...byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "sxn")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 
 	var data map[string]interface{}
@@ -80,7 +80,7 @@ func UpdateSubscription(id string, body []byte, encryptionData ...byte) (int, st
 
 	validator := utils.NewSubscriptionValidation()
 	if err := validator.Update(data, id); err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 
 	statusCode, res, err := Update(subscriptionURL, id, body, encryptionData...)
@@ -91,11 +91,11 @@ func UpdateSubscription(id string, body []byte, encryptionData ...byte) (int, st
 func DeleteSubscriptions(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "sxn")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	validator := utils.NewSubscriptionValidation()
 	if err := validator.ValidateId(id); err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Delete(subscriptionURL, id, body)
 	return statusCode, res, err
