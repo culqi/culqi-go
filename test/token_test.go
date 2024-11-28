@@ -9,9 +9,10 @@ import (
 )
 
 func TestToken_Create(t *testing.T) {
-	_, res, err := culqi.CreateToken(jsonData)
+	code, res, err := culqi.CreateToken(jsonData)
+	fmt.Println(code)
 	fmt.Println(res)
-
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
@@ -22,8 +23,10 @@ func TestToken_Create(t *testing.T) {
 }
 
 func TestToken_CreateEncrypt(t *testing.T) {
-	_, res, err := culqi.CreateToken(jsonData, encryptiondData...)
+	code, res, err := culqi.CreateToken(jsonData, encryptiondData...)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
@@ -34,8 +37,10 @@ func TestToken_CreateEncrypt(t *testing.T) {
 }
 
 func TestToken_CreateYape(t *testing.T) {
-	_, res, err := culqi.CreateYape(jsonDataYape)
+	code, res, err := culqi.CreateYape(jsonDataYape)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Token.Create() err = %v; want = %v", err, nil)
 	}
@@ -54,7 +59,8 @@ func TestToken_Update(t *testing.T) {
 		 "dni": "4312354"
 	   }
 	}`)
-	_, res, err := culqi.UpdateToken(id, jsonData)
+	code, res, err := culqi.UpdateToken(id, jsonData)
+	fmt.Println(code)
 	fmt.Println(res)
 	fmt.Println(err)
 	if err != nil {
@@ -70,9 +76,10 @@ func TestToken_GetByID(t *testing.T) {
 	id = GetIdToken()
 
 	var jsonData = []byte(``)
-	_, res, err := culqi.GetByIDToken(id, jsonData)
-	fmt.Println(err)
+	code, res, err := culqi.GetByIDToken(id, jsonData)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Order.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -89,8 +96,10 @@ func TestToken_GetAll(t *testing.T) {
 	params.Set("limit", "2")
 	params.Set("device_type", "escritorio")
 
-	_, res, err := culqi.GetAllToken(params, jsonData)
-	fmt.Println("res: ",res)
+	code, res, err := culqi.GetAllToken(params, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Order.GetAll() err = %v; want = %v", err, nil)
 	}
