@@ -11,7 +11,7 @@ import (
 //go test -run TestPlan_Create test/plan_test.go
 
 func TestPlan_Create(t *testing.T) {
-	_, res, err := culqi.CreatePlan(getJsonPlan())
+	code, res, err := culqi.CreatePlan(getJsonPlan())
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Plan.Create() err = %v; want = %v", err, nil)

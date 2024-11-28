@@ -12,7 +12,7 @@ func TestCustomer_Create(t *testing.T) {
 	var json []byte
 	json = GetJsonCustomer()
 	fmt.Println(json)
-	_, res, err := culqi.CreateCustomer(json)
+	code, res, err := culqi.CreateCustomer(json)
 	fmt.Println(res)
 	if err != nil {
 		t.Fatalf("Customer.Create() err = %v; want = %v", err, nil)
