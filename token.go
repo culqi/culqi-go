@@ -25,7 +25,7 @@ func CreateToken(body []byte, encryptionData ...byte) (int, string, error) {
 	validator := utils.NewTokenValidation()
 	err = validator.Create(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 
 	statusCode, res, err := Create(tokensSecureURL, body, encryptionData...)
@@ -41,7 +41,7 @@ func CreateYape(body []byte, encryptionData ...byte) (int, string, error) {
 	}
 	err := utils.CreateTokenYape(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Create(tokensSecureURL+"/yape", body, encryptionData...)
 	return statusCode, res, err
@@ -61,7 +61,7 @@ func UpdateToken(id string, body []byte, encryptionData ...byte) (int, string, e
 func GetByIDToken(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "tkn")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetById(tokensApiURL, id, body)
 	return statusCode, res, err
@@ -78,7 +78,7 @@ func GetAllToken(queryParams url.Values, body []byte) (int, string, error) {
 
 	err := utils.TokenListValidation(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 
 	statusCode, res, err := GetAll(tokensApiURL, queryParams, body)

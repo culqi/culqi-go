@@ -10,8 +10,10 @@ import (
 
 func TestSubscription_Create(t *testing.T) {
 	jsonData = GetJsonSuscripcion()
-	_, res, err := culqi.CreateSubscription(jsonData)
+	code, res, err := culqi.CreateSubscription(jsonData)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Subscription.Create() err = %v; want = %v", err, nil)
 	}
@@ -27,7 +29,10 @@ func TestSubscription_GetByID(t *testing.T) {
 	fmt.Println(idSuscripcion)
 
 	var jsonData = []byte(``)
-	_, res, err := culqi.GetByIDSubscription(idSuscripcion, jsonData)
+	code, res, err := culqi.GetByIDSubscription(idSuscripcion, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Subscription.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -42,7 +47,10 @@ func TestSubscription_GetAll(t *testing.T) {
 	params := url.Values{}
 	params.Set("limit", "4")
 
-	_, res, err := culqi.GetAllSubscription(params, jsonData)
+	code, res, err := culqi.GetAllSubscription(params, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Subscription.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -63,7 +71,10 @@ func TestSubscription_Update(t *testing.T) {
 			"documento_identidad": "000551337"
 		}
 	}`)
-	_, res, err := culqi.UpdateSubscription(idSuscripcion, jsonData)
+	code, res, err := culqi.UpdateSubscription(idSuscripcion, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Subscription.Update() err = %v; want = %v", err, nil)
 	}
@@ -79,8 +90,10 @@ func TestSubscription_Delete(t *testing.T) {
 	fmt.Println(idSuscripcion)
 
 	var jsonData = []byte(``)
-	_, res, err := culqi.DeleteSubscriptions(idSuscripcion, jsonData)
+	code, res, err := culqi.DeleteSubscriptions(idSuscripcion, jsonData)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Subscription.Delete() err = %v; want = %v", err, nil)
 	}

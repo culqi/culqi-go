@@ -13,8 +13,10 @@ func TestCustomer_Create(t *testing.T) {
 	json = GetJsonCustomer()
 	fmt.Println(json)
 
-	_, res, err := culqi.CreateCustomer(json)
+	code, res, err := culqi.CreateCustomer(json)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Customer.Create() err = %v; want = %v", err, nil)
 	}
@@ -30,7 +32,10 @@ func TestCustomer_GetByID(t *testing.T) {
 	fmt.Println(idCustomer)
 
 	var jsonData = []byte(``)
-	_, res, err := culqi.GetByIDCustomer(idCustomer, jsonData)
+	code, res, err := culqi.GetByIDCustomer(idCustomer, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Customer.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -45,7 +50,10 @@ func TestCustomer_GetAll(t *testing.T) {
 	params := url.Values{}
 	params.Set("limit", "4")
 
-	_, res, err := culqi.GetAllCustomer(params, jsonData)
+	code, res, err := culqi.GetAllCustomer(params, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Customer.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -65,7 +73,10 @@ func TestCustomer_Update(t *testing.T) {
 		"dni": "71702323"
 		}
 	}`)
-	_, res, err := culqi.UpdateCustomer(idCustomer, jsonData)
+	code, res, err := culqi.UpdateCustomer(idCustomer, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Customer.Update() err = %v; want = %v", err, nil)
 	}
@@ -81,7 +92,9 @@ func TestCustomer_Delete(t *testing.T) {
 	fmt.Println(idCustomer)
 
 	var jsonData = []byte(``)
-	_, _, err := culqi.DeleteCustomer(idCustomer, jsonData)
+	code, _, err := culqi.DeleteCustomer(idCustomer, jsonData)
+	fmt.Println(code)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Customer.Delete() err = %v; want = %v", err, nil)
 	}

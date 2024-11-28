@@ -37,7 +37,7 @@ func generateTimeStamp() string {
 	unixTimestamp := futureDate.Unix()
 	unixTimestampStr := strconv.FormatInt(unixTimestamp, 10)
 
-	return unixTimestampStr;
+	return unixTimestampStr
 }
 
 var jsonDataYape = []byte(`{
