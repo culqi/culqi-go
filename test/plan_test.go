@@ -11,8 +11,10 @@ import (
 //go test -run TestPlan_Create test/plan_test.go
 
 func TestPlan_Create(t *testing.T) {
-	_, res, err := culqi.CreatePlan(jsonDataPlan)
+	code, res, err := culqi.CreatePlan(jsonDataPlan)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Plan.Create() err = %v; want = %v", err, nil)
 	}
@@ -29,7 +31,10 @@ func TestPlan_GetByID(t *testing.T) {
 	fmt.Println(idPlan)
 
 	var jsonData = []byte(``)
-	_, res, err := culqi.GetByIDPlan(idPlan, jsonData)
+	code, res, err := culqi.GetByIDPlan(idPlan, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Plan.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -50,7 +55,10 @@ func TestPlan_GetAll(t *testing.T) {
 	//params.Set("creation_date_from", "1712692203")
 	//params.Set("creation_date_to", "1712692203")
 	var jsonData = []byte(``)
-	_, res, err := culqi.GetAllPlan(params, jsonData)
+	code, res, err := culqi.GetAllPlan(params, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Plan.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -63,7 +71,10 @@ func TestPlan_Update(t *testing.T) {
 	var idPlan string
 	idPlan = GetIdPlan()
 	fmt.Println(idPlan)
-	_, res, err := culqi.UpdatePlan(idPlan, jsonDataUpdatePlan)
+	code, res, err := culqi.UpdatePlan(idPlan, jsonDataUpdatePlan)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Plan.Update() err = %v; want = %v", err, nil)
 	}
@@ -79,8 +90,11 @@ func TestPlan_Delete(t *testing.T) {
 	fmt.Println(idPlan)
 
 	var jsonData = []byte(``)
-	_, res, err := culqi.DeletePlan(idPlan, jsonData)
+	code, res, err := culqi.DeletePlan(idPlan, jsonData)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
+
 	if err != nil {
 		t.Fatalf("Plan.Delete() err = %v; want = %v", err, nil)
 	}

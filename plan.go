@@ -27,7 +27,7 @@ func CreatePlan(body []byte, encryptionData ...byte) (int, string, error) {
 
 	validator := utils.NewPlanValidation()
 	if err := validator.Create(data); err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 
 	createURL := planURL + "/create"
@@ -44,11 +44,11 @@ func CreatePlan(body []byte, encryptionData ...byte) (int, string, error) {
 func GetByIDPlan(id string, body []byte) (int, string, error) {
 	validator := utils.NewPlanValidation()
 	if err := validator.ValidateId(id); err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	err := utils.ValidateStringStart(id, "pln")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetById(planURL, id, body)
 	return statusCode, res, err
@@ -65,7 +65,7 @@ func GetAllPlan(queryParams url.Values, body []byte) (int, string, error) {
 
 	err := utils.PlanListValidation(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetAll(planURL, queryParams, body)
 	return statusCode, res, err
@@ -75,7 +75,7 @@ func GetAllPlan(queryParams url.Values, body []byte) (int, string, error) {
 func UpdatePlan(id string, body []byte, encryptionData ...byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "pln")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 
 	var data map[string]interface{}
@@ -90,7 +90,7 @@ func UpdatePlan(id string, body []byte, encryptionData ...byte) (int, string, er
 
 	validator := utils.NewPlanValidation()
 	if err := validator.Update(data, id); err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 
 	statusCode, res, err := Update(planURL, id, body, encryptionData...)
@@ -101,11 +101,11 @@ func UpdatePlan(id string, body []byte, encryptionData ...byte) (int, string, er
 func DeletePlan(id string, body []byte) (int, string, error) {
 	validator := utils.NewPlanValidation()
 	if err := validator.ValidateId(id); err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	err := utils.ValidateStringStart(id, "pln")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 
 	statusCode, res, err := Delete(planURL, id, body)

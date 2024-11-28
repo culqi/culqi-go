@@ -22,7 +22,7 @@ func CreateCard(body []byte, encryptionData ...byte) (int, string, error) {
 	validator := utils.NewCardValidation()
 	err = validator.Create(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Create(cardURL, body, encryptionData...)
 	return statusCode, res, err
@@ -32,7 +32,7 @@ func CreateCard(body []byte, encryptionData ...byte) (int, string, error) {
 func GetByIDCard(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "crd")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetById(cardURL, id, body)
 	return statusCode, res, err
@@ -49,7 +49,7 @@ func GetAllCard(queryParams url.Values, body []byte) (int, string, error) {
 
 	err := utils.CardListValidation(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetAll(cardURL, queryParams, body)
 	return statusCode, res, err
@@ -59,7 +59,7 @@ func GetAllCard(queryParams url.Values, body []byte) (int, string, error) {
 func UpdateCard(id string, body []byte, encryptionData ...byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "crd")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Update(cardURL, id, body, encryptionData...)
 	return statusCode, res, err
@@ -69,7 +69,7 @@ func UpdateCard(id string, body []byte, encryptionData ...byte) (int, string, er
 func DeleteCard(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "crd")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Delete(cardURL, id, body)
 	return statusCode, res, err

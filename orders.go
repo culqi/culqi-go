@@ -22,7 +22,7 @@ func CreateOrder(body []byte, encryptionData ...byte) (int, string, error) {
 	validator := utils.NewOrderValidation()
 	err = validator.Create(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Create(ordersURL, body, encryptionData...)
 	return statusCode, res, err
@@ -32,7 +32,7 @@ func CreateOrder(body []byte, encryptionData ...byte) (int, string, error) {
 func GetByIDOrder(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "ord")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetById(ordersURL, id, body)
 	return statusCode, res, err
@@ -49,7 +49,7 @@ func GetAllOrder(queryParams url.Values, body []byte) (int, string, error) {
 
 	err := utils.OrderListValidation(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetAll(ordersURL, queryParams, body)
 	return statusCode, res, err
@@ -59,7 +59,7 @@ func GetAllOrder(queryParams url.Values, body []byte) (int, string, error) {
 func UpdateOrder(id string, body []byte, encryptionData ...byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "ord")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Update(ordersURL, id, body, encryptionData...)
 	return statusCode, res, err
@@ -69,7 +69,7 @@ func UpdateOrder(id string, body []byte, encryptionData ...byte) (int, string, e
 func DeleteOrder(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "ord")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Delete(ordersURL, id, body)
 	return statusCode, res, err
@@ -79,7 +79,7 @@ func DeleteOrder(id string, body []byte) (int, string, error) {
 func ConfirmOrder(id string, body []byte, encryptionData ...byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "ord")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Create(ordersURL+"/"+id+"/confirm", body, encryptionData...)
 	return statusCode, res, err
@@ -94,7 +94,7 @@ func ConfirmTipoOrder(body []byte, encryptionData ...byte) (int, string, error) 
 	}
 	err := utils.ValidateStringStart(data["order_id"].(string), "ord")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Create(ordersURL+"/confirm", body, encryptionData...)
 	return statusCode, res, err

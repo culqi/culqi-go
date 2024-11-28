@@ -22,7 +22,7 @@ func CreateCharge(body []byte, encryptionData ...byte) (int, string, error) {
 	validator := utils.NewChargeValidation()
 	err = validator.Create(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Create(chargesURL, body, encryptionData...)
 	return statusCode, res, err
@@ -32,7 +32,7 @@ func CreateCharge(body []byte, encryptionData ...byte) (int, string, error) {
 func GetByIdCharge(id string, body []byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "chr")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetById(chargesURL, id, body)
 	return statusCode, res, err
@@ -49,7 +49,7 @@ func GetAllCharge(queryParams url.Values, body []byte) (int, string, error) {
 
 	err := utils.ChargeListValidation(data)
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := GetAll(chargesURL, queryParams, body)
 	return statusCode, res, err
@@ -59,7 +59,7 @@ func GetAllCharge(queryParams url.Values, body []byte) (int, string, error) {
 func UpdateCharge(id string, body []byte, encryptionData ...byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "chr")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Update(chargesURL, id, body, encryptionData...)
 	return statusCode, res, err

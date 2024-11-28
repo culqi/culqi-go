@@ -14,7 +14,10 @@ func TestCharge_Create(t *testing.T) {
 	var json []byte
 	json = GetJsonCharge(idToken)
 
-	_, res, err := culqi.CreateCharge(json)
+	code, res, err := culqi.CreateCharge(json)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
 	}
@@ -36,7 +39,10 @@ func TestCharge_RecurrentHeader(t *testing.T) {
 				}
 			}`)
 
-	_, res, err := culqi.CreateCharge(json, optiomalParams...)
+	code, res, err := culqi.CreateCharge(json, optiomalParams...)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
 	}
@@ -52,8 +58,10 @@ func TestCharge_CreateEncrypt(t *testing.T) {
 	var json []byte
 	json = GetJsonCharge(idToken)
 
-	_, res, err := culqi.CreateCharge(json, encryptiondData...)
+	code, res, err := culqi.CreateCharge(json, encryptiondData...)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Charge.Create() err = %v; want = %v", err, nil)
 	}
@@ -68,8 +76,10 @@ func TestCharge_GetByID(t *testing.T) {
 	id = GetIdCharge()
 
 	var jsonData = []byte(``)
-	_, res, err := culqi.GetByIdCharge(id, jsonData)
+	code, res, err := culqi.GetByIdCharge(id, jsonData)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Charge.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -84,7 +94,10 @@ func TestCharge_GetAll(t *testing.T) {
 	params := url.Values{}
 	params.Set("paid", "false")
 
-	_, res, err := culqi.GetAllCharge(params, jsonData)
+	code, res, err := culqi.GetAllCharge(params, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Charge.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -104,7 +117,10 @@ func TestCharge_Update(t *testing.T) {
 		"documentNumber": "99999999"
 		}
 	}`)
-	_, res, err := culqi.UpdateCharge(id, jsonData)
+	code, res, err := culqi.UpdateCharge(id, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Charge.Update() err = %v; want = %v", err, nil)
 	}

@@ -13,7 +13,10 @@ func TestCard_Create(t *testing.T) {
 	json = GetJsonCard()
 	fmt.Println(json)
 
-	_, res, err := culqi.CreateCard(json)
+	code, res, err := culqi.CreateCard(json)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Card.Create() err = %v; want = %v", err, nil)
 	}
@@ -29,7 +32,10 @@ func TestCard_GetByID(t *testing.T) {
 	fmt.Println(idCard)
 
 	var jsonData = []byte(``)
-	_, res, err := culqi.GetByIDCard(idCard, jsonData)
+	code, res, err := culqi.GetByIDCard(idCard, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Card.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -44,7 +50,10 @@ func TestCard_GetAll(t *testing.T) {
 	params := url.Values{}
 	params.Set("limit", "4")
 
-	_, res, err := culqi.GetAllCard(params, jsonData)
+	code, res, err := culqi.GetAllCard(params, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Card.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -63,7 +72,10 @@ func TestCard_Update(t *testing.T) {
 		"dni": "71702323"
 		}
 	}`)
-	_, res, err := culqi.UpdateCard(idCard, jsonData)
+	code, res, err := culqi.UpdateCard(idCard, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Card.Update() err = %v; want = %v", err, nil)
 	}
@@ -78,7 +90,9 @@ func TestCard_Delete(t *testing.T) {
 	idCard = GetIdCard()
 	fmt.Println(idCard)
 	var jsonData = []byte(``)
-	_, _, err := culqi.DeleteCard(idCard, jsonData)
+	code, _, err := culqi.DeleteCard(idCard, jsonData)
+	fmt.Println(code)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Card.Delete() err = %v; want = %v", err, nil)
 	}

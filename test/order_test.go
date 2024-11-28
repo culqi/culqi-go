@@ -11,8 +11,11 @@ import (
 func TestOrder_Create(t *testing.T) {
 	jsonData = getJsonData()
 
-	_, res, err := culqi.CreateOrder(jsonData)
+	code, res, err := culqi.CreateOrder(jsonData)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
+
 	if err != nil {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
 	}
@@ -26,8 +29,10 @@ func TestOrder_CreateEncrypt(t *testing.T) {
 	jsonData = getJsonData()
 	//encryptiondData = getEncryptionParams()
 
-	_, res, err := culqi.CreateOrder(jsonData, encryptiondData...)
+	code, res, err := culqi.CreateOrder(jsonData, encryptiondData...)
+	fmt.Println(code)
 	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
 	}
@@ -43,7 +48,10 @@ func TestOrder_GetByID(t *testing.T) {
 	fmt.Println(idOrder)
 
 	var jsonData = []byte(``)
-	_, res, err := culqi.GetByIDOrder(idOrder, jsonData)
+	code, res, err := culqi.GetByIDOrder(idOrder, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Order.GetByID() err = %v; want = %v", err, nil)
 	}
@@ -58,7 +66,10 @@ func TestOrder_GetAll(t *testing.T) {
 	params := url.Values{}
 	params.Set("paid", "false")
 
-	_, res, err := culqi.GetAllOrder(params, jsonData)
+	code, res, err := culqi.GetAllOrder(params, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Order.GetAll() err = %v; want = %v", err, nil)
 	}
@@ -80,7 +91,10 @@ func TestOrder_Update(t *testing.T) {
 		"dni": "77777777"
 		}
 	}`)
-	_, res, err := culqi.UpdateOrder(idOrder, jsonData)
+	code, res, err := culqi.UpdateOrder(idOrder, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Order.Update() err = %v; want = %v", err, nil)
 	}
@@ -95,7 +109,10 @@ func TestOrder_Confirm(t *testing.T) {
 	fmt.Println(idOrder)
 
 	var jsonData = []byte(``)
-	_, res, err := culqi.ConfirmOrder(idOrder, jsonData)
+	code, res, err := culqi.ConfirmOrder(idOrder, jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Order.Confirm() err = %v; want = %v", err, nil)
 	}
@@ -117,7 +134,10 @@ func TestOrder_ConfirmTipo(t *testing.T) {
 		"cip"
 		]
 	}`)
-	_, res, err := culqi.ConfirmTipoOrder(jsonData)
+	code, res, err := culqi.ConfirmTipoOrder(jsonData)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Order.Create() err = %v; want = %v", err, nil)
 	}
@@ -133,7 +153,9 @@ func TestOrder_Delete(t *testing.T) {
 	fmt.Println(idOrder)
 
 	var jsonData = []byte(``)
-	_, _, err := culqi.DeleteOrder(idOrder, jsonData)
+	code, _, err := culqi.DeleteOrder(idOrder, jsonData)
+	fmt.Println(code)
+	fmt.Println(err)
 	if err != nil {
 		t.Fatalf("Order.Delete() err = %v; want = %v", err, nil)
 	}
