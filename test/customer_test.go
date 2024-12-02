@@ -12,9 +12,23 @@ func TestCustomer_Create(t *testing.T) {
 	var json []byte
 	json = GetJsonCustomer()
 	fmt.Println(json)
-
 	code, res, err := culqi.CreateCustomer(json)
 	fmt.Println(code)
+	fmt.Println(res)
+	if err != nil {
+		t.Fatalf("Customer.Create() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseCustomer = nil; want non-nil value")
+	}
+}
+
+func TestCustomer_CreateEncrypt(t *testing.T) {
+	var json []byte
+	json = GetJsonCustomer()
+	fmt.Println(json)
+	_, res, err := culqi.CreateCustomer(json, encryptiondData...)
 	fmt.Println(res)
 	fmt.Println(err)
 	if err != nil {
@@ -77,6 +91,26 @@ func TestCustomer_Update(t *testing.T) {
 	fmt.Println(code)
 	fmt.Println(res)
 	fmt.Println(err)
+	if err != nil {
+		t.Fatalf("Customer.Update() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseCustomer = nil; want non-nil value")
+	}
+}
+
+func TestCustomer_UpdateEncrypt(t *testing.T) {
+	var idCustomer string
+	idCustomer = GetIdCustomer(encryptiondData...)
+	fmt.Println(idCustomer)
+
+	var jsonData = []byte(`{
+		"metadata": {
+		"dni": "71702323"
+		}
+	}`)
+	_, res, err := culqi.UpdateCustomer(idCustomer, jsonData, encryptiondData...)
 	if err != nil {
 		t.Fatalf("Customer.Update() err = %v; want = %v", err, nil)
 	}
