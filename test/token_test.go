@@ -71,6 +71,26 @@ func TestToken_Update(t *testing.T) {
 		t.Fatalf("ResponseTokenAll = nil; want non-nil value")
 	}
 }
+func TestToken_UpdateEncrypt(t *testing.T) {
+	var id string
+	id = GetIdToken(encryptiondData...)
+
+	var jsonData = []byte(`{
+	  "metadata": {
+		 "dni": "4312354"
+	   }
+	}`)
+	_, res, err := culqi.UpdateToken(id, jsonData, encryptiondData...)
+	fmt.Println(res)
+	fmt.Println(err)
+	if err != nil {
+		t.Fatalf("Token.Update() err = %v; want = %v", err, nil)
+	}
+
+	if res == "" {
+		t.Fatalf("ResponseTokenAll = nil; want non-nil value")
+	}
+}
 func TestToken_GetByID(t *testing.T) {
 	var id string
 	id = GetIdToken()
