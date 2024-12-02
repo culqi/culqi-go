@@ -1,8 +1,9 @@
 package culqi_test
 
 import (
+	"encoding/json"
 	"flag"
-	//"testing"
+	"fmt"
 	culqi "github.com/culqi/culqi-go"
 )
 
@@ -16,22 +17,26 @@ func init() {
 	flag.StringVar(&secretKey, "secret_key", "sk_test_c2267b5b262745f0", "Su test secretKey para Culqi API. Si esta presente, los test de integración serán ejecutados con esta llave.")
 	culqi.Key(publicKey, secretKey)
 
-	rsa_id := "de35e120-e297-4b96-97ef-10a43423ddec"
-	rsa_public_key := "-----BEGIN PUBLIC KEY-----\n" +
-		"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDswQycch0x/7GZ0oFojkWCYv+gr5CyfBKXc3Izq+btIEMCrkDrIsz4Lnl5E3FSD7/htFn1oE84SaDKl5DgbNoev3pMC7MDDgdCFrHODOp7aXwjG8NaiCbiymyBglXyEN28hLvgHpvZmAn6KFo0lMGuKnz8HiuTfpBl6HpD6+02SQIDAQAB\n" +
-		"-----END PUBLIC KEY-----"
+	// Quitar comentario y añadir llaves RSA para flujo de pruebas RSA
 
-	encryptiondData = []byte(`{		
-		"rsa_public_key": "` + rsa_public_key + `",
-		"rsa_id":  "` + rsa_id + `"
-	}`)
+	rsaID := "2ce8e080-4cdf-454f-9c1b-b0b7b98b73d7"
+	rsaPublicKey := `-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6ncJ+6Lzaomc3bA7fmk7bZO5b
+CkuMthSvWYpOL9/Y5qs/DhE1bp1AlA0QXAJztcrhiCk+giUNdPgmT3oT1yfAAWW8
+ahvol8QjhJJ1FAxNJjcIErN3EOeoP8F/2U1ESJkVXArcwq2LnFnmHtwYcCqU4ZQq
+J7mQU6lQ6ezMVuKAeQIDAQAB
+-----END PUBLIC KEY-----`
 
-	/*
-		encryptiondData = []byte(`{
-				"rsa_public_key": "-----BEGIN PUBLIC KEY-----
-				MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDswQycch0x/7GZ0oFojkWCYv+gr5CyfBKXc3Izq+btIEMCrkDrIsz4Lnl5E3FSD7/htFn1oE84SaDKl5DgbNoev3pMC7MDDgdCFrHODOp7aXwjG8NaiCbiymyBglXyEN28hLvgHpvZmAn6KFo0lMGuKnz8HiuTfpBl6HpD6+02SQIDAQAB
-		-----END PUBLIC KEY-----",
-				"rsa_id": "de35e120-e297-4b96-97ef-10a43423ddec"
-			}`)
-	*/
+	// Crear el mapa para los datos
+	data := map[string]string{
+		"rsa_public_key": rsaPublicKey,
+		"rsa_id":         rsaID,
+	}
+
+	var err error
+	encryptiondData, err = json.Marshal(data)
+	if err != nil {
+		fmt.Println("Error al convertir a JSON:", err)
+		return
+	}
 }

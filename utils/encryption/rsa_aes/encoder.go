@@ -12,6 +12,7 @@ import (
 	"encoding/pem"
 	"io"
 	"regexp"
+	"strings"
 )
 
 func Encrypt(body io.Reader, encryptionData []byte) (io.Reader, string) {
@@ -63,6 +64,9 @@ func Encrypt(body io.Reader, encryptionData []byte) (io.Reader, string) {
 
 	rsaID := string(matchesIdRsa[1])
 	publicKeyString := string(matchesPk[1])
+
+	// Replace \n with newline character
+	publicKeyString = strings.ReplaceAll(publicKeyString, "\\n", "\n")
 
 	// Decode the public key
 	block, _ := pem.Decode([]byte(publicKeyString))

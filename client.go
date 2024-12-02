@@ -68,8 +68,10 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 		return ErrorGenerico, nil, err
 	}
 	if encryptionData != nil {
+		fmt.Println("Encryption data: ", string(encryptionData))
 		// Deserializar el JSON en un mapa
 		var source map[string]interface{}
+
 		err := json.Unmarshal([]byte(encryptionData), &source)
 		if err != nil {
 			log.Fatalf("Error al deserializar el JSON: %v", err)
@@ -108,6 +110,8 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 		if string(updatedJSON) != "{}" {
 			body, idRsaHeader = culqi.Encrypt(body, updatedJSON)
 		}
+	} else {
+		fmt.Println("No encryption data")
 	}
 
 	if method == "POST" {

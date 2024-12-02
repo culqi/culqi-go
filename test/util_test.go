@@ -40,6 +40,14 @@ func generateTimeStamp() string {
 	return unixTimestampStr
 }
 
+func logStartTest(funcName string) {
+	fmt.Println("---- BEGIN " + funcName + " ----")
+}
+
+func logEndTest(funcName string) {
+	fmt.Println("---- END " + funcName + " ----")
+}
+
 var jsonDataYape = []byte(`{
 	"amount": "700",
 	"number_phone": "900000001",
