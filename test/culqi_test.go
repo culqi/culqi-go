@@ -1,8 +1,9 @@
 package culqi_test
 
 import (
+	"encoding/json"
 	"flag"
-	//"testing"
+	"fmt"
 	culqi "github.com/culqi/culqi-go"
 )
 
@@ -16,18 +17,21 @@ func init() {
 	flag.StringVar(&secretKey, "secret_key", "INSERTE_SU_LLAVE_PRIVADA", "Su test secretKey para Culqi API. Si esta presente, los test de integración serán ejecutados con esta llave.")
 	culqi.Key(publicKey, secretKey)
 
-	rsa_id := "INSERTE_SU_RSA_ID"
-	rsa_public_key := "INSERTE_SU_LLAVE_RSA"
+	// Quitar comentario y añadir llaves RSA para flujo de pruebas RSA
 
-	encryptiondData = []byte(`{		
-		"rsa_public_key": "` + rsa_public_key + `",
-		"rsa_id":  "` + rsa_id + `"
-	}`)
+	rsaID := "INSERTE_SU_RSA_ID"
+	rsaPublicKey := `INSERTE_SU_LLAVE_RSA`
 
-	/*
-		encryptiondData = []byte(`{
-				"rsa_public_key": "INSERTE_SU_LLAVE_RSA",
-				"rsa_id": "INSERTE_SU_RSA_ID"
-			}`)
-	*/
+	// Crear el mapa para los datos
+	data := map[string]string{
+		"rsa_public_key": rsaPublicKey,
+		"rsa_id":         rsaID,
+	}
+
+	var err error
+	encryptiondData, err = json.Marshal(data)
+	if err != nil {
+		fmt.Println("Error al convertir a JSON:", err)
+		return
+	}
 }

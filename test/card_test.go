@@ -9,6 +9,9 @@ import (
 )
 
 func TestCard_Create(t *testing.T) {
+	var funcName string = "TestCard_Create"
+	logStartTest(funcName)
+
 	var json []byte
 	json = GetJsonCard()
 	fmt.Println(json)
@@ -24,14 +27,23 @@ func TestCard_Create(t *testing.T) {
 	if res == "" {
 		t.Fatalf("ResponseCard = nil; want non-nil value")
 	}
+
+	logEndTest(funcName)
 }
 
 func TestCard_CreateEncrypt(t *testing.T) {
+	var funcName string = "TestCard_CreateEncrypt"
+	logStartTest(funcName)
+
 	var json []byte
 	json = GetJsonCard(encryptiondData...)
 	fmt.Println(json)
 
-	_, res, err := culqi.CreateCard(json, encryptiondData...)
+	code, res, err := culqi.CreateCard(json, encryptiondData...)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
+
 	if err != nil {
 		t.Fatalf("Card.CreateEncrypt() err = %v; want = %v", err, nil)
 	}
@@ -39,9 +51,14 @@ func TestCard_CreateEncrypt(t *testing.T) {
 	if res == "" {
 		t.Fatalf("ResponseCard = nil; want non-nil value")
 	}
+
+	logEndTest(funcName)
 }
 
 func TestCard_GetByID(t *testing.T) {
+	var funcName string = "TestCard_GetByID"
+	logStartTest(funcName)
+
 	var idCard string
 	idCard = GetIdCard()
 	fmt.Println(idCard)
@@ -58,9 +75,13 @@ func TestCard_GetByID(t *testing.T) {
 	if res == "" {
 		t.Fatalf("ResponseCard = nil; want non-nil value")
 	}
+	logEndTest(funcName)
 }
 
 func TestCard_GetAll(t *testing.T) {
+	var funcName string = "TestCard_GetAll"
+	logStartTest(funcName)
+
 	var jsonData = []byte(``)
 	params := url.Values{}
 	params.Set("limit", "4")
@@ -76,9 +97,14 @@ func TestCard_GetAll(t *testing.T) {
 	if res == "" {
 		t.Fatalf("ResponseCardAll = nil; want non-nil value")
 	}
+
+	logEndTest(funcName)
 }
 
 func TestCard_Update(t *testing.T) {
+	var funcName string = "TestCard_Update"
+	logStartTest(funcName)
+
 	var idCard string
 	idCard = GetIdCard()
 	fmt.Println(idCard)
@@ -98,9 +124,14 @@ func TestCard_Update(t *testing.T) {
 	if res == "" {
 		t.Fatalf("ResponseCard = nil; want non-nil value")
 	}
+
+	logEndTest(funcName)
 }
 
 func TestCard_UpdateEncrypt(t *testing.T) {
+	var funcName string = "TestCard_UpdateEncrypt"
+	logStartTest(funcName)
+
 	var idCard string
 	idCard = GetIdCard(encryptiondData...)
 	fmt.Println(idCard)
@@ -109,7 +140,11 @@ func TestCard_UpdateEncrypt(t *testing.T) {
 		"dni": "71702323"
 		}
 	}`)
-	_, res, err := culqi.UpdateCard(idCard, jsonData, encryptiondData...)
+	code, res, err := culqi.UpdateCard(idCard, jsonData, encryptiondData...)
+	fmt.Println(code)
+	fmt.Println(res)
+	fmt.Println(err)
+
 	if err != nil {
 		t.Fatalf("Card.UpdateEncrypt() err = %v; want = %v", err, nil)
 	}
@@ -117,17 +152,27 @@ func TestCard_UpdateEncrypt(t *testing.T) {
 	if res == "" {
 		t.Fatalf("ResponseCard = nil; want non-nil value")
 	}
+
+	logEndTest(funcName)
 }
 
 func TestCard_Delete(t *testing.T) {
+	var funcName string = "TestCard_Delete"
+	logStartTest(funcName)
+
 	var idCard string
 	idCard = GetIdCard()
 	fmt.Println(idCard)
 	var jsonData = []byte(``)
-	code, _, err := culqi.DeleteCard(idCard, jsonData)
+	code, res, err := culqi.DeleteCard(idCard, jsonData)
+
 	fmt.Println(code)
+	fmt.Println(res)
 	fmt.Println(err)
+
 	if err != nil {
 		t.Fatalf("Card.Delete() err = %v; want = %v", err, nil)
 	}
+
+	logEndTest(funcName)
 }
