@@ -32,7 +32,7 @@ func CreateCharge(body []byte, encryptionData ...byte) (int, string, error) {
 func ChargeCapture(id string, body []byte, encryptionData ...byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "chr")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Create(chargesURL+"/"+id+"/capture", body, encryptionData...)
 	return statusCode, res, err

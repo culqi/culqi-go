@@ -19,13 +19,10 @@ func init() {
 
 	// Quitar comentario y añadir llaves RSA para flujo de pruebas RSA
 
-	rsaID := "2ce8e080-4cdf-454f-9c1b-b0b7b98b73d7"
-	rsaPublicKey := `-----BEGIN PUBLIC KEY-----
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6ncJ+6Lzaomc3bA7fmk7bZO5b
-CkuMthSvWYpOL9/Y5qs/DhE1bp1AlA0QXAJztcrhiCk+giUNdPgmT3oT1yfAAWW8
-ahvol8QjhJJ1FAxNJjcIErN3EOeoP8F/2U1ESJkVXArcwq2LnFnmHtwYcCqU4ZQq
-J7mQU6lQ6ezMVuKAeQIDAQAB
------END PUBLIC KEY-----`
+	rsaID := "de35e120-e297-4b96-97ef-10a43423ddec"
+	rsaPublicKey := "-----BEGIN PUBLIC KEY-----\n" +
+		"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDswQycch0x/7GZ0oFojkWCYv+gr5CyfBKXc3Izq+btIEMCrkDrIsz4Lnl5E3FSD7/htFn1oE84SaDKl5DgbNoev3pMC7MDDgdCFrHODOp7aXwjG8NaiCbiymyBglXyEN28hLvgHpvZmAn6KFo0lMGuKnz8HiuTfpBl6HpD6+02SQIDAQAB\n" +
+		"-----END PUBLIC KEY-----"
 
 	// Crear el mapa para los datos
 	data := map[string]string{
