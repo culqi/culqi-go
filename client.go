@@ -57,20 +57,15 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 	}
 	idRsaHeader := ""
 	key := ""
-	if len(params) != 0 {
-		endpoint += "?" + params.Encode()
-	}
-	buf := new(bytes.Buffer)
-	buf.ReadFrom(body)
-	fmt.Println(endpoint)
-	req, err := http.NewRequest(method, endpoint, bytes.NewBuffer(buf.Bytes()))
-	if err != nil {
-		return ErrorGenerico, nil, err
-	}
+
+	// Se crea un objeto con los headers a añadir
+	headers := make(map[string]interface{})
+
 	if encryptionData != nil {
 		// Deserializar el JSON en un mapa
 		var source map[string]interface{}
-		err := json.Unmarshal([]byte(encryptionData), &source)
+
+		err := json.Unmarshal(encryptionData, &source)
 		if err != nil {
 			log.Fatalf("Error al deserializar el JSON: %v", err)
 		}
@@ -85,7 +80,7 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 				fmt.Println(value)
 				for header, HeaderVale := range value.(map[string]interface{}) {
 					fmt.Println(`Adding header '`, header, `' with value '`, HeaderVale, `'`)
-					req.Header.Set(header, HeaderVale.(string))
+					headers[header] = HeaderVale.(string)
 				}
 			case "rsa_public_key":
 				destination["rsa_public_key"] = value
@@ -108,6 +103,24 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 		if string(updatedJSON) != "{}" {
 			body, idRsaHeader = culqi.Encrypt(body, updatedJSON)
 		}
+	} else {
+		fmt.Println("No encryption data")
+	}
+
+	if len(params) != 0 {
+		endpoint += "?" + params.Encode()
+	}
+	buf := new(bytes.Buffer)
+	buf.ReadFrom(body)
+	fmt.Println(endpoint)
+	req, err := http.NewRequest(method, endpoint, bytes.NewBuffer(buf.Bytes()))
+	if err != nil {
+		return ErrorGenerico, nil, err
+	}
+
+	for header, headerValue := range headers {
+		fmt.Println(`Adding header '`, header, `' with value '`, headerValue, `'`)
+		req.Header.Set(header, headerValue.(string))
 	}
 
 	if method == "POST" {
