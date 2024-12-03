@@ -20,7 +20,7 @@ func init() {
 	// Quitar comentario y añadir llaves RSA para flujo de pruebas RSA
 
 	rsaID := "INSERTE_SU_RSA_ID"
-	rsaPublicKey := `INSERTE_SU_LLAVE_RSA`
+	rsaPublicKey := "INSERTE_SU_LLAVE_RSA"
 
 	// Crear el mapa para los datos
 	data := map[string]string{
