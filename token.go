@@ -37,7 +37,7 @@ func CreateYape(body []byte, encryptionData ...byte) (int, string, error) {
 	var data map[string]interface{}
 	errassign := json.Unmarshal(body, &data)
 	if errassign != nil {
-		return 0, "", errassign
+		return ErrorBadRequest, "", errassign
 	}
 	err := utils.CreateTokenYape(data)
 	if err != nil {
@@ -51,7 +51,7 @@ func CreateYape(body []byte, encryptionData ...byte) (int, string, error) {
 func UpdateToken(id string, body []byte, encryptionData ...byte) (int, string, error) {
 	err := utils.ValidateStringStart(id, "tkn")
 	if err != nil {
-		return 0, "", err
+		return ErrorBadRequest, "", err
 	}
 	statusCode, res, err := Update(tokensApiURL, id, body, encryptionData...)
 	return statusCode, res, err
