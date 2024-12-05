@@ -161,8 +161,7 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 	if err != nil {
 		return ErrorGenerico, nil, err
 	}
-
-	fmt.Println("---- ERROR API ---")
+	
 	fmt.Println(res.StatusCode)
 	switch res.StatusCode {
 	case 400:
