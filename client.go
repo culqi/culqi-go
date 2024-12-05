@@ -162,6 +162,7 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 		return ErrorGenerico, nil, err
 	}
 
+	fmt.Println("---- ERROR API ---")
 	fmt.Println(res.StatusCode)
 	switch res.StatusCode {
 	case 400:
@@ -182,7 +183,7 @@ func do(method, endpoint string, params url.Values, body io.Reader, encryptionDa
 
 	if err != nil {
 		err = fmt.Errorf("%v: %s", err, string(obj))
-		return ErrorGenerico, nil, err
+		return res.StatusCode, nil, err
 	}
 
 	if res.StatusCode >= 200 && res.StatusCode <= 206 {
