@@ -152,7 +152,7 @@ func SubscriptionListValidation(data map[string]interface{}) error {
 
 	if status, ok := data["status"]; ok {
 		if valuesStatus, typeStatus := status.(string); typeStatus {
-			allowedStatusPlanValues := []float64{1, 2}
+			allowedStatusPlanValues := []float64{1, 2, 3, 4, 5, 6}
 			valStatus, err := strconv.ParseFloat(valuesStatus, 64)
 			if err != nil {
 				return NewCustomError("El filtro 'status' tiene un valor inválido o está vacío. Estos son los únicos valores permitidos: 1, 2.")
