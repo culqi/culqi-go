@@ -69,14 +69,20 @@ Para habilitar encriptación de payload debes configurar tu rsa_id y rsa_public_
 ```go
 func main() {
   // 1. llaves
-  culqi.Key("pk_test_xxx", "sk_test_xxx")
+  culqi.Key("INSERTE_SU_LLAVE_PUBLICA", "INSERTE_SU_LLAVE_PRIVADA")
 
   encryptiondData = []byte(`{		
-		"rsa_public_key": "` + rsa_public_key + `",
-		"rsa_id":  "` + rsa_id + `"
+		"rsa_public_key": "INSERTE_SU_LLAVE_RSA",
+		"rsa_id":  "INSERTE_SU_RSA_ID"
 	}`)
 }
 ```
+
+### Configurar las pruebas y ejemplos
+
+Las pruebas hacen llamadas reales a la API. Antes de ejecutarlas, reemplaza localmente
+los placeholders por tus propias llaves `pk_test_` y `sk_test_` y, si usas encriptación,
+por tu llave RSA y su ID. No hagas commit de llaves.
 
 ## Encriptar payload
 
@@ -87,8 +93,8 @@ Luego declara en variables el id RSA y llave RSA en tu backend, y envialo en las
 Ejemplo
 
 ```go
-rsa_public_key := "la llave pública RSA";
-rsa_id := "el id de tu llave"
+rsa_public_key := "INSERTE_SU_LLAVE_RSA";
+rsa_id := "INSERTE_SU_RSA_ID"
 
 _, res, err := culqi.CreateToken(jsonData, encryptiondData...)
 ```
@@ -195,7 +201,7 @@ statusCode, res, err := culqi.CreateOrder(jsonData)
 ## Pruebas
 
 ```bash
-$ go test -v ./test/ -public_key=pk_test_xxx -secret_key=sk_test_xxx
+$ go test -v ./test/ -public_key=INSERTE_SU_LLAVE_PUBLICA -secret_key=INSERTE_SU_LLAVE_PRIVADA
 ```
 
 ---
